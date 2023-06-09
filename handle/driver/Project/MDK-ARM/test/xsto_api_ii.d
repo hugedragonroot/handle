@@ -1,0 +1,17 @@
+test\xsto_api_ii.o: ..\Protocol\xsto_api_ii.c
+test\xsto_api_ii.o: ..\Protocol\xsto_api_ii.h
+test\xsto_api_ii.o: ..\Protocol\para.h
+test\xsto_api_ii.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+test\xsto_api_ii.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+test\xsto_api_ii.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+test\xsto_api_ii.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+test\xsto_api_ii.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+test\xsto_api_ii.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+test\xsto_api_ii.o: ..\Utils\crc.h
+test\xsto_api_ii.o: ..\module\common.h
+test\xsto_api_ii.o: ..\Protocol\protocol.h
+test\xsto_api_ii.o: ..\Protocol\protocol_api.h
+test\xsto_api_ii.o: ..\Protocol\alloc.h
+test\xsto_api_ii.o: ..\Protocol\rt_malloc.h
+test\xsto_api_ii.o: ..\Protocol\klist.h
+test\xsto_api_ii.o: ..\Protocol\protocol_register_management.h

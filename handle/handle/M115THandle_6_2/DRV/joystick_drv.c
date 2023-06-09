@@ -1,0 +1,15 @@
+#include "joystick_drv.h"
+#include "drv.h"
+
+void joystick_initIO(void)
+{
+
+	GPIO_InitIO(JOY_X_GPIO_PORT,JOY_X_PIN,GPIO_MODE_AIN,GPIO_OSPEED_10MHZ);
+	
+	GPIO_InitIO(JOY_Y_GPIO_PORT,JOY_Y_PIN,GPIO_MODE_AIN,GPIO_OSPEED_10MHZ);
+
+	GPIO_InitIO(JOY_PWR_GPIO_PORT,JOY_PWR_PIN,GPIO_MODE_OUT_PP,GPIO_OSPEED_10MHZ);
+	
+	JOY_PWR_ON();			
+
+}

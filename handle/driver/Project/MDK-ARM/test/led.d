@@ -1,0 +1,10 @@
+test\led.o: ..\module\led.c
+test\led.o: ..\module\led.h
+test\led.o: ..\module\common.h
+test\led.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+test\led.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+test\led.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+test\led.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+test\led.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+test\led.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+test\led.o: ..\BSP\led_driver.h

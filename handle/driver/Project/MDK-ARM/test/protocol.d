@@ -1,0 +1,17 @@
+test\protocol.o: ..\Protocol\protocol.c
+test\protocol.o: ..\Protocol\protocol.h
+test\protocol.o: ..\Protocol\xsto_api_ii.h
+test\protocol.o: ..\Protocol\para.h
+test\protocol.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+test\protocol.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+test\protocol.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+test\protocol.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+test\protocol.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+test\protocol.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+test\protocol.o: ..\Utils\crc.h
+test\protocol.o: ..\module\common.h
+test\protocol.o: ..\Protocol\protocol_api.h
+test\protocol.o: ..\Protocol\alloc.h
+test\protocol.o: ..\Protocol\rt_malloc.h
+test\protocol.o: ..\Protocol\klist.h
+test\protocol.o: ..\Protocol\protocol_register_management.h

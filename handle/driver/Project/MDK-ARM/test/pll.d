@@ -1,0 +1,9 @@
+test\pll.o: ..\PMSM\PLL.c
+test\pll.o: ..\PMSM\PLL.h
+test\pll.o: ..\module\common.h
+test\pll.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+test\pll.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+test\pll.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+test\pll.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+test\pll.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+test\pll.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h

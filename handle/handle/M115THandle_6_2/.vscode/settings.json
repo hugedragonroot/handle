@@ -1,0 +1,19 @@
+{
+    "files.associations": {
+        "type_traits": "c",
+        "main.h": "c",
+        "xsto_api_ii.h": "c",
+        "para.h": "c",
+        "protocol.h": "c",
+        "powrprof.h": "c",
+        "drv.h": "c",
+        "app_display.h": "c",
+        "power_control.h": "c",
+        "app_protocol.h": "c",
+        "app_bmp.h": "c",
+        "rf_315m_drv.h": "c",
+        "rf_315m_ext.h": "c",
+        "debug.h": "c",
+        "ext.h": "c"
+    }
+}

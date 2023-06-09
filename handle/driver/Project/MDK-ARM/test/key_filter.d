@@ -1,0 +1,9 @@
+test\key_filter.o: ..\Utils\key_filter.c
+test\key_filter.o: ..\Utils\key_filter.h
+test\key_filter.o: ..\module\common.h
+test\key_filter.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+test\key_filter.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+test\key_filter.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+test\key_filter.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+test\key_filter.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+test\key_filter.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h

@@ -1,0 +1,14 @@
+.\output\keytask.o: ..\TASK\keytask.c
+.\output\keytask.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\output\keytask.o: ..\TASK\keytask.h
+.\output\keytask.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\FreeRTOS.h
+.\output\keytask.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\output\keytask.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\output\keytask.o: ..\COMMON\FreeRTOSConfig.h
+.\output\keytask.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\projdefs.h
+.\output\keytask.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\portable.h
+.\output\keytask.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\deprecated_definitions.h
+.\output\keytask.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\portable\RVDS\ARM_CM4F\portmacro.h
+.\output\keytask.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\mpu_wrappers.h
+.\output\keytask.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\task.h
+.\output\keytask.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\list.h
