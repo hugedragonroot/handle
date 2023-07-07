@@ -50,4 +50,8 @@ void ADC_EXT_Init(void);
 
 void scan_joyxy(void);
 void joystick_init(void);
+
+uint16_t GildeAverageValueFilter_MAG(uint16_t NewValue,uint16_t *Data,uint8_t len);
+uint16_t deadband(uint16_t value, const uint16_t midval, const uint16_t threshold);
+
 #endif

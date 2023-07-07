@@ -80,6 +80,7 @@
 .\output\can_task.o: ..\DRV\led_drv.h
 .\output\can_task.o: ..\EXT\can_ext.h
 .\output\can_task.o: ..\EXT\fwdgt_ext.h
+.\output\can_task.o: ..\EXT\ev1527_ext.h
 .\output\can_task.o: ..\DRV\drv.h
 .\output\can_task.o: ..\DRV\key_drv.h
 .\output\can_task.o: ..\DRV\buzz_drv.h
@@ -91,6 +92,7 @@
 .\output\can_task.o: ..\DRV\rf_315m_drv.h
 .\output\can_task.o: ..\DRV\music_drv.h
 .\output\can_task.o: ..\DRV\power_control.h
+.\output\can_task.o: ..\DRV\ev1527_drv.h
 .\output\can_task.o: ..\APP\app_display.h
 .\output\can_task.o: ..\APP\app_bmp.h
 .\output\can_task.o: ..\APP\app_remote_para.h

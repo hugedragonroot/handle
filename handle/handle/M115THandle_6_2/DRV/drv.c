@@ -32,9 +32,14 @@ void drv_init(void)
 	rcu_periph_clock_enable(RCU_GPIOC);
   rcu_periph_clock_enable(RCU_GPIOD);
 	rcu_periph_clock_enable(RCU_AF);	
+	rcu_periph_clock_enable(RCU_DMA0);	
+	rcu_periph_clock_enable(RCU_DMA1);	
+
 	delay_init();
 	nvic_priority_group_set(NVIC_PRIGROUP_PRE4_SUB0);
-	gpio_pin_remap_config(GPIO_SWJ_SWDPENABLE_REMAP,ENABLE);
+  gpio_pin_remap_config(GPIO_SWJ_SWDPENABLE_REMAP,ENABLE);
+
+  dbg_trace_pin_disable();
 	
 	powerContorIOInit();
 	key_initIO();
@@ -50,7 +55,8 @@ void drv_init(void)
 
 	bt_initIO();
 	gps_initIO();
-	rf_315m_initIO();
+	//rf_315m_initIO();
 	music_initIO();
+	ev1527_initIO();
 }
 

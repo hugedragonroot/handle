@@ -9,8 +9,12 @@
 #include "app_protocol.h"
 #include "queue.h"
 #include "debug.h"
-static bool isInit;
+
+
 static TCOMMUN RxPack;
+
+#if USING_RTOS
+static bool isInit;
 static xQueueHandle  txQueue;
 static xQueueHandle  rxQueue;
 
@@ -29,6 +33,9 @@ bool BTlinkReceivePacketBlocking(TCOMMUN *p)
 	ASSERT(p);
 	return xQueueReceive(rxQueue, p, portMAX_DELAY);
 }
+#endif
+
+#if USING_RTOS
 void BTRxTask(void* param)
 {
 	uint8_t ch;
@@ -93,13 +100,98 @@ void BTRxTask(void* param)
 		}		
 	}	
 }
+#else
+
+void BTNoneOSTask(void){
+	uint8_t ch = 0;
+	uint8_t state = 0;
+	uint8_t i=0;
+	uint8_t sumchk=0;
+#if 1
+	while(BTGetDataWithTimout(&ch) && !Remote_setting_para.HandleLock) {			
+		Remote_setting_para.RemoteBTCount = 0;
+		switch(state)
+		{	
+			case 0:
+				state = (ch==FrameHeadUpH)?1:0;
+				sumchk =ch;					
+				break;
+			case 1:									
+				state = (ch==FrameHeadUpL)?2:0;					
+				sumchk +=ch;				
+				break;					
+			case 2:
+				RxPack.DataLen = ch;
+				sumchk +=ch;				
+				state++;
+			break;		
+			case 3:
+				RxPack.Count = ch;
+				sumchk +=ch;				
+				state++;
+			break;	
+			case 4:
+				RxPack.Cmd = ch;
+				sumchk +=ch;				
+				state++;
+				i=0;
+			break;
+			case 5:
+
+				RxPack.Data[i]=ch;
+				sumchk +=ch;				
+				i++;
+				if(i==RxPack.DataLen)
+				{
+					state++;
+					i=0;
+				}
+			break;
+			case 6:
+				if(sumchk==ch)
+				{
+					// xQueueSend(rxQueue, &RxPack, 0);
+					BTNoneOsProcessTask(&RxPack);
+				}
+				state=0;
+				sumchk = 0;					
+			break;
+			default:
+				break;			
+		}					
+		if(state == 0) return;
+	}
+	if(Remote_setting_para.RemoteBTConnect == eBlubtooth && 
+		++Remote_setting_para.RemoteBTCount == 255){
+
+		Remote_setting_para.RemoteBTConnect = eOffline;
+		Remote_setting_para.RemoteBTCount = 0;
+
+		Remote_setting_para.CoordX = Coord_Base;
+		Remote_setting_para.CoordY = Coord_Base;
+		Remote_trans_para.push_rod_speed = 0;
+	}
+
+
+	#else
+	if(BTGetPack(&RxPack)&&(Remote_setting_para.PowerStatus == ePowerOn)){
+		BTNoneOsProcessTask(&RxPack);
+	}
+	#endif
+}
+
+
+#endif
+
+
 /*BTÁ¬½Ó·¢ËÍPacket*/
+
+#if USING_RTOS
 bool BTlinkSendPacket(const TCOMMUN *p)
 {
 	ASSERT(p);
 	return xQueueSend(txQueue, p, 0);
 }
-
 void BTTxTask(void* param)
 {
 	TCOMMUN p;
@@ -127,4 +219,31 @@ void BTTxTask(void* param)
 		uart_bt_send(sendBuffer, dataLen);		
 	}	
 }
+#else
+
+
+uint8_t btSendBuffer[64];
+bool BTlinkSendPacket(const TCOMMUN *p){
+	uint8_t cksum;
+	uint8_t dataLen;	
+
+	btSendBuffer[0] = FrameHeadUpH;
+	btSendBuffer[1] = FrameHeadUpL;
+	btSendBuffer[2] = p->DataLen;
+	btSendBuffer[3] = p->Count;
+	btSendBuffer[4] = p->Cmd;
+	memcpy(&btSendBuffer[5], p->Data, p->DataLen);
+	cksum = 0;
+	for (uint8_t i = 0; i<p->DataLen+5; i++)
+	{
+		cksum += btSendBuffer[i];
+	}
+	dataLen = p->DataLen+6;
+	btSendBuffer[dataLen - 1] = cksum;
+
+	return uart_bt_send(btSendBuffer, dataLen);
+}
+
+
+#endif
 

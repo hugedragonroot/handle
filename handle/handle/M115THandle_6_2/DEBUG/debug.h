@@ -9,4 +9,5 @@ void debug_test(void);
 void assertFail(char *exp, char *file, int line);
 
 void debugTask(void* param);
+void debugUartPrint(void);
 #endif

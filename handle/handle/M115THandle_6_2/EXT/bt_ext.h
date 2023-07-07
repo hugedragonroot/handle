@@ -2,8 +2,8 @@
 #define __BT_EXT_H
 
 #include "stdint.h"
+#include "app_protocol.h"
 
-/*ÐÅÏ¢Êä³ö*/
 #define BT_DEBUG_ON        0
 #define BT_DEBUG_FUNC_ON    0
 
@@ -19,9 +19,17 @@
                                          printf("<<-BT-FUNC->> Func:%s@Line:%d\r\n",__func__,__LINE__);\
                                        }while(0)
 
+extern uint8_t Bt_recv_buff[64];
 	
 void BLT_Usart_SendString(uint8_t *str);
 void bt_init(void);
-int BTGetDataWithTimout(uint8_t *c);
+uint8_t BTGetDataWithTimout(uint8_t *c);
+
+
+uint8_t BTGetPack(TCOMMUN *pack);
+
+
+void BTdisconnect(void);
+void BTEnterStandby(void);
 
 #endif

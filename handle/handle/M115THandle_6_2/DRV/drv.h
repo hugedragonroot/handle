@@ -13,6 +13,7 @@
 #include "music_drv.h"
 #include "led_drv.h"
 #include "power_control.h"
+#include "ev1527_drv.h"
 
 
 void GPIO_InitIO(uint32_t  gpio_periph,uint32_t GPIO_Pin,uint32_t GPIO_Mode,uint32_t speed);

@@ -1,24 +1,49 @@
 #include "gps_ext.h"
 #include "main.h"
 #include "string.h"
+
+#if USING_RTOS
 /*FreeRtos includes*/
 #include "FreeRTOS.h"
 #include "task.h"
 #include "semphr.h"
 #include "queue.h"
 /* USER CODE END 0 */
-
 static xQueueHandle gps_uartData;		/*串口数据接收队列*/
+#else
+
+static uint8_t GPS_recv_buff[64];
+static uint8_t GPS_data_buff[256];
+TLoopBuf loop_gps_uart;
+#endif
+
 static uint8_t dtu_rxcmdbuf[DTU_RX_CMD_BUF_SIZE]; /*处理DTU相关数据缓存*/
 gps_data_st gps_data;
+
 void gps_init(void)
 {
+    #if USING_RTOS
 	gps_uartData = xQueueCreate(256, sizeof(uint8_t));
+    #else
+    LoopQueue_Init(&loop_gps_uart,GPS_data_buff,sizeof(GPS_data_buff));
+    //Tx DMA
+    const u8 array[] ="DMA test" ;
+    dma_channel_disable(DMA1,DMA_CH4);
+    dma_transfer_number_config(DMA1,DMA_CH4,sizeof(array));
+    dma_memory_address_config(DMA1,DMA_CH4,(uint32_t)&array);
+    dma_channel_enable(DMA1,DMA_CH4);
+    //Rx DMA
+    dma_channel_disable(DMA1,DMA_CH2);
+    dma_transfer_number_config(DMA1,DMA_CH2,sizeof(GPS_recv_buff));
+    dma_memory_address_config(DMA1,DMA_CH2,(uint32_t)GPS_recv_buff);
+    dma_channel_enable(DMA1,DMA_CH2);
+    #endif
 	
 }
 
 void UART3_IRQHandler(void)
 {
+    #if USING_RTOS
 	uint8_t data;
 	portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
 	
@@ -27,16 +52,39 @@ void UART3_IRQHandler(void)
 		data = 	(uint8_t)usart_data_receive(UART3);
 		xQueueSendFromISR(gps_uartData, &data, &xHigherPriorityTaskWoken);
     }       
+    #else
+
+    if(RESET != usart_interrupt_flag_get(UART3, USART_INT_FLAG_IDLE)){
+        uint8_t gps_recv_len = sizeof(GPS_recv_buff) - dma_transfer_number_get(DMA1,DMA_CH2);
+
+		dma_channel_disable(DMA1,DMA_CH2);
+
+		LoopQueue_Write(&loop_gps_uart,GPS_recv_buff,gps_recv_len);
+
+		dma_transfer_number_config(DMA1,DMA_CH2,sizeof(GPS_recv_buff));
+
+		dma_channel_enable(DMA1,DMA_CH2);
+
+		usart_data_receive(UART3);
+		usart_interrupt_flag_clear(UART3,USART_INT_FLAG_IDLE);
+    }
+
+    #endif
 
 }
 int Gps_GetDataWithTimout(uint8_t *c)
 {
+    #if USING_RTOS
 	if (xQueueReceive(gps_uartData, c, 100) == pdTRUE)
 	{
 		return 1;
 	}
 	*c = 0;
 	return 0;
+    #else
+    return LoopQueue_ReadRelease(&loop_gps_uart,c,1);
+
+    #endif
 }
 
 void send_data_to_dtu(uint8_t *data, uint32_t size)
@@ -102,8 +150,10 @@ static int send_cmd_to_dtu(char *cmd, char *ask, uint32_t timeout)
             {
                 return -2;
             }
+            #if USING_RTOS
 
             vTaskDelay(100);
+            #endif
         }
     }
 }

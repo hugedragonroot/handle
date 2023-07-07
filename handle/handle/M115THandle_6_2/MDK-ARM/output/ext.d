@@ -3,9 +3,24 @@
 .\output\ext.o: ..\APP\app_loopqueue.h
 .\output\ext.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\stdint.h
 .\output\ext.o: ..\EXT\bt_ext.h
+.\output\ext.o: ..\APP\app_protocol.h
+.\output\ext.o: ..\APP\../PROTOCOL/protocol_427/protocol.h
+.\output\ext.o: ..\APP\../PROTOCOL/protocol_427/xsto_api_ii.h
+.\output\ext.o: ..\APP\../PROTOCOL/protocol_427/para.h
+.\output\ext.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\stdio.h
+.\output\ext.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\stdbool.h
+.\output\ext.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\stdlib.h
+.\output\ext.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\string.h
+.\output\ext.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\math.h
+.\output\ext.o: ..\APP\../PROTOCOL/protocol_427/crc.h
+.\output\ext.o: ..\PROTOCOL\common.h
+.\output\ext.o: ..\APP\../PROTOCOL/protocol_427/protocol_api.h
+.\output\ext.o: ..\APP\../PROTOCOL/protocol_427/alloc.h
+.\output\ext.o: ..\APP\../PROTOCOL/protocol_427/rt_malloc.h
+.\output\ext.o: ..\APP\../PROTOCOL/protocol_427/klist.h
+.\output\ext.o: ..\APP\../PROTOCOL/protocol_427/protocol_register_management.h
 .\output\ext.o: ..\EXT\buzz_ext.h
 .\output\ext.o: ..\MAIN\main.h
-.\output\ext.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\stdio.h
 .\output\ext.o: ..\GD32F30x_Firmware_Library\CMSIS\GD\GD32F30x\Include\gd32f30x.h
 .\output\ext.o: ..\GD32F30x_Firmware_Library\CMSIS\core_cm4.h
 .\output\ext.o: ..\GD32F30x_Firmware_Library\CMSIS\core_cmInstr.h
@@ -52,21 +67,7 @@
 .\output\ext.o: ..\DRV\music_drv.h
 .\output\ext.o: ..\DRV\led_drv.h
 .\output\ext.o: ..\DRV\power_control.h
-.\output\ext.o: ..\APP\app_protocol.h
-.\output\ext.o: ..\APP\../PROTOCOL/protocol_427/protocol.h
-.\output\ext.o: ..\APP\../PROTOCOL/protocol_427/xsto_api_ii.h
-.\output\ext.o: ..\APP\../PROTOCOL/protocol_427/para.h
-.\output\ext.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\stdbool.h
-.\output\ext.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\stdlib.h
-.\output\ext.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\string.h
-.\output\ext.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\math.h
-.\output\ext.o: ..\APP\../PROTOCOL/protocol_427/crc.h
-.\output\ext.o: ..\PROTOCOL\common.h
-.\output\ext.o: ..\APP\../PROTOCOL/protocol_427/protocol_api.h
-.\output\ext.o: ..\APP\../PROTOCOL/protocol_427/alloc.h
-.\output\ext.o: ..\APP\../PROTOCOL/protocol_427/rt_malloc.h
-.\output\ext.o: ..\APP\../PROTOCOL/protocol_427/klist.h
-.\output\ext.o: ..\APP\../PROTOCOL/protocol_427/protocol_register_management.h
+.\output\ext.o: ..\DRV\ev1527_drv.h
 .\output\ext.o: ..\APP\app_display.h
 .\output\ext.o: ..\APP\app_bmp.h
 .\output\ext.o: ..\APP\app_remote_para.h
@@ -79,16 +80,6 @@
 .\output\ext.o: ..\TASK\commandTx_task.h
 .\output\ext.o: ..\TASK\gps_task.h
 .\output\ext.o: ..\TASK\CAN_task.h
-.\output\ext.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\FreeRTOS.h
-.\output\ext.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\stddef.h
-.\output\ext.o: ..\COMMON\FreeRTOSConfig.h
-.\output\ext.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\projdefs.h
-.\output\ext.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\portable.h
-.\output\ext.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\deprecated_definitions.h
-.\output\ext.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\portable\RVDS\ARM_CM4F\portmacro.h
-.\output\ext.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\mpu_wrappers.h
-.\output\ext.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\task.h
-.\output\ext.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\list.h
 .\output\ext.o: ..\DEBUG\debug.h
 .\output\ext.o: ..\EXT\joystick_ext.h
 .\output\ext.o: ..\EXT\key_ext.h
@@ -103,3 +94,4 @@
 .\output\ext.o: ..\EXT\led_ext.h
 .\output\ext.o: ..\EXT\can_ext.h
 .\output\ext.o: ..\EXT\fwdgt_ext.h
+.\output\ext.o: ..\EXT\ev1527_ext.h

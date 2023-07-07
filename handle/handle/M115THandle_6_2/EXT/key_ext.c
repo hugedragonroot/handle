@@ -667,3 +667,4 @@ u8 TPAD_SCAN(void){
 	return 0;
 }
 #endif
+

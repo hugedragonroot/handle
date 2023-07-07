@@ -103,6 +103,9 @@
 
 #define COORD_SQRT_MAX 100
 
+#define BATTERY_MAX_VOL 28.5f
+// #define BATTERY_MIN_VOL 19.6f
+#define BATTERY_MIN_VOL 20.6f
 
 
 /* 控制模式 */
@@ -189,20 +192,22 @@ typedef struct remote_setting
   uint8_t   RemoteCount;			//遥控连接计时
   uint8_t   PowerStatus;			/* 遥控开关标志 */
 	
-  uint8_t   CoordXH;          /* 摇杆 X 坐标高8位 */
-  uint8_t   CoordXL;          /* 摇杆 X 坐标低8位 */
+//   uint8_t   CoordXH;          /* 摇杆 X 坐标高8位 */
+//   uint8_t   CoordXL;          /* 摇杆 X 坐标低8位 */
   int16_t   CoordX;           /* 摇杆 X 坐标 */
   
-  uint8_t   CoordYH;          /* 摇杆 Y 坐标高8位 */
-  uint8_t   CoordYL;          /* 摇杆 Y 坐标低8位 */
+//   uint8_t   CoordYH;          /* 摇杆 Y 坐标高8位 */
+//   uint8_t   CoordYL;          /* 摇杆 Y 坐标低8位 */
   int16_t   CoordY;           /* 摇杆 Y 坐标 */
 
-  uint8_t   CoordXYErrorFlag;          /* 开机坐标错误标志位 */
+  uint32_t   ErrorFlag;          /* 错误标志位 */
 	
-
+#if USING_XY_TO_SPEED
   int16_t   CoordSqrt;        /* 坐标平方根 */	
 	float 		CoordAngle;				/* 摇杆角度（-180< x <= 180）*/
+	// int16_t 		CoordIntAngle;				/* 摇杆角度（-180< x <= 180）*/
   int16_t   CoordSpeed;       /* 目标最大速度 */
+#endif
 
   uint8_t   ControlMode;      /* 控制模式 */
   uint8_t   ControlPre;
@@ -217,10 +222,8 @@ typedef struct remote_setting
   uint8_t   Peripherals;      /* 外设状态 */
   uint8_t   PeripheryPre;
 	uint8_t   HandleLock;				/* 锁定状态 */
-  uint8_t   Reserved;         /* 保留位 */ 
+//   uint8_t   Reserved;         /* 保留位 */ 
 
-	uint8_t folding_state;//折叠状态
-		
 	uint8_t   Battery;          /* 电池电量 */
 
   uint8_t   Model;				//设备类型
@@ -234,7 +237,9 @@ typedef struct remote_setting
 	uint8_t  	VoiceSwitch;			//提示开关
 	uint8_t		AlarmSwitch;			//警报提示
 	uint8_t		CruiseCtrlSwitch;	//定速巡航
-	uint8_t		CurrentMusic;	//按下喇叭键要播放的音乐
+	// uint8_t		CurrentMusic;	//按下喇叭键要播放的音乐
+	uint8_t	ev1527_user_id[EV1527_USER_NUM][2] ;//无线遥控器ID
+
 } TREMOTE_SETTING_PARA;
 extern TREMOTE_SETTING_PARA   Remote_setting_para;
 
@@ -251,18 +256,23 @@ typedef struct remote_trans
 	int16_t  push_rod_speed; // M115升降推杆速度
 	int16_t  seat_rod_speed; // M115座椅推杆速度
 
-	uint8_t folding_state;//折叠状态
-	uint16_t push_rod_state;//推杆状态
+	uint8_t folding_state:1;//折叠状态
+	// uint16_t push_rod_state;//推杆状态
 
-	int16_t		seat_angle;								//座椅角度闭环设定值 			//水平值 -90< x < 90  默认0 
-	int16_t		body_angle;								//机器底盘角度闭环设定值 	//水平值 -90< x < 90  默认0
+	int16_t		pitch_angle; // 俯仰角,上坡大			//水平值 -18000< x < 18000  默认0 
+	int16_t		roll_angle;	//横滚角,左倾大 	//水平值 -18000< x < 18000  默认0
+
+	uint16_t ultrasonic[4];
+#if 0
 
 	uint16_t	fornt_ultrasonic_y;				//前置纵向超声		(mm)
 	uint16_t	back_ultrasonic_x;				//后置横向超声
 	uint16_t	back_ultrasonic_y;				//后置纵向超声
 	uint8_t		sumcheck_err;							//累加和校验错误		
+#endif
 
-  uint8_t   Battery;          /* 电池电量 */
+//   uint8_t   Battery;          /* 电池电量 */
+	float BatteryVol;//电池电压
 	
 
 }TREMOTE_TRANS_PARA;
@@ -327,6 +337,14 @@ typedef enum {
 	ePVoiceLevel_3						= 0x03,			//高
 } EP_VoiceLevel;
  
+/*错误代码*/
+typedef enum{
+	ERROR_NONE = 0,//没有错误
+	ERROR_JOY_XY = 1<<2,//开机摇杆不在原点
+	ERROR_CHARGE_LOW = 1<<5,//充电错误
+	ERROR_TEMPERATURE_LOW = 1<<6,//温度低错误
+}APP_ERROR_FLAG;
+
 
 
 typedef struct Phone_trans

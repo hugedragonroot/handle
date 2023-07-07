@@ -6,14 +6,6 @@
 
 ui_e page_num=ePAGE_PWROFF;
 
-Control_STR Control_para;
-
-void display_init(void)
-{
-	Control_para.Up_stairs_state  = eUP_STAIRS_START;
-	Control_para.Down_stairs_state = eDOWN_STAIRS_START;
-
-}
 
 void display_main_reflash(void)
 {
@@ -30,7 +22,7 @@ void display_main_reflash(void)
 
 void display_main_lock(void)
 {
-	static uint8_t lock;
+	static uint8_t lock = 0;
 	
 	if(lock ==Remote_setting_para.HandleLock)
 		return;
@@ -45,17 +37,16 @@ void display_main_lock(void)
 
 void display_main_battery(void)
 {
-	static uint8_t Battery;
-	
-	if(Battery==Remote_setting_para.Battery)
-		return;	
-	Battery = Remote_setting_para.Battery;
-	display_graphic(BATTERY_X,BATTERY_Y,BATTERY_SIZE_X,BATTERY_SIZE_Y,BMP_Battery[Remote_setting_para.Battery]);	
+
+	display_graphic(BATTERY_X,BATTERY_Y,BATTERY_SIZE_X,BATTERY_SIZE_Y,BMP_Battery[0]);	
+	uint8_t temp[2] = {(Remote_setting_para.Battery/10)+'0',(Remote_setting_para.Battery%10)+'0'};
+	display_string_5x8(BATTERY_X+10,BATTERY_Y+3,0,(uint8_t*)temp);
+
 }
 
 void display_main_connect(void)
 {
-	static uint8_t RemoteConnect;	
+	static uint8_t RemoteConnect = 0;	
 
 	if(RemoteConnect==Remote_setting_para.RemoteConnect)
 		return;
@@ -196,7 +187,7 @@ uint8_t display_yes_no(uint8_t*q,uint8_t*m,uint8_t*n,uint8_t key)
 void display_main_ui(void)
 {
 	uint8_t keyState;
-	static uint8_t delay;
+	static uint8_t delay,hornFlag = 0;
 	static uint16_t mode_delay;
 	uint8_t buff[20];
 	
@@ -225,7 +216,8 @@ void display_main_ui(void)
 #else
 
 	if(Remote_setting_para.ControlMode==eWalking)
-	{
+	{	
+		#if USING_XY_TO_SPEED
 		sprintf((char*)buff,"LS:%5d",Remote_trans_para.walking_speed_L);
 		display_string_8x16(34,16,0,buff);
 		sprintf((char*)buff,"RS:%5d",Remote_trans_para.walking_speed_R);
@@ -233,6 +225,17 @@ void display_main_ui(void)
 		sprintf((char*)buff,"AN:%3.1f",Remote_setting_para.CoordAngle/3.14*180);
 		// display_string_8x16(0,48,0,"    ");	
 		display_string_8x16(34,48,0,buff);			
+		#else
+		sprintf((char*)buff,"X:%3u",Remote_setting_para.CoordX);
+		display_string_8x16(34,16,0,buff);
+		sprintf((char*)buff,"Y:%3u",Remote_setting_para.CoordY);
+		display_string_8x16(34,32,0,buff);
+		sprintf((char*)buff,"P:%4d",Remote_receive_para.push_rod_speed);
+		display_string_8x16(34,48,0,buff);			
+
+		#endif
+
+
 	}
 	#if 0
 	else if(Remote_setting_para.ControlMode==eTracks)
@@ -328,7 +331,13 @@ void display_main_ui(void)
 			break;
 		case KEY_HORN_DOWN://喇叭
 			if(Remote_setting_para.HandleLock)break;			
-			play_file_voice(1,Remote_setting_para.CurrentMusic);
+			// play_file_voice(1,1);
+			hornFlag = 1;
+			break;
+
+		case KEY_HORN_UP://喇叭
+			if(Remote_setting_para.HandleLock)break;			
+			hornFlag = 0;
 			break;
 		case KEY_HORN_LONG:
 			if(Remote_setting_para.HandleLock)break;
@@ -442,6 +451,8 @@ void display_main_ui(void)
 #endif
 		
 	}
+	if(hornFlag) LoopQueue_Write(&music_FIFO,&hornFlag,1);
+
 	#if !APP_BT_TEST
 	if(Remote_setting_para.OperationMode==eAutoUP || Remote_setting_para.OperationMode==eAutoDOWN )
 	{
@@ -1427,15 +1438,18 @@ void display_pwroff_ui(void)
 	keyState = bsp_GetKey();
 	if(keyState==KEY_POWER_DOWN)
 	{		
-		Remote_para_init();
-		Remote_buff_init();
-		mem_read();				
+		// Remote_para_init();
+		// Remote_buff_init();
+		Remote_para_default();
+		// mem_init();
 		lcd_PowerOn();		
 		setdisplay_ui(ePAGE_MAIN);
 		Remote_setting_para.PowerStatus = ePowerOn;	
+		#if USING_RTOS 
 		//开机发送信号量 用于订阅消息发送
 		MasterMsgData_t message;
 		api_on_message_received(message);
+		#endif
 	}		
 }
 typedef enum 
@@ -1519,8 +1533,8 @@ void display_setting_ui(void)
 					chang_sel = Remote_setting_para.VoiceLevel;
 				else if(idx==SET_CruiseCtrlSwitch)	
 					chang_sel = Remote_setting_para.CruiseCtrlSwitch ;									
-				else if(idx==SET_MUSICPLAY)	
-					chang_sel = Remote_setting_para.CurrentMusic ;									
+				// else if(idx==SET_MUSICPLAY)	
+					// chang_sel = Remote_setting_para.CurrentMusic ;									
 				clear_screen();
 			}
 			break;
@@ -1621,21 +1635,21 @@ void display_setting_ui(void)
 			break;
 		case SET_MUSICPLAY:
 				center_display_string(0,0,(uint8_t*)"MusicSelect");				
-				sprintf(buffer," %d ",Remote_setting_para.CurrentMusic);
+				// sprintf(buffer," %d ",Remote_setting_para.CurrentMusic);
 				center_display_string(24,1,(uint8_t*)buffer);				
 				if(keyState == KEY_SPEED_SUB_DOWN || keyState == KEY_SPEED_SUB_LONG || (speedLongPressFlag&0x01)) {
 					if(keyState == KEY_SPEED_SUB_LONG || keyState == KEY_SPEED_SUB_UP) 
 						speedLongPressFlag ^= 0x01;
 
-					if(Remote_setting_para.CurrentMusic==0)Remote_setting_para.CurrentMusic=30;
-					else Remote_setting_para.CurrentMusic--;	
+					// if(Remote_setting_para.CurrentMusic==0)Remote_setting_para.CurrentMusic=30;
+					// else Remote_setting_para.CurrentMusic--;	
 				}
 				if(keyState==KEY_SPEED_ADD_DOWN || keyState == KEY_SPEED_ADD_LONG || (speedLongPressFlag&0x02)) {					
 					if(keyState == KEY_SPEED_ADD_LONG || keyState == KEY_SPEED_ADD_UP)
 						speedLongPressFlag ^= 0x02;
 
-					Remote_setting_para.CurrentMusic++;
-					if(Remote_setting_para.CurrentMusic>30)Remote_setting_para.CurrentMusic=0;
+					// Remote_setting_para.CurrentMusic++;
+					// if(Remote_setting_para.CurrentMusic>30)Remote_setting_para.CurrentMusic=0;
 				}
 				if(keyState==KEY_MENU_ESC_DOWN)//退出
 				{
@@ -1680,6 +1694,7 @@ void display_setting_ui(void)
 			break;
 		case SET_SPEED:
 
+			#if USING_XY_TO_SPEED
 			center_display_string(0,0,(uint8_t*)"SpeedGaer");				
 			sprintf(buffer," %d ",Remote_setting_para.SpeedGear);
 			center_display_string(16,0,(uint8_t*)buffer);				
@@ -1688,7 +1703,6 @@ void display_setting_ui(void)
 
 			sprintf(&buffer[10]," %d ",walking_speed[Remote_setting_para.SpeedGear-1]);
 			display_string_8x16(8*8,32,1,(uint8_t*) &buffer[10]);
-			display_string_5x8(8*8,42,0,(uint8_t*) &buffer[10]);
 
 			if(keyState == KEY_SPEED_SUB_DOWN || keyState == KEY_SPEED_SUB_LONG || (speedLongPressFlag&0x01)) {
 				if(keyState == KEY_SPEED_SUB_LONG || keyState == KEY_SPEED_SUB_UP) 
@@ -1700,16 +1714,12 @@ void display_setting_ui(void)
 					speedLongPressFlag ^= 0x02;
 				walking_speed[Remote_setting_para.SpeedGear-1]++;
 			}
+			#endif
 			if(keyState==KEY_MENU_ESC_DOWN)//退出
 			{
 				idx = SET_main;
 				clear_screen();
 			}		
-			// else if(keyState==KEY_LAMP_DOWN)
-			// {
-			// 	idx_temp = idx;
-			// 	idx=SET_Save;				
-			// }
 			break;
 
 

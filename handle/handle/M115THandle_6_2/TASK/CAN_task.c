@@ -12,23 +12,28 @@
 
 #include "../PROTOCOL/protocol_427/protocol.h"
 
-static bool isInit;
 // static TCOMMUN RxPack;
 
 //static combine_write_t combine_wirte;
+#if USING_RTOS 
+static bool isInit;
 static xQueueHandle  txQueue;
 static xQueueHandle  rxQueue;
-
-
+#else
 // MasterMsgData_t recvMessage;
+#endif
 void api_on_message_received(MasterMsgData_t message)
 {
-	// memcpy(&recvMessage,&message,sizeof(MasterMsgData_t));
 
+	#if USING_RTOS 
 	xQueueSend(rxQueue, &message, 0);
+	#else
+	// memcpy(&recvMessage,&message,sizeof(MasterMsgData_t));
+	CANPackAnalyze(&message);
+	#endif
 }
 
-
+#if USING_RTOS
 /*CAN初始化*/
 void CAN_Init(void){
     if(isInit) return;
@@ -101,4 +106,34 @@ void CANRxTask(void* param)
 			//xQueueSend(rxQueue, &recvMessage, 0);
 		}
 	}
+}
+#endif
+
+static combine_write_t CANTxCombineWrite;
+static PDU_t req_PDU;
+static MsgData_t request_msg_data;
+static u8 CANTxBuffer[40];
+
+void protocolSend(void){
+	if(CANTxCombineWrite.combineCount > 0){
+		combine_write_to_PDU('W',&CANTxCombineWrite,&req_PDU);
+		PDU_to_msg_data(NODE_SELF, &req_PDU, &request_msg_data);
+		send_message_data(&request_msg_data);
+	}
+}
+
+void CANNoneOsTxTask(void){
+	if(0||Remote_setting_para.RemoteConnect == eWire){
+		CANProtocolTransbuff(&CANTxCombineWrite,CANTxBuffer);
+		protocolSend();
+	}
+	if(++Remote_setting_para.RemoteCount == 70){
+		Remote_setting_para.RemoteConnect = eOffline;
+		Remote_setting_para.RemoteCount = 0;
+		CANSubInit();
+	}
+}
+
+void CANNoneOsRxTask(void){
+	can_receive();
 }

@@ -1,5 +1,6 @@
 #include "protocol.h"
 #include "crc.h"
+#include "app_remote_para.h"
 
 	
 /**
@@ -99,6 +100,10 @@ void list_mem(void)
 //  0x0014	 float    	 BLDC_A_CURRENT_OVER  	 左轮毂电机过流值     		 R/W  
 //  0x0018	 float    	 BLDC_A_ANGEL_REAL    	 左轮毂电机角度值     		 R    
 //  0x001C	 float    	 BLDC_A_TEMP          	 左轮毂电机温度值     		 R    
+//	0x0020   int16_t	 HANDLE_ANGLE			 手柄摇杆角度
+//	0x0022	 uint8_t	 HANDLE_GEAR			 手柄速度挡位
+//	0x0023	 uint8_t	 HANDLE_X			 	 手柄X坐标
+//	0x0024	 uint8_t	 HANDLE_Y			 	 手柄Y坐标
 //  ....   	          	                      	              		      
 //  0x0032	 uint8_t  	 BLDC_U_ENABLE        	 右轮毂电机使能      		 R/W  
 //  0x0033	 uint8_t  	 BLDC_U_MODE          	 右轮毂电机模式      		 R/W  
@@ -137,6 +142,14 @@ void list_mem(void)
 
 //  0X00D0	 uint8_t    HEART_BIT          	  心跳     	 	R/w    
 
+//  0X00D1	 uint16_t   ULTRASONIC_FIRST         	第一超声波     	 	R    
+//  0X00D3	 uint16_t   ULTRASONIC_SECOND          第二超声波     	 	R    
+//  0X00D5	 uint16_t   ULTRASONIC_THIRD          	第三超声波     	 	R    
+//  0X00D7	 uint16_t   ULTRASONIC_FOUR          	第四超声波   	 	R    
+
+//  0X00D9	 int16_t    PITCH_ANGLE         	  俯仰角     	 	R    
+//  0X00DB	 int16_t    ROLL_ANGLE          	  横滚角     	 	R    
+
 
 
 #define ADDREG(addr,size) {\
@@ -146,56 +159,69 @@ void list_mem(void)
 
 
 const RegInfo tranRegInfoDir[] = {
-
-	ADDREG(0x0000,uint32_t ),
-	ADDREG(0x0004,uint32_t ),
-	ADDREG(0x0008,uint8_t  ),
-	ADDREG(0x0009,uint8_t  ),
-	ADDREG(0x000A,uint16_t ),
-	ADDREG(0x000C,int16_t  ),
-	ADDREG(0x000E,int16_t  ),
-	ADDREG(0x0010,float    ),
-	ADDREG(0x0014,float    ),
-	ADDREG(0x0018,float    ),
-	ADDREG(0x001C,float    ),
+	ADDREG(0x0000,uint32_t ),//Firmware_version     	 固件版本号        
+	ADDREG(0x0004,uint32_t ),//Hardware_version     	 硬件版本号        
+	ADDREG(0x0008,uint8_t  ),// BLDC_A_ENABLE        	 左轮毂电机使能     
+	ADDREG(0x0009,uint8_t  ),// BLDC_A_MODE          	 左轮毂电机模式     
+	ADDREG(0x000A,uint16_t ),//BLDC_A_STATUS        	 左轮毂电机状态      
+	ADDREG(0x000C,int16_t  ),// BLDC_A_SPEED_SET     	 左轮毂电机速度设置   
+	ADDREG(0x000E,int16_t  ),// BLDC_A_SPEED_REAL    	 左轮毂电机速度真实   
+	ADDREG(0x0010,float    ),// BLDC_A_CURRENT_REAL  	 左轮毂电机电流真实   
+	ADDREG(0x0014,float    ),// BLDC_A_CURRENT_OVER  	 左轮毂电机过流值    
+	ADDREG(0x0018,float    ),// BLDC_A_ANGEL_REAL    	 左轮毂电机角度值    
+	ADDREG(0x001C,float    ),// BLDC_A_TEMP          	 左轮毂电机温度值    
+	ADDREG(0x0020,int16_t  ),//ANDLE_ANGLE			 	 手柄摇杆角度
+	ADDREG(0x0022,uint8_t  ),//NDLE_GEAR			 	 手柄速度挡位
+	ADDREG(0x0023,uint8_t  ),//NDLE_X			 	 	 手柄X坐标
+	ADDREG(0x0024,uint8_t  ),//NDLE_Y			 	 	 手柄Y坐标
 	// ADDREG(....  ,         ),
-	ADDREG(0x0032,uint8_t  ),
-	ADDREG(0x0033,uint8_t  ),
-	ADDREG(0x0034,uint16_t ),
-	ADDREG(0x0036,int16_t  ),
-	ADDREG(0x0038,int16_t  ),
-	ADDREG(0x003a,float    ),
-	ADDREG(0x003e,float    ),
-	ADDREG(0x0042,float    ),
-	ADDREG(0x0046,float    ),
-	// ADDREG(....  ,         ),
-	ADDREG(0x0064,uint8_t  ),
-	ADDREG(0x0065,uint8_t  ),
-	ADDREG(0x0066,uint16_t ),
-	ADDREG(0x0068,int16_t  ),
-	ADDREG(0x006a,int16_t  ),
-	ADDREG(0x006c,int16_t  ),
-	ADDREG(0x006e,int16_t  ),
-	ADDREG(0x0070,int16_t  ),
-	ADDREG(0X0072,uint16_t ),
-	// ADDREG(..... ,         ),
-	ADDREG(0x0096,uint8_t  ),
-	ADDREG(0x0097,uint8_t  ),
-	ADDREG(0x0098,uint16_t ),
-	ADDREG(0x009A,int16_t  ),
-	ADDREG(0x009C,int16_t  ),
-	ADDREG(0x009E,int16_t  ),
-	ADDREG(0x00A0,int16_t  ),
-	ADDREG(0x00A2,int16_t  ),
-	ADDREG(0X00A4,int16_t  ),
-	ADDREG(0X00A6,int16_t  ),
-	ADDREG(0X00A8,uint16_t ),
-	// ADDREG(..... ,         ),
-	ADDREG(0X00C8,float    ),
-	ADDREG(0X00CC,float    ),
+	ADDREG(0x0032,uint8_t  ),// BLDC_U_ENABLE        	 右轮毂电机使能     
+	ADDREG(0x0033,uint8_t  ),// BLDC_U_MODE          	 右轮毂电机模式     
+	ADDREG(0x0034,uint16_t ),//BLDC_U_STATUS        	 右轮毂电机状态      
+	ADDREG(0x0036,int16_t  ),// BLDC_U_SPEED_SET     	 右轮毂电机速度设置   
+	ADDREG(0x0038,int16_t  ),// BLDC_U_SPEED_REAL    	 右轮毂电机速度真实   
+	ADDREG(0x003a,float    ),// BLDC_U_CURRENT_REAL  	 右轮毂电机电流真实   
+	ADDREG(0x003e,float    ),// BLDC_U_CURRENT_OVER  	 右轮毂电机过流值    
+	ADDREG(0x0042,float    ),// BLDC_U_ANGEL_REAL    	 右轮毂电机角度值    
+	ADDREG(0x0046,float    ),// BLDC_U_TEMP          	 右轮毂电机温度值    
+	// ADDREG(....  ,        //	                      	             ),
+	ADDREG(0x0064,uint8_t  ),// BRUSH_A_ENABLE       	 升降推杆使能      
+	ADDREG(0x0065,uint8_t  ),// BRUSH_A_MODE         	 升降推杆模式      
+	ADDREG(0x0066,uint16_t ),//BRUSH_A_STATUS       	 升降推杆状态       
+	ADDREG(0x0068,int16_t  ),// BRUSH_A_ANGEL_SET    	 升降推杆角度设定值   
+	ADDREG(0x006a,int16_t  ),// BRUSH_A_ANGEL_REAL   	 升降推杆角度真实值   
+	ADDREG(0x006c,int16_t  ),// BRUSH_A_SPEED_SET    	 升降推杆速度设定值   
+	ADDREG(0x006e,int16_t  ),// BRUSH_A_SPEED_REAL   	 升降推杆速度真实值   
+	ADDREG(0x0070,int16_t  ),// BRUSH_A_CURRENT_REAL	 升降推杆电流真实值    
+	ADDREG(0X0072,uint16_t ),//BRUSH_A_CURRENT_OVER	 	 升降推杆过流值      	
+	// ADDREG(..... ,        //	                      	             ),
+	ADDREG(0x0096,uint8_t  ),// BRUSH_U_ENABLE       	 座椅推杆使能      
+	ADDREG(0x0097,uint8_t  ),// BRUSH_U_MODE         	 座椅升降推杆模式    
+	ADDREG(0x0098,uint16_t ),//BRUSH_U_STATUS       	 座椅升降推杆状态     
+	ADDREG(0x009A,int16_t  ),// BRUSH_U_MPU_SET      	 座椅升降推杆陀螺仪设定值
+	ADDREG(0x009C,int16_t  ),// BRUSH_U_MPU_REAL     	 座椅升降推杆陀螺仪真实值
+	ADDREG(0x009E,int16_t  ),// BRUSH_U_ANGLE_SET    	 座椅升降推杆角度设定值 
+	ADDREG(0x00A0,int16_t  ),// BRUSH_U_ANGLE_REAL   	 座椅升降推杆角度真实值 
+	ADDREG(0x00A2,int16_t  ),// BRUSH_U_SPEED_SET    	 座椅升降推杆速度真实值 
+	ADDREG(0X00A4,int16_t  ),// BRUSH_U_SPEED_REAL   	 座椅升降推杆速度真实值 
+	ADDREG(0X00A6,int16_t  ),// BRUSH_U_CURRENT_REAL	 座椅升降推杆电流真实值  
+	ADDREG(0X00A8,uint16_t ),//BRUSH_U_CURRENT_OVER	 座椅升降推杆过流值    	
+	// ADDREG(..... ,        //	                      	             ),
+	ADDREG(0X00C8,float    ),// DEVICE_TEMP          	 驱动器温度       
+	ADDREG(0X00CC,float    ),// DEVICE_VOLT          	 驱动器母线电压     
+	//新增                     
+	ADDREG(0X00D0,uint8_t  ),// HEART_BIT          	  心跳     	 	R/w
+#if 0                       	
+	ADDREG(0X00D1,uint16_t  ) // ULTRASONIC_FIRST         	第一超声波                                    ,
+	ADDREG(0X00D3,uint16_t  ) // ULTRASONIC_SECOND          第二超声波
+	ADDREG(0X00D5,uint16_t  ) // ULTRASONIC_THIRD          	第三超声波
+	ADDREG(0X00D7,uint16_t  ) // ULTRASONIC_FOUR          	第四超声波 
+#else                     
+	ADDREG(0X00D1,Remote_receive_para.ultrasonic),
+#endif
+	ADDREG(0X00D9,int16_t   ),//PITCH_ANGLE         	  俯仰角     	 	
+	ADDREG(0X00DB,int16_t   ),//ROLL_ANGLE          	  横滚角     	 	
 
-	//新增
-	ADDREG(0X00D0,uint8_t  )
 };
 
 #define ADD_WRITE_REG(para,regName){\
@@ -233,5 +259,6 @@ void paraInit(){
 	combine_write_to_PDU('I',&combine_wirte,&req_PDU);
 	PDU_to_msg_data(NODE_SELF, &req_PDU, &request_msg_data);
 	send_message_data(&request_msg_data);
+	
 }
 

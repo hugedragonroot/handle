@@ -19,8 +19,6 @@ typedef struct
 
 } Control_STR;
 
-extern	Control_STR Control_para;
-
 typedef enum 
 {
 	eUP_STAIRS_START,							//х╥хоиоб╔

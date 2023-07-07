@@ -10,7 +10,11 @@
 
 #include "../PROTOCOL/protocol_427/protocol.h"
 
+#include "app_remote_para.h"
+
+#if USING_RTOS
 static SemaphoreHandle_t CANRecvFlag;//CAN中断接收信号量
+#endif
 
 uint8_t Car_buff[CAN_BUFFER_SIZE];
 Can_fifo_buffer_t CANRx_Buffer;
@@ -56,9 +60,16 @@ void can_myinit(void)
   can_parameter.trans_fifo_order = ENABLE;
   can_parameter.working_mode = CAN_NORMAL_MODE;
   can_parameter.resync_jump_width = CAN_BT_SJW_1TQ;
+  #if 0
 	can_parameter.time_segment_1 = CAN_BT_BS1_15TQ;
 	can_parameter.time_segment_2 = CAN_BT_BS2_1TQ;
 	can_parameter.prescaler = 7;//baudrate=60M/((bs1+bs2+1)*7)=
+	#else
+	can_parameter.time_segment_1 = CAN_BT_BS1_15TQ;
+	can_parameter.time_segment_2 = CAN_BT_BS2_1TQ;
+	can_parameter.prescaler = 7;//baudrate=60M/((bs1+bs2+1)*7)=
+
+	#endif
     /* initialize CAN */
   can_init(CAN0, &can_parameter);
 	
@@ -67,7 +78,9 @@ void can_myinit(void)
 	 /* enable can receive FIFO0 not empty interrupt */
   can_interrupt_enable(CAN0, CAN_INT_RFNE1|CAN_INT_TME);
 
+#if USING_RTOS
 	CANRecvFlag = xSemaphoreCreateBinary();
+#endif
 
 	paraInit();
 
@@ -321,7 +334,9 @@ void CAN0_RX1_IRQHandler(void)
 {
 	uint8_t i = 0;
 
+	#if USING_RTOS
 	portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
+	#endif
 
 	can_receive_message_struct receive_message;
 	can_message_receive(CAN0, CAN_FIFO1, &receive_message);
@@ -335,12 +350,15 @@ void CAN0_RX1_IRQHandler(void)
 				CANRx_Buffer.data[CANRx_Buffer.write_index] = receive_message.rx_data[i];	
 				CANRx_Buffer.write_index = (CANRx_Buffer.write_index + 1) % CANRx_Buffer.size;
 		  }	
+		  #if USING_RTOS
 		  xSemaphoreGiveFromISR(CANRecvFlag,&xHigherPriorityTaskWoken);
+		  #endif
 		}		
 
 	}
 }
 
+#if USING_RTOS
 int CANGetDataWithTimeOut(){
 	if(xSemaphoreTake(CANRecvFlag,1000) == pdTRUE){
 		can_receive();
@@ -348,6 +366,7 @@ int CANGetDataWithTimeOut(){
 	}
 	return 0;
 }
+#endif
 
 
 

@@ -1,8 +1,23 @@
 .\output\bt_ext.o: ..\EXT\bt_ext.c
 .\output\bt_ext.o: ..\EXT\bt_ext.h
 .\output\bt_ext.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\stdint.h
-.\output\bt_ext.o: ..\MAIN\main.h
+.\output\bt_ext.o: ..\APP\app_protocol.h
+.\output\bt_ext.o: ..\APP\../PROTOCOL/protocol_427/protocol.h
+.\output\bt_ext.o: ..\APP\../PROTOCOL/protocol_427/xsto_api_ii.h
+.\output\bt_ext.o: ..\APP\../PROTOCOL/protocol_427/para.h
 .\output\bt_ext.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\stdio.h
+.\output\bt_ext.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\stdbool.h
+.\output\bt_ext.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\stdlib.h
+.\output\bt_ext.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\string.h
+.\output\bt_ext.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\math.h
+.\output\bt_ext.o: ..\APP\../PROTOCOL/protocol_427/crc.h
+.\output\bt_ext.o: ..\PROTOCOL\common.h
+.\output\bt_ext.o: ..\APP\../PROTOCOL/protocol_427/protocol_api.h
+.\output\bt_ext.o: ..\APP\../PROTOCOL/protocol_427/alloc.h
+.\output\bt_ext.o: ..\APP\../PROTOCOL/protocol_427/rt_malloc.h
+.\output\bt_ext.o: ..\APP\../PROTOCOL/protocol_427/klist.h
+.\output\bt_ext.o: ..\APP\../PROTOCOL/protocol_427/protocol_register_management.h
+.\output\bt_ext.o: ..\MAIN\main.h
 .\output\bt_ext.o: ..\GD32F30x_Firmware_Library\CMSIS\GD\GD32F30x\Include\gd32f30x.h
 .\output\bt_ext.o: ..\GD32F30x_Firmware_Library\CMSIS\core_cm4.h
 .\output\bt_ext.o: ..\GD32F30x_Firmware_Library\CMSIS\core_cmInstr.h
@@ -53,6 +68,7 @@
 .\output\bt_ext.o: ..\DRV\led_drv.h
 .\output\bt_ext.o: ..\EXT\can_ext.h
 .\output\bt_ext.o: ..\EXT\fwdgt_ext.h
+.\output\bt_ext.o: ..\EXT\ev1527_ext.h
 .\output\bt_ext.o: ..\DRV\drv.h
 .\output\bt_ext.o: ..\DRV\key_drv.h
 .\output\bt_ext.o: ..\DRV\buzz_drv.h
@@ -64,21 +80,7 @@
 .\output\bt_ext.o: ..\DRV\rf_315m_drv.h
 .\output\bt_ext.o: ..\DRV\music_drv.h
 .\output\bt_ext.o: ..\DRV\power_control.h
-.\output\bt_ext.o: ..\APP\app_protocol.h
-.\output\bt_ext.o: ..\APP\../PROTOCOL/protocol_427/protocol.h
-.\output\bt_ext.o: ..\APP\../PROTOCOL/protocol_427/xsto_api_ii.h
-.\output\bt_ext.o: ..\APP\../PROTOCOL/protocol_427/para.h
-.\output\bt_ext.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\stdbool.h
-.\output\bt_ext.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\stdlib.h
-.\output\bt_ext.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\string.h
-.\output\bt_ext.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\math.h
-.\output\bt_ext.o: ..\APP\../PROTOCOL/protocol_427/crc.h
-.\output\bt_ext.o: ..\PROTOCOL\common.h
-.\output\bt_ext.o: ..\APP\../PROTOCOL/protocol_427/protocol_api.h
-.\output\bt_ext.o: ..\APP\../PROTOCOL/protocol_427/alloc.h
-.\output\bt_ext.o: ..\APP\../PROTOCOL/protocol_427/rt_malloc.h
-.\output\bt_ext.o: ..\APP\../PROTOCOL/protocol_427/klist.h
-.\output\bt_ext.o: ..\APP\../PROTOCOL/protocol_427/protocol_register_management.h
+.\output\bt_ext.o: ..\DRV\ev1527_drv.h
 .\output\bt_ext.o: ..\APP\app_display.h
 .\output\bt_ext.o: ..\APP\app_bmp.h
 .\output\bt_ext.o: ..\APP\app_remote_para.h
@@ -91,6 +93,7 @@
 .\output\bt_ext.o: ..\TASK\commandTx_task.h
 .\output\bt_ext.o: ..\TASK\gps_task.h
 .\output\bt_ext.o: ..\TASK\CAN_task.h
+.\output\bt_ext.o: ..\DEBUG\debug.h
 .\output\bt_ext.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\FreeRTOS.h
 .\output\bt_ext.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\stddef.h
 .\output\bt_ext.o: ..\COMMON\FreeRTOSConfig.h
@@ -101,6 +104,5 @@
 .\output\bt_ext.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\mpu_wrappers.h
 .\output\bt_ext.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\task.h
 .\output\bt_ext.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\list.h
-.\output\bt_ext.o: ..\DEBUG\debug.h
 .\output\bt_ext.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\semphr.h
 .\output\bt_ext.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\queue.h

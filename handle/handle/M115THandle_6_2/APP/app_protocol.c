@@ -13,10 +13,12 @@
  TcomData		Phone_receive_buff; 
 
 
+#if USING_XY_TO_SPEED
 // 5档速度
 int16_t walking_speed[5] = {
-	500,1300,2000,2800,3500
+	500,1300,2000,2880,3500
 };
+#endif
 
 void Remote_buff_init(void)
 {
@@ -108,6 +110,11 @@ void ProtocolTransbuff(TCOMMUN* p)
 
 
 #define ADD_WRITE_REG(para,regName){\
+	if(combine_wirte->combineCount >= COMBINE_COUNT_MAX){\
+		protocolSend();\
+		txbufferIndex = 0;\
+		combine_wirte->combineCount = 0;\
+	}\
 	u8 count = 0;\
 	do {\
 		(txbuffer)[txbufferIndex++] = (((para) >> (8*count))& 0xff);\
@@ -125,49 +132,68 @@ void ProtocolTransbuff(TCOMMUN* p)
 //手柄->CAN->驱动器	每10ms发送一次
 void CANProtocolTransbuff(combine_write_t* combine_wirte,u8 *txbuffer){
 	u8 txbufferIndex = 0;
-	static u8 pushTimeCount = 0;
 	static u16 foldTimeCount = 0;
-	static u8 heartTimeCount = 0;
+	static u8 timeCount = 0;
 	combine_wirte->combineCount = 0;
+	++timeCount;
+	#if USING_XY_TO_SPEED
 	//左轮速度
-	if(Remote_receive_para.walking_speed_L != Remote_trans_para.walking_speed_L){
-		ADD_WRITE_REG(Remote_trans_para.walking_speed_L,BLDC_A_SPEED_SET);
-	}
+	ADD_WRITE_REG(Remote_trans_para.walking_speed_L,BLDC_A_SPEED_SET);
 	//右轮速度
-	if(Remote_receive_para.walking_speed_R != Remote_trans_para.walking_speed_R){
-		ADD_WRITE_REG(Remote_trans_para.walking_speed_R,BLDC_U_SPEED_SET);
-	}
+	ADD_WRITE_REG(Remote_trans_para.walking_speed_R,BLDC_U_SPEED_SET);
+	//摇杆角度
+	ADD_WRITE_REG(Remote_setting_para.CoordIntAngle,HANDLE_ANGLE);
+	#endif
+	//速度挡位
+	ADD_WRITE_REG(Remote_setting_para.SpeedGear,HANDLE_GEAR);
+	//X,Y坐标
+	// static u8 x = 0,y = 0;
+	// x = Remote_setting_para.CoordX/2;
+	// y = Remote_setting_para.CoordY/2;
+	ADD_WRITE_REG((uint8_t)(Remote_setting_para.CoordX),HANDLE_X);
+	ADD_WRITE_REG((uint8_t)(Remote_setting_para.CoordY),HANDLE_Y);
+
+	#if 1
 	//折叠状态
 	if(Remote_receive_para.folding_state != Remote_trans_para.folding_state){
 		++foldTimeCount;
 		if(foldTimeCount == 1){
-			ADD_WRITE_REG((u8)0x01,BRUSH_A_ENABLE);
-			ADD_WRITE_REG((u8)0x07,BRUSH_A_MODE);
-			ADD_WRITE_REG((int16_t)300,BRUSH_A_SPEED_SET);
+			if(Remote_receive_para.folding_state == ePExpand){//折叠
+				ADD_WRITE_REG((u8)0x01,BRUSH_A_ENABLE);
+				ADD_WRITE_REG((u8)0x07,BRUSH_A_MODE);
+				ADD_WRITE_REG((int16_t)300,BRUSH_A_SPEED_SET);
 
-			ADD_WRITE_REG((u8)0x01,BRUSH_U_ENABLE);
-			ADD_WRITE_REG((u8)0x07,BRUSH_U_MODE);
-			ADD_WRITE_REG((int16_t)-150,BRUSH_U_SPEED_SET);
-		}else if(foldTimeCount > 600 && //6秒后在进行速度判断
+				ADD_WRITE_REG((u8)0x01,BRUSH_U_ENABLE);
+				ADD_WRITE_REG((u8)0x07,BRUSH_U_MODE);
+				ADD_WRITE_REG((int16_t)-100,BRUSH_U_SPEED_SET);
+			}else{//展开
+				ADD_WRITE_REG((u8)0x01,BRUSH_A_ENABLE);
+				ADD_WRITE_REG((u8)0x08,BRUSH_A_MODE);
+
+				ADD_WRITE_REG((u8)0x01,BRUSH_U_ENABLE);
+				ADD_WRITE_REG((u8)0x08,BRUSH_U_MODE);
+			}
+		}else if(foldTimeCount > 300 && //3秒后在进行速度判断
 		Remote_receive_para.push_rod_speed == 0 &&
 		Remote_receive_para.seat_rod_speed == 0){
 			Remote_receive_para.folding_state = Remote_trans_para.folding_state;
 			foldTimeCount = 0;
+			ADD_WRITE_REG((u8)0x06,BRUSH_A_MODE);
+			ADD_WRITE_REG((u8)0x00,BRUSH_U_ENABLE);
+			ADD_WRITE_REG((u16)0x0000,BRUSH_A_SPEED_SET);
 		}else if(foldTimeCount > 3000){//30秒后还未停止
 			ADD_WRITE_REG((u8)0x00,BRUSH_A_ENABLE);
 			ADD_WRITE_REG((u8)0x00,BRUSH_U_ENABLE);
 			Remote_receive_para.folding_state = Remote_trans_para.folding_state;
 			foldTimeCount = 0;
 		}
-	}else if(Remote_receive_para.push_rod_speed != Remote_trans_para.push_rod_speed &&
-			++pushTimeCount > 5){
+	}else if((1||Remote_receive_para.push_rod_speed != Remote_trans_para.push_rod_speed) &&
+			timeCount%5 == 0){
 	//推杆速度 50ms发送一次
-			pushTimeCount = 0;
 			if(Remote_trans_para.push_rod_speed == 0){
 				ADD_WRITE_REG((u8)0x06,BRUSH_A_MODE);
 				ADD_WRITE_REG((u8)0x00,BRUSH_U_ENABLE);
-			}
-			else{
+			}else{
 				ADD_WRITE_REG((u8)0x01,BRUSH_A_ENABLE);
 				ADD_WRITE_REG((u8)0x02,BRUSH_A_MODE);
 
@@ -176,10 +202,11 @@ void CANProtocolTransbuff(combine_write_t* combine_wirte,u8 *txbuffer){
 			}
 			ADD_WRITE_REG(Remote_trans_para.push_rod_speed,BRUSH_A_SPEED_SET);
 	}
-	if(++heartTimeCount>40){//400ms心跳
-		heartTimeCount = 0;
+	if(timeCount%40 == 0){//400ms心跳
+		timeCount = 0;
 		ADD_WRITE_REG((u8)0x01,HEART_BIT);
 	}
+	#endif
 
 }
 #endif
@@ -187,7 +214,7 @@ void CANProtocolTransbuff(combine_write_t* combine_wirte,u8 *txbuffer){
 #define		SET_COORANGLE_10X					Remote_setting_para.CoordAngle
 #define 	NEW_COORD_X  							(Remote_setting_para.CoordX-Coord_Base)
 #define 	NEW_COORD_Y  							(Remote_setting_para.CoordY-Coord_Base)
-#define		PI												(3.1415)
+#define		PI												(3.1415f)
 #define		ANGLE_VAL 								(1800/PI)	//放大十倍
 #define		ARCTAN(x,y)								atan2(y,x)
 //#define 	M_RAT											20/100.0
@@ -198,15 +225,20 @@ void app_cltprocess(void)
 	// static uint8_t cnt1=0,cnt2=0;	
 	// int16_t support_elongation;
 	// uint8_t speedt;
+
+	#if USING_XY_TO_SPEED
 	float a,b,c,d;
 	float M_RAT; 
 	// float temp; 
 	float A_temp; 
+	static uint8_t time = 0; 
+	#endif
 
 	/*------------------蓝牙控制状态--------------*/
 	if(Remote_setting_para.HandleLock)
 	{		
-		if(Remote_setting_para.RemoteBTConnect == eBlubtooth && Remote_setting_para.RemoteBTCmd==CMD_SetCtrl)
+		#if 0
+		if(0&&Remote_setting_para.RemoteBTConnect == eBlubtooth && Remote_setting_para.RemoteBTCmd==CMD_SetCtrl)
 		{
 			Remote_setting_para.CoordX = Phone_receive_para.CoordX ;
 			Remote_setting_para.CoordY = Phone_receive_para.CoordY ;
@@ -242,16 +274,18 @@ void app_cltprocess(void)
 			Remote_setting_para.CoordX = Coord_Base ;
 			Remote_setting_para.CoordY = Coord_Base ;			
 		}
+		#endif
+		Remote_setting_para.CoordX = Coord_Base ;
+		Remote_setting_para.CoordY = Coord_Base ;			
 		
 	}	
-	else
+	else if(Remote_setting_para.RemoteBTConnect == eOffline)
 	{
-		
-		if(Remote_setting_para.CoordXYErrorFlag == 1){
+		if(Remote_setting_para.ErrorFlag & ERROR_JOY_XY){
 			Remote_setting_para.CoordX = Coord_Base ;
 			Remote_setting_para.CoordY = Coord_Base ;
 			if(joyetick_adc.valX == Coord_Base && joyetick_adc.valY == Coord_Base)
-				Remote_setting_para.CoordXYErrorFlag = 0;
+				Remote_setting_para.ErrorFlag &= ~ERROR_JOY_XY;
 		} else{
 			Remote_setting_para.CoordX = joyetick_adc.valX ;
 			Remote_setting_para.CoordY = joyetick_adc.valY ;
@@ -291,19 +325,21 @@ void app_cltprocess(void)
 	}	
 #endif
 	
-
+	#if USING_XY_TO_SPEED
   /*--------------- 平地行走 ---------------*/
 	if(Remote_setting_para.ControlMode==eWalking )
 	{
 	/*------------------角度矢量坐标--------------*/
 	SET_COORANGLE_10X =	atan2(NEW_COORD_Y,NEW_COORD_X);
+	Remote_setting_para.CoordIntAngle = SET_COORANGLE_10X/3.14f*180;
 	Remote_setting_para.CoordSqrt= sqrt((int32_t)NEW_COORD_X*NEW_COORD_X + (int32_t)NEW_COORD_Y*NEW_COORD_Y);
 		//无极调速，加入半径计算
 		if(Remote_setting_para.CoordSqrt > COORD_SQRT_MAX) Remote_setting_para.CoordSqrt = COORD_SQRT_MAX;
 		Remote_setting_para.CoordSpeed = walking_speed[Remote_setting_para.SpeedGear-1] * Remote_setting_para.CoordSqrt/COORD_SQRT_MAX;
 
-		if(Remote_setting_para.CoordX==Coord_Base &&Remote_setting_para.CoordY==Coord_Base)
+		if((Remote_setting_para.CoordX==Coord_Base &&Remote_setting_para.CoordY==Coord_Base)/* || time*/)
 		{
+			// if(time > 0)--time;
 			Remote_trans_para.walking_speed_L = 0; 
 			Remote_trans_para.walking_speed_R = 0;				
 		}
@@ -323,30 +359,23 @@ void app_cltprocess(void)
 			else
 			{		
 				a = 300;
-				b = cosf((float)SET_COORANGLE_10X)*Remote_setting_para.CoordSpeed*0.01;
+				b = cosf((float)SET_COORANGLE_10X)*Remote_setting_para.CoordSpeed*0.01f;
 				c = Remote_setting_para.CoordSpeed *cosf((float)(SET_COORANGLE_10X-M_RAT*PI));
 				d = Remote_setting_para.CoordSpeed *sinf((float)(SET_COORANGLE_10X-1/2.0f*PI+M_RAT*PI));
 	
 			}	
-				#if 0//手柄做加减速处理
-				Remote_setting_para.wheel_L_Speed = c - b;
-				Remote_setting_para.wheel_R_Speed = d + b;
+			// Remote_trans_para.walking_speed_L = c -  b + a;
+			// Remote_trans_para.walking_speed_R = d +  b + a;				
+			Remote_trans_para.walking_speed_L = c -  b;
+			Remote_trans_para.walking_speed_R = d +  b;				
 
-				if(Remote_setting_para.wheel_L_Speed > Remote_trans_para.walking_speed_L)
-					Remote_trans_para.walking_speed_L += Remote_setting_para.wheel_ADD_Speed;
-				if(Remote_setting_para.wheel_L_Speed < Remote_trans_para.walking_speed_L)
-					Remote_trans_para.walking_speed_L -= Remote_setting_para.wheel_SUB_Speed;
-
-
-				#else
-				// Remote_trans_para.walking_speed_L = c -  b + a;
-				// Remote_trans_para.walking_speed_R = d +  b + a;				
-				Remote_trans_para.walking_speed_L = c -  b;
-				Remote_trans_para.walking_speed_R = d +  b;				
-
-				int16_t subSpeed;
-				//减小后退
-				if(Remote_trans_para.walking_speed_L < 0 && Remote_trans_para.walking_speed_R < 0){
+			int16_t subSpeed;
+			if(Remote_trans_para.walking_speed_L < 0 && Remote_trans_para.walking_speed_R < 0){
+				if(0&&Remote_receive_para.pitch_angle < -ANGLE_SLOPE_MAX){
+					Remote_trans_para.walking_speed_L = 0;
+					Remote_trans_para.walking_speed_R = 0;
+					time = 100;
+				}else{ //减小后退
 					A_temp = 0.5f;
 					subSpeed = 
 					Remote_trans_para.walking_speed_L > Remote_trans_para.walking_speed_R ? 
@@ -354,8 +383,13 @@ void app_cltprocess(void)
 
 					Remote_trans_para.walking_speed_L -= subSpeed*A_temp;
 					Remote_trans_para.walking_speed_R -= subSpeed*A_temp;
-				// 增大前进
-				}else if(Remote_trans_para.walking_speed_L > 0 && Remote_trans_para.walking_speed_R > 0){
+				}
+			}else if(Remote_trans_para.walking_speed_L > 0 && Remote_trans_para.walking_speed_R > 0){
+				if(0&&Remote_receive_para.pitch_angle > ANGLE_SLOPE_MAX){
+					Remote_trans_para.walking_speed_L = 0;
+					Remote_trans_para.walking_speed_R = 0;
+					time = 100;
+				}else{ // 增大前进
 					A_temp = 0.1f;
 					subSpeed = 
 					Remote_trans_para.walking_speed_L < Remote_trans_para.walking_speed_R ? 
@@ -363,16 +397,24 @@ void app_cltprocess(void)
 
 					Remote_trans_para.walking_speed_L += subSpeed*A_temp;
 					Remote_trans_para.walking_speed_R += subSpeed*A_temp;
-
 				}
-				#endif
+			}else if(Remote_trans_para.walking_speed_L > 0 && Remote_trans_para.walking_speed_R < 0){//右转
+				if(0&&Remote_receive_para.roll_angle < -ANGLE_SLOPE_MAX){
+					Remote_trans_para.walking_speed_L = 0;
+					Remote_trans_para.walking_speed_R = 0;
+					time = 100;
+				}
+
+			}else if(Remote_trans_para.walking_speed_L < 0 && Remote_trans_para.walking_speed_R > 0){//左转
+				if(0&&Remote_receive_para.roll_angle > ANGLE_SLOPE_MAX){
+					Remote_trans_para.walking_speed_L = 0;
+					Remote_trans_para.walking_speed_R = 0;
+					time = 100;
+				}
+			}
 		}
-		// if(Remote_receive_para.push_rod_state & 1 << 7 | Remote_receive_para.push_rod_state & 1 << 8){
-				// play_file_voice(1,3);
-		// }
-
-
 	}
+	#endif
 }
 
 

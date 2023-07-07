@@ -135,6 +135,7 @@ void test_protocol(void)
 // char sendBuffer[128];
 // #endif
 
+#if USING_RTOS
 void commandTxTask(void* param)
 {
 	#if !USING_CAN
@@ -185,4 +186,4 @@ void commandTxTask(void* param)
 	
 	}
 }
-
+#endif

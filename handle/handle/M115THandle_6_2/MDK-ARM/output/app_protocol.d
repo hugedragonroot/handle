@@ -67,6 +67,7 @@
 .\output\app_protocol.o: ..\DRV\music_drv.h
 .\output\app_protocol.o: ..\DRV\led_drv.h
 .\output\app_protocol.o: ..\DRV\power_control.h
+.\output\app_protocol.o: ..\DRV\ev1527_drv.h
 .\output\app_protocol.o: ..\APP\app_display.h
 .\output\app_protocol.o: ..\APP\app_bmp.h
 .\output\app_protocol.o: ..\APP\app_remote_para.h
@@ -79,16 +80,6 @@
 .\output\app_protocol.o: ..\TASK\commandTx_task.h
 .\output\app_protocol.o: ..\TASK\gps_task.h
 .\output\app_protocol.o: ..\TASK\CAN_task.h
-.\output\app_protocol.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\FreeRTOS.h
-.\output\app_protocol.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\stddef.h
-.\output\app_protocol.o: ..\COMMON\FreeRTOSConfig.h
-.\output\app_protocol.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\projdefs.h
-.\output\app_protocol.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\portable.h
-.\output\app_protocol.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\deprecated_definitions.h
-.\output\app_protocol.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\portable\RVDS\ARM_CM4F\portmacro.h
-.\output\app_protocol.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\mpu_wrappers.h
-.\output\app_protocol.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\task.h
-.\output\app_protocol.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\list.h
 .\output\app_protocol.o: ..\DEBUG\debug.h
 .\output\app_protocol.o: ..\EXT\joystick_ext.h
 .\output\app_protocol.o: ..\EXT\key_ext.h
@@ -103,3 +94,4 @@
 .\output\app_protocol.o: ..\EXT\led_ext.h
 .\output\app_protocol.o: ..\EXT\can_ext.h
 .\output\app_protocol.o: ..\EXT\fwdgt_ext.h
+.\output\app_protocol.o: ..\EXT\ev1527_ext.h

@@ -17,6 +17,7 @@
 #include "led_ext.h"
 #include "can_ext.h"
 #include "fwdgt_ext.h"
+#include "ev1527_ext.h"
 
 void ext_init(void);
 #endif

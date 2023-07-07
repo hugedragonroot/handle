@@ -9,6 +9,8 @@
 #include "app_protocol.h"
 #include "queue.h"
 #include "debug.h"
+
+#if USING_RTOS
 static bool isInit;
 static TCOMMUN RxPack;
 static xQueueHandle  txQueue;
@@ -132,4 +134,4 @@ void wireRxTask(void* param)
 		}		
 	}
 }
-
+#endif

@@ -39,6 +39,21 @@
 .\output\drv.o: ..\EXT\ext.h
 .\output\drv.o: ..\APP\app_loopqueue.h
 .\output\drv.o: ..\EXT\bt_ext.h
+.\output\drv.o: ..\APP\app_protocol.h
+.\output\drv.o: ..\APP\../PROTOCOL/protocol_427/protocol.h
+.\output\drv.o: ..\APP\../PROTOCOL/protocol_427/xsto_api_ii.h
+.\output\drv.o: ..\APP\../PROTOCOL/protocol_427/para.h
+.\output\drv.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\stdbool.h
+.\output\drv.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\stdlib.h
+.\output\drv.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\string.h
+.\output\drv.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\math.h
+.\output\drv.o: ..\APP\../PROTOCOL/protocol_427/crc.h
+.\output\drv.o: ..\PROTOCOL\common.h
+.\output\drv.o: ..\APP\../PROTOCOL/protocol_427/protocol_api.h
+.\output\drv.o: ..\APP\../PROTOCOL/protocol_427/alloc.h
+.\output\drv.o: ..\APP\../PROTOCOL/protocol_427/rt_malloc.h
+.\output\drv.o: ..\APP\../PROTOCOL/protocol_427/klist.h
+.\output\drv.o: ..\APP\../PROTOCOL/protocol_427/protocol_register_management.h
 .\output\drv.o: ..\EXT\buzz_ext.h
 .\output\drv.o: ..\MAIN\main.h
 .\output\drv.o: ..\EXT\joystick_ext.h
@@ -55,22 +70,8 @@
 .\output\drv.o: ..\DRV\led_drv.h
 .\output\drv.o: ..\EXT\can_ext.h
 .\output\drv.o: ..\EXT\fwdgt_ext.h
+.\output\drv.o: ..\EXT\ev1527_ext.h
 .\output\drv.o: ..\DRV\drv.h
-.\output\drv.o: ..\APP\app_protocol.h
-.\output\drv.o: ..\APP\../PROTOCOL/protocol_427/protocol.h
-.\output\drv.o: ..\APP\../PROTOCOL/protocol_427/xsto_api_ii.h
-.\output\drv.o: ..\APP\../PROTOCOL/protocol_427/para.h
-.\output\drv.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\stdbool.h
-.\output\drv.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\stdlib.h
-.\output\drv.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\string.h
-.\output\drv.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\math.h
-.\output\drv.o: ..\APP\../PROTOCOL/protocol_427/crc.h
-.\output\drv.o: ..\PROTOCOL\common.h
-.\output\drv.o: ..\APP\../PROTOCOL/protocol_427/protocol_api.h
-.\output\drv.o: ..\APP\../PROTOCOL/protocol_427/alloc.h
-.\output\drv.o: ..\APP\../PROTOCOL/protocol_427/rt_malloc.h
-.\output\drv.o: ..\APP\../PROTOCOL/protocol_427/klist.h
-.\output\drv.o: ..\APP\../PROTOCOL/protocol_427/protocol_register_management.h
 .\output\drv.o: ..\APP\app_display.h
 .\output\drv.o: ..\APP\app_bmp.h
 .\output\drv.o: ..\APP\app_remote_para.h
@@ -83,16 +84,6 @@
 .\output\drv.o: ..\TASK\commandTx_task.h
 .\output\drv.o: ..\TASK\gps_task.h
 .\output\drv.o: ..\TASK\CAN_task.h
-.\output\drv.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\FreeRTOS.h
-.\output\drv.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\stddef.h
-.\output\drv.o: ..\COMMON\FreeRTOSConfig.h
-.\output\drv.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\projdefs.h
-.\output\drv.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\portable.h
-.\output\drv.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\deprecated_definitions.h
-.\output\drv.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\portable\RVDS\ARM_CM4F\portmacro.h
-.\output\drv.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\mpu_wrappers.h
-.\output\drv.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\task.h
-.\output\drv.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\list.h
 .\output\drv.o: ..\DEBUG\debug.h
 .\output\drv.o: ..\DRV\buzz_drv.h
 .\output\drv.o: ..\DRV\joystick_drv.h
@@ -103,3 +94,4 @@
 .\output\drv.o: ..\DRV\rf_315m_drv.h
 .\output\drv.o: ..\DRV\music_drv.h
 .\output\drv.o: ..\DRV\power_control.h
+.\output\drv.o: ..\DRV\ev1527_drv.h

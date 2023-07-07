@@ -50,6 +50,20 @@
 .\output\key_task.o: ..\EXT\ext.h
 .\output\key_task.o: ..\APP\app_loopqueue.h
 .\output\key_task.o: ..\EXT\bt_ext.h
+.\output\key_task.o: ..\APP\app_protocol.h
+.\output\key_task.o: ..\APP\../PROTOCOL/protocol_427/protocol.h
+.\output\key_task.o: ..\APP\../PROTOCOL/protocol_427/xsto_api_ii.h
+.\output\key_task.o: ..\APP\../PROTOCOL/protocol_427/para.h
+.\output\key_task.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\stdlib.h
+.\output\key_task.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\string.h
+.\output\key_task.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\math.h
+.\output\key_task.o: ..\APP\../PROTOCOL/protocol_427/crc.h
+.\output\key_task.o: ..\PROTOCOL\common.h
+.\output\key_task.o: ..\APP\../PROTOCOL/protocol_427/protocol_api.h
+.\output\key_task.o: ..\APP\../PROTOCOL/protocol_427/alloc.h
+.\output\key_task.o: ..\APP\../PROTOCOL/protocol_427/rt_malloc.h
+.\output\key_task.o: ..\APP\../PROTOCOL/protocol_427/klist.h
+.\output\key_task.o: ..\APP\../PROTOCOL/protocol_427/protocol_register_management.h
 .\output\key_task.o: ..\EXT\buzz_ext.h
 .\output\key_task.o: ..\MAIN\main.h
 .\output\key_task.o: ..\EXT\joystick_ext.h
@@ -66,6 +80,7 @@
 .\output\key_task.o: ..\DRV\led_drv.h
 .\output\key_task.o: ..\EXT\can_ext.h
 .\output\key_task.o: ..\EXT\fwdgt_ext.h
+.\output\key_task.o: ..\EXT\ev1527_ext.h
 .\output\key_task.o: ..\DRV\drv.h
 .\output\key_task.o: ..\DRV\key_drv.h
 .\output\key_task.o: ..\DRV\buzz_drv.h
@@ -77,20 +92,7 @@
 .\output\key_task.o: ..\DRV\rf_315m_drv.h
 .\output\key_task.o: ..\DRV\music_drv.h
 .\output\key_task.o: ..\DRV\power_control.h
-.\output\key_task.o: ..\APP\app_protocol.h
-.\output\key_task.o: ..\APP\../PROTOCOL/protocol_427/protocol.h
-.\output\key_task.o: ..\APP\../PROTOCOL/protocol_427/xsto_api_ii.h
-.\output\key_task.o: ..\APP\../PROTOCOL/protocol_427/para.h
-.\output\key_task.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\stdlib.h
-.\output\key_task.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\string.h
-.\output\key_task.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\math.h
-.\output\key_task.o: ..\APP\../PROTOCOL/protocol_427/crc.h
-.\output\key_task.o: ..\PROTOCOL\common.h
-.\output\key_task.o: ..\APP\../PROTOCOL/protocol_427/protocol_api.h
-.\output\key_task.o: ..\APP\../PROTOCOL/protocol_427/alloc.h
-.\output\key_task.o: ..\APP\../PROTOCOL/protocol_427/rt_malloc.h
-.\output\key_task.o: ..\APP\../PROTOCOL/protocol_427/klist.h
-.\output\key_task.o: ..\APP\../PROTOCOL/protocol_427/protocol_register_management.h
+.\output\key_task.o: ..\DRV\ev1527_drv.h
 .\output\key_task.o: ..\APP\app_display.h
 .\output\key_task.o: ..\APP\app_bmp.h
 .\output\key_task.o: ..\APP\app_remote_para.h

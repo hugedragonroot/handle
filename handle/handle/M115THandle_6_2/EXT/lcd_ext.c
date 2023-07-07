@@ -3,6 +3,7 @@
 #include "delay.h"
 #include "power_control.h"
 
+#if !USING_LED_POINT_DISPLAY 
 //LCD的显存
 //存放格式如下.
 //[0]0 1 2 3 ... 127	
@@ -66,11 +67,15 @@ void lcd_PowerOff(void)
 	clear_screen();
 	display_string_8x16(0,16,0,(uint8_t*)"DRIVER POWEROFF!");
 	lcd_refreshGram();
-	delay_ms(1500);			
+	BTdisconnect();
+	// delay_ms(1500);			
+	delay_ms(1000);			
+
+	powerOFF();//下板电源关
+
 	clear_screen();
 	lcd_initIO_PwrOff();
 
-	powerOFF();//下板电源关
 }
 
 void lcd_PowerOn(void)
@@ -84,12 +89,14 @@ void lcd_PowerOn(void)
 	sprintf(str,"SOFTWARE_VERSION     V%d.%d.%d",SOFTWARE_VER0,SOFTWARE_VER1,SOFTWARE_VER2);
 	display_string_8x16(0,16,0,(uint8_t*)str);
 	lcd_refreshGram();
-	delay_ms(1500);	
+	BTEnterStandby();
+	delay_ms(1000);	
 	clear_screen();	
 	lcd_refreshGram();
 
 	paraInit();
-
+	// delay_ms(10);
+	// CANSubInit();
 	
 	
 }
@@ -607,6 +614,6 @@ const unsigned char ascii_table_5x8[95][5]={
 0x00,0x41,0x41,0x36,0x08,//-}-
 0x04,0x02,0x02,0x02,0x01,//-~-
 };
-
+#endif
 
 

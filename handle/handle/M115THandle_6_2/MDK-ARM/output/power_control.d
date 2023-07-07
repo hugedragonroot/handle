@@ -38,6 +38,21 @@
 .\output\power_control.o: ..\EXT\ext.h
 .\output\power_control.o: ..\APP\app_loopqueue.h
 .\output\power_control.o: ..\EXT\bt_ext.h
+.\output\power_control.o: ..\APP\app_protocol.h
+.\output\power_control.o: ..\APP\../PROTOCOL/protocol_427/protocol.h
+.\output\power_control.o: ..\APP\../PROTOCOL/protocol_427/xsto_api_ii.h
+.\output\power_control.o: ..\APP\../PROTOCOL/protocol_427/para.h
+.\output\power_control.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\stdbool.h
+.\output\power_control.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\stdlib.h
+.\output\power_control.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\string.h
+.\output\power_control.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\math.h
+.\output\power_control.o: ..\APP\../PROTOCOL/protocol_427/crc.h
+.\output\power_control.o: ..\PROTOCOL\common.h
+.\output\power_control.o: ..\APP\../PROTOCOL/protocol_427/protocol_api.h
+.\output\power_control.o: ..\APP\../PROTOCOL/protocol_427/alloc.h
+.\output\power_control.o: ..\APP\../PROTOCOL/protocol_427/rt_malloc.h
+.\output\power_control.o: ..\APP\../PROTOCOL/protocol_427/klist.h
+.\output\power_control.o: ..\APP\../PROTOCOL/protocol_427/protocol_register_management.h
 .\output\power_control.o: ..\EXT\buzz_ext.h
 .\output\power_control.o: ..\MAIN\main.h
 .\output\power_control.o: ..\EXT\joystick_ext.h
@@ -54,6 +69,7 @@
 .\output\power_control.o: ..\DRV\led_drv.h
 .\output\power_control.o: ..\EXT\can_ext.h
 .\output\power_control.o: ..\EXT\fwdgt_ext.h
+.\output\power_control.o: ..\EXT\ev1527_ext.h
 .\output\power_control.o: ..\DRV\drv.h
 .\output\power_control.o: ..\DRV\key_drv.h
 .\output\power_control.o: ..\DRV\buzz_drv.h
@@ -65,21 +81,7 @@
 .\output\power_control.o: ..\DRV\rf_315m_drv.h
 .\output\power_control.o: ..\DRV\music_drv.h
 .\output\power_control.o: ..\DRV\power_control.h
-.\output\power_control.o: ..\APP\app_protocol.h
-.\output\power_control.o: ..\APP\../PROTOCOL/protocol_427/protocol.h
-.\output\power_control.o: ..\APP\../PROTOCOL/protocol_427/xsto_api_ii.h
-.\output\power_control.o: ..\APP\../PROTOCOL/protocol_427/para.h
-.\output\power_control.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\stdbool.h
-.\output\power_control.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\stdlib.h
-.\output\power_control.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\string.h
-.\output\power_control.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\math.h
-.\output\power_control.o: ..\APP\../PROTOCOL/protocol_427/crc.h
-.\output\power_control.o: ..\PROTOCOL\common.h
-.\output\power_control.o: ..\APP\../PROTOCOL/protocol_427/protocol_api.h
-.\output\power_control.o: ..\APP\../PROTOCOL/protocol_427/alloc.h
-.\output\power_control.o: ..\APP\../PROTOCOL/protocol_427/rt_malloc.h
-.\output\power_control.o: ..\APP\../PROTOCOL/protocol_427/klist.h
-.\output\power_control.o: ..\APP\../PROTOCOL/protocol_427/protocol_register_management.h
+.\output\power_control.o: ..\DRV\ev1527_drv.h
 .\output\power_control.o: ..\APP\app_display.h
 .\output\power_control.o: ..\APP\app_bmp.h
 .\output\power_control.o: ..\APP\app_remote_para.h
@@ -92,14 +94,4 @@
 .\output\power_control.o: ..\TASK\commandTx_task.h
 .\output\power_control.o: ..\TASK\gps_task.h
 .\output\power_control.o: ..\TASK\CAN_task.h
-.\output\power_control.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\FreeRTOS.h
-.\output\power_control.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\stddef.h
-.\output\power_control.o: ..\COMMON\FreeRTOSConfig.h
-.\output\power_control.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\projdefs.h
-.\output\power_control.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\portable.h
-.\output\power_control.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\deprecated_definitions.h
-.\output\power_control.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\portable\RVDS\ARM_CM4F\portmacro.h
-.\output\power_control.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\mpu_wrappers.h
-.\output\power_control.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\task.h
-.\output\power_control.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\list.h
 .\output\power_control.o: ..\DEBUG\debug.h

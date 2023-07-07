@@ -68,13 +68,16 @@
 #define ELONGATION_MID			1500 //伸长量
 #define ELONGATION_ERR			40 //伸长量0
 
+#define ANGLE_SLOPE_MAX 700//0.01度
+#define ULTRASONIC_DISTANCE_MAX 700//mm
+
 /* 通用 */
 typedef struct
 {
   uint8_t   DataLen;
   uint8_t   Count;
   uint8_t   Cmd;
-  uint8_t   Data[100];
+  uint8_t   Data[64];
 } TCOMMUN;
 
 /* 网络通讯数据协议 */
@@ -84,7 +87,9 @@ typedef union
   uint8_t   Data[128];
 } TcomData;
 
+#if USING_XY_TO_SPEED
 extern int16_t walking_speed[5];
+#endif
 
 void Remote_buff_init(void);
 

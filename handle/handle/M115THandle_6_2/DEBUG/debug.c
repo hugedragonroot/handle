@@ -1,6 +1,6 @@
 #include "debug.h"
 #include "math.h"
-#if 1
+#if 0
 void debug_test(void)
 {
 	uint8_t buf[2];
@@ -24,6 +24,7 @@ void debug_test(void)
 //		printf("123");		
 	}
 }
+#endif
 
 void assertFail(char *exp, char *file, int line)
 {
@@ -59,11 +60,9 @@ int fputc(int ch, FILE *f)
     return ch;
 }
 
-#define USING_TASK_DEBUG 0
 #if USING_TASK_DEBUG
 u8 debugflag = 1;
 char sendBuffer[512];
-#endif
 
 void debugTask(void* param){
 
@@ -83,8 +82,38 @@ void debugTask(void* param){
 	}
 	
 }
+#elif USING_DEBUG
 
+#define VALNAME_AND_VAL(x) (#x),(x)
+
+static char debugTxBuffer[256] = "test 123";
+
+void debugUartPrint(void){
+	u8 powerControlFlag = gpio_input_bit_get(POWER_CONTROL_PORT,POWER_CONTROL_PIN);
+
+	sprintf((char *)debugTxBuffer,
+	"\r\n\
+	%s = %d\r\n\
+	%s = %d\r\n\
+	%s = %d\r\n\
+	%s = %d\r\n\
+	%s = %d\r\n\
+	%s = %d\r\n\
+	%s = %d\r\n\
+	",
+	VALNAME_AND_VAL(Remote_receive_para.walking_speed_L),
+	VALNAME_AND_VAL(Remote_receive_para.walking_speed_R),
+	VALNAME_AND_VAL(Remote_setting_para.CoordX),
+	VALNAME_AND_VAL(Remote_setting_para.CoordY),
+	VALNAME_AND_VAL(Phone_receive_para.CoordX),
+	VALNAME_AND_VAL(Phone_receive_para.CoordY),
+	VALNAME_AND_VAL(powerControlFlag)
+	);
+
+	uart_wire_send((uint8_t *)debugTxBuffer,strlen(debugTxBuffer));
+}
 
 #endif
+
 #endif
 

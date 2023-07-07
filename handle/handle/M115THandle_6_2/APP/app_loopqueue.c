@@ -73,33 +73,44 @@ uint16_t LoopQueue_IdleLen(TLoopBuf* pLoopBuf)
   * @param  pLength   : 数据长度
   * @retval nLen 数据长度  0 失败
   */
-void LoopQueue_Write(TLoopBuf* pLoopBuf, uint8_t *pData, uint16_t pLength)
+uint8_t LoopQueue_Write(TLoopBuf* pLoopBuf, uint8_t *pData, uint16_t pLength)
 {
-  //uint16_t LenBuf;
+  uint16_t LenBuf = 0;
 	
-	pLoopBuf->lock = 1;
-	
-	pLoopBuf->nData[pLoopBuf->nWriteIndex]=*pData;
-	pLoopBuf->nWriteIndex++;
-	if(pLoopBuf->nWriteIndex >= pLoopBuf->nMaxLen)
-		pLoopBuf->nWriteIndex = 0;
-	pLoopBuf->lock = 0;
+  #if 0
+  if(LoopQueue_IdleLen(pLoopBuf) < pLength) return 0;
+  while (LenBuf == pLength)
+  {
+    pLoopBuf->nData[pLoopBuf->nWriteIndex]=*(pData +LenBuf);
+    if(++pLoopBuf->nWriteIndex >= pLoopBuf->nMaxLen)
+      pLoopBuf->nWriteIndex = 0;
+    ++LenBuf;
+  }
+  #else
   
-//  if(pLength <= (pLoopBuf->nMaxLen - pLoopBuf->nLength))  /* 写入长度应小于空闲长度 */
-//  {
-//    if((pLength + pLoopBuf->nWriteIndex) > pLoopBuf->nMaxLen) /* 写指针移动超过队尾 */
-//    {
-//      LenBuf = pLoopBuf->nMaxLen - pLoopBuf->nWriteIndex;
-//      memcpy(pLoopBuf->nData + pLoopBuf->nWriteIndex, pData, LenBuf);
-//      pLoopBuf->nWriteIndex = 0;
-//      pLoopBuf->nLength += LenBuf;
-//      pLength -= LenBuf;
-//      pData += LenBuf;
-//    }
-//    memcpy(pLoopBuf->nData + pLoopBuf->nWriteIndex, pData, pLength);
-//    pLoopBuf->nWriteIndex += pLength;
-//    pLoopBuf->nLength += pLength;
-//  }
+ if(pLength <= (pLoopBuf->nMaxLen - pLoopBuf->nLength))  /* 写入长度应小于空闲长度 */
+ {
+	pLoopBuf->lock = 1;
+   if((pLength + pLoopBuf->nWriteIndex) > pLoopBuf->nMaxLen) /* 写指针移动超过队尾 */
+   {
+     LenBuf = pLoopBuf->nMaxLen - pLoopBuf->nWriteIndex;
+     memcpy(pLoopBuf->nData + pLoopBuf->nWriteIndex, pData, LenBuf);
+     pLoopBuf->nWriteIndex = 0;
+     pLoopBuf->nLength += LenBuf;
+     pLength -= LenBuf;
+     pData += LenBuf;
+   }
+   memcpy(pLoopBuf->nData + pLoopBuf->nWriteIndex, pData, pLength);
+   pLoopBuf->nWriteIndex += pLength;
+   pLoopBuf->nLength += pLength;
+
+	pLoopBuf->lock = 0;
+  return pLength;
+ }
+ #endif
+
+return 0;
+
 }
 
 /**
@@ -137,14 +148,12 @@ void LoopQueue_ReadOnly(TLoopBuf* pLoopBuf, uint8_t *pData, uint16_t pLength)
   * @param  nLength   : 读取长度
   * @retval None
   */
-void LoopQueue_ReadRelease(TLoopBuf* pLoopBuf, uint8_t *pData, uint16_t pLength)
+uint8_t LoopQueue_ReadRelease(TLoopBuf* pLoopBuf, uint8_t *pData, uint16_t pLength)
 {
-  uint16_t i=0;
-
-	while(LoopQueue_DataLen(pLoopBuf)<pLength || pLoopBuf->lock)
-	{
-		i++;
-		if(i==10000)return;
+  uint16_t LenBuf = 0;
+#if 0
+	if(LoopQueue_DataLen(pLoopBuf)<pLength || pLoopBuf->lock) {
+		return 0;
 	}
 	
 	*pData = pLoopBuf->nData[pLoopBuf->nReadIndex];
@@ -152,19 +161,26 @@ void LoopQueue_ReadRelease(TLoopBuf* pLoopBuf, uint8_t *pData, uint16_t pLength)
 	if(pLoopBuf->nReadIndex >= pLoopBuf->nMaxLen)
 		pLoopBuf->nReadIndex = 0;	
   
-//  if(pLength <= pLoopBuf->nLength)
-//  {
-//    if((pLength + pLoopBuf->nReadIndex) > pLoopBuf->nMaxLen)
-//    {
-//      LenBuf = pLoopBuf->nMaxLen - pLoopBuf->nReadIndex;
-//      memcpy(pData, pLoopBuf->nData + pLoopBuf->nReadIndex, LenBuf);
-//      pLoopBuf->nReadIndex = 0;
-//      pLoopBuf->nLength -= LenBuf;
-//      pLength -= LenBuf;
-//      pData += LenBuf;
-//    }
-//    memcpy(pData, pLoopBuf->nData + pLoopBuf->nReadIndex, pLength);
-//    pLoopBuf->nReadIndex += pLength;
-//    pLoopBuf->nLength -= pLength;
-//  }
+  return 1;
+#else
+
+if(LoopQueue_DataLen(pLoopBuf)<pLength || pLoopBuf->lock) {
+		return 0;
+	}
+  
+   if((pLength + pLoopBuf->nReadIndex) > pLoopBuf->nMaxLen)
+   {
+     LenBuf = pLoopBuf->nMaxLen - pLoopBuf->nReadIndex;
+     memcpy(pData, pLoopBuf->nData + pLoopBuf->nReadIndex, LenBuf);
+     pLoopBuf->nReadIndex = 0;
+     pLoopBuf->nLength -= LenBuf;
+     pLength -= LenBuf;
+     pData += LenBuf;
+   }
+   memcpy(pData, pLoopBuf->nData + pLoopBuf->nReadIndex, pLength);
+   pLoopBuf->nReadIndex += pLength;
+   pLoopBuf->nLength -= pLength;
+  return 1;
+
+ #endif
 }

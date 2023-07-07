@@ -94,7 +94,7 @@ uint16_t adc_buff_y[ADC_LEN];
 函数形参：输入值，窗口数组
 函数返回值：滤波后的值
 */
-uint16_t GildeAverageValueFilter_MAG(uint16_t NewValue,uint16_t *Data)
+uint16_t GildeAverageValueFilter_MAG(uint16_t NewValue,uint16_t *Data,uint8_t len)
 {
 	uint16_t max,min;
 	float sum;
@@ -103,14 +103,14 @@ uint16_t GildeAverageValueFilter_MAG(uint16_t NewValue,uint16_t *Data)
 	max=Data[0];
 	min=Data[0];
 	sum=Data[0];
-	for(i=ADC_LEN-1;i!=0;i--)
+	for(i=len-1;i!=0;i--)
 	{
 		if(Data[i]>max) max=Data[i];
 		else if(Data[i]<min) min=Data[i];
 		sum+=Data[i];
 		Data[i]=Data[i-1];
 	}
-	i=ADC_LEN-2;
+	i=len-2;
 	sum=sum-max-min;
 	sum=sum/i;
 	return(sum);
@@ -143,8 +143,8 @@ void scan_joyxy(void)
 	temp_x = deadband(temp_x,Coord_Base<<4,Coord_Dead<<4);
 	temp_y = deadband(temp_y,Coord_Base<<4,Coord_Dead<<4);
 		
-	temp_x =GildeAverageValueFilter_MAG(temp_x,adc_buff_x);
-	temp_y = GildeAverageValueFilter_MAG(temp_y,adc_buff_y);
+	// temp_x =GildeAverageValueFilter_MAG(temp_x,adc_buff_x,ADC_LEN);
+	// temp_y = GildeAverageValueFilter_MAG(temp_y,adc_buff_y,ADC_LEN);
 		
 	temp_x = (temp_x>>4)&0xff;
 	temp_y = (temp_y>>4)&0xff;		

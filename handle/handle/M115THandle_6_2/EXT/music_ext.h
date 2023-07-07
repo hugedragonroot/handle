@@ -2,6 +2,7 @@
 #define _MUSIC_EXT_H
 
 #include "stdint.h"
+#include "app_loopqueue.h" 
 
 #define PLAY_HEAD		0x7e	//÷°Õ∑
 #define PLAY_ADDR		0xff	//µÿ÷∑
@@ -53,10 +54,20 @@ PLAY_FRAME play_buf =
 };
 */
 
+enum{
+	MUSIC_HORN,
+	MUSIC_BACK_ATTEN,
+	MUSIC_SLOPE_DANGER,
+};
+
+
+extern TLoopBuf music_FIFO;
+
 void play_file_voice(uint8_t file,uint8_t num);
 void play_set_volume(uint8_t volume);
 void play_file_loop(uint8_t file);
 void play_set_flash(void);
+void music_play_task(void);
 
 void music_init(void);
 

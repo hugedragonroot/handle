@@ -38,6 +38,21 @@
 .\output\buzz_ext.o: ..\EXT\ext.h
 .\output\buzz_ext.o: ..\APP\app_loopqueue.h
 .\output\buzz_ext.o: ..\EXT\bt_ext.h
+.\output\buzz_ext.o: ..\APP\app_protocol.h
+.\output\buzz_ext.o: ..\APP\../PROTOCOL/protocol_427/protocol.h
+.\output\buzz_ext.o: ..\APP\../PROTOCOL/protocol_427/xsto_api_ii.h
+.\output\buzz_ext.o: ..\APP\../PROTOCOL/protocol_427/para.h
+.\output\buzz_ext.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\stdbool.h
+.\output\buzz_ext.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\stdlib.h
+.\output\buzz_ext.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\string.h
+.\output\buzz_ext.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\math.h
+.\output\buzz_ext.o: ..\APP\../PROTOCOL/protocol_427/crc.h
+.\output\buzz_ext.o: ..\PROTOCOL\common.h
+.\output\buzz_ext.o: ..\APP\../PROTOCOL/protocol_427/protocol_api.h
+.\output\buzz_ext.o: ..\APP\../PROTOCOL/protocol_427/alloc.h
+.\output\buzz_ext.o: ..\APP\../PROTOCOL/protocol_427/rt_malloc.h
+.\output\buzz_ext.o: ..\APP\../PROTOCOL/protocol_427/klist.h
+.\output\buzz_ext.o: ..\APP\../PROTOCOL/protocol_427/protocol_register_management.h
 .\output\buzz_ext.o: ..\EXT\buzz_ext.h
 .\output\buzz_ext.o: ..\EXT\joystick_ext.h
 .\output\buzz_ext.o: ..\MAIN\main.h
@@ -54,6 +69,7 @@
 .\output\buzz_ext.o: ..\DRV\led_drv.h
 .\output\buzz_ext.o: ..\EXT\can_ext.h
 .\output\buzz_ext.o: ..\EXT\fwdgt_ext.h
+.\output\buzz_ext.o: ..\EXT\ev1527_ext.h
 .\output\buzz_ext.o: ..\DRV\drv.h
 .\output\buzz_ext.o: ..\DRV\key_drv.h
 .\output\buzz_ext.o: ..\DRV\buzz_drv.h
@@ -65,21 +81,7 @@
 .\output\buzz_ext.o: ..\DRV\rf_315m_drv.h
 .\output\buzz_ext.o: ..\DRV\music_drv.h
 .\output\buzz_ext.o: ..\DRV\power_control.h
-.\output\buzz_ext.o: ..\APP\app_protocol.h
-.\output\buzz_ext.o: ..\APP\../PROTOCOL/protocol_427/protocol.h
-.\output\buzz_ext.o: ..\APP\../PROTOCOL/protocol_427/xsto_api_ii.h
-.\output\buzz_ext.o: ..\APP\../PROTOCOL/protocol_427/para.h
-.\output\buzz_ext.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\stdbool.h
-.\output\buzz_ext.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\stdlib.h
-.\output\buzz_ext.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\string.h
-.\output\buzz_ext.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\math.h
-.\output\buzz_ext.o: ..\APP\../PROTOCOL/protocol_427/crc.h
-.\output\buzz_ext.o: ..\PROTOCOL\common.h
-.\output\buzz_ext.o: ..\APP\../PROTOCOL/protocol_427/protocol_api.h
-.\output\buzz_ext.o: ..\APP\../PROTOCOL/protocol_427/alloc.h
-.\output\buzz_ext.o: ..\APP\../PROTOCOL/protocol_427/rt_malloc.h
-.\output\buzz_ext.o: ..\APP\../PROTOCOL/protocol_427/klist.h
-.\output\buzz_ext.o: ..\APP\../PROTOCOL/protocol_427/protocol_register_management.h
+.\output\buzz_ext.o: ..\DRV\ev1527_drv.h
 .\output\buzz_ext.o: ..\APP\app_display.h
 .\output\buzz_ext.o: ..\APP\app_bmp.h
 .\output\buzz_ext.o: ..\APP\app_remote_para.h
@@ -92,14 +94,4 @@
 .\output\buzz_ext.o: ..\TASK\commandTx_task.h
 .\output\buzz_ext.o: ..\TASK\gps_task.h
 .\output\buzz_ext.o: ..\TASK\CAN_task.h
-.\output\buzz_ext.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\FreeRTOS.h
-.\output\buzz_ext.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\stddef.h
-.\output\buzz_ext.o: ..\COMMON\FreeRTOSConfig.h
-.\output\buzz_ext.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\projdefs.h
-.\output\buzz_ext.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\portable.h
-.\output\buzz_ext.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\deprecated_definitions.h
-.\output\buzz_ext.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\portable\RVDS\ARM_CM4F\portmacro.h
-.\output\buzz_ext.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\mpu_wrappers.h
-.\output\buzz_ext.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\task.h
-.\output\buzz_ext.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\list.h
 .\output\buzz_ext.o: ..\DEBUG\debug.h

@@ -110,9 +110,9 @@
         </CommonProperty>
         <DllOption>
           <SimDllName>SARMCM3.DLL</SimDllName>
-          <SimDllArguments> -REMAP -MPU</SimDllArguments>
-          <SimDlgDll>DCM.DLL</SimDlgDll>
-          <SimDlgDllArguments>-pCM4</SimDlgDllArguments>
+          <SimDllArguments> -REMAP</SimDllArguments>
+          <SimDlgDll>DARMSTM.DLL</SimDlgDll>
+          <SimDlgDllArguments>-pSTM32F303RE</SimDlgDllArguments>
           <TargetDllName>SARMCM3.DLL</TargetDllName>
           <TargetDllArguments> -MPU</TargetDllArguments>
           <TargetDlgDll>TCM.DLL</TargetDlgDll>
@@ -778,6 +778,11 @@
               <FileType>1</FileType>
               <FilePath>..\DRV\power_control.c</FilePath>
             </File>
+            <File>
+              <FileName>ev1527_drv.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\DRV\ev1527_drv.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -933,6 +938,11 @@
               <FileType>5</FileType>
               <FilePath>..\EXT\fwdgt_ext.h</FilePath>
             </File>
+            <File>
+              <FileName>ev1527_ext.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\EXT\ev1527_ext.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1014,6 +1024,11 @@
           <GroupName>COMMON</GroupName>
           <Files>
             <File>
+              <FileName>protocol_register_management.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\PROTOCOL\protocol_427\protocol_register_management.c</FilePath>
+            </File>
+            <File>
               <FileName>freeRTOSdebug.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\COMMON\freeRTOSdebug.c</FilePath>
@@ -1047,11 +1062,6 @@
               <FileName>protocol_api.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\PROTOCOL\protocol_427\protocol_api.c</FilePath>
-            </File>
-            <File>
-              <FileName>protocol_register_management.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\PROTOCOL\protocol_427\protocol_register_management.c</FilePath>
             </File>
             <File>
               <FileName>rt_malloc.c</FileName>

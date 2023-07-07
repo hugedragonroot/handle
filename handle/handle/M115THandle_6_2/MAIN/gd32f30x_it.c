@@ -55,8 +55,12 @@ void NMI_Handler(void)
 void HardFault_Handler(void)
 {
 	
+    #if USING_LED_POINT_DISPLAY
+
+    #else
 	display_string_5x8(32,0,0,(uint8_t*)"HardFault!");
 	lcd_refreshGram();
+    #endif
 	NVIC_SystemReset();
     /* if Har();d Fault exception occurs, go to infinite loop */
     while(1) {

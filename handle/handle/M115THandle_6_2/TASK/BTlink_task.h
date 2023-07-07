@@ -9,5 +9,8 @@ void BTRxTask(void* param);
 
 bool BTlinkSendPacket(const TCOMMUN *p);
 void BTTxTask(void* param);
+
+
+void BTNoneOSTask(void);
 #endif
 

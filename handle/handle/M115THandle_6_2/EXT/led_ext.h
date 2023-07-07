@@ -11,14 +11,27 @@
 #define LED_DATA_1() gpio_bit_set(LED_DATA_GPIO_PORT,LED_DATA_GPIO_PIN)
 #define LED_DATA_0() gpio_bit_reset(LED_DATA_GPIO_PORT,LED_DATA_GPIO_PIN)
 
+#define LED_POWER_1() gpio_bit_set(LED_POWER_GPIO_PORT,LED_POWER_GPIO_PIN)
+#define LED_POWER_0() gpio_bit_reset(LED_POWER_GPIO_PORT,LED_POWER_GPIO_PIN)
+
+// #define LED1_1()   gpio_bit_set(LED1_GPIO_PORT,LED1_GPIO_PIN);
+
+#define LED1_BLINK()\
+if(gpio_output_bit_get(LED1_GPIO_PORT,LED1_GPIO_PIN)){\
+    gpio_bit_reset(LED1_GPIO_PORT,LED1_GPIO_PIN);\
+}else{\
+    gpio_bit_set(LED1_GPIO_PORT,LED1_GPIO_PIN);\
+}\
 
 
+void led_ext_init(void);
 
 void ledShow(void);
 
-void ledSpiDmaRefreshRow(u8 h);
+void ledSpiDmaRefreshRow(void);
+// void ledSpiDmaRefreshRow(uint8_t h);
 
-void led8x8Test(void);
+// void led8x8Test(void);
 
 #endif
 

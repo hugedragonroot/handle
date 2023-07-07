@@ -1,19 +1,15 @@
 {
     "files.associations": {
-        "type_traits": "c",
+        "btlink_task.h": "c",
+        "data_pack_task.h": "c",
+        "ev1527_ext.h": "c",
+        "ev1527_drv.h": "c",
+        "app_mem.h": "c",
         "main.h": "c",
-        "xsto_api_ii.h": "c",
-        "para.h": "c",
-        "protocol.h": "c",
-        "powrprof.h": "c",
-        "drv.h": "c",
-        "app_display.h": "c",
-        "power_control.h": "c",
-        "app_protocol.h": "c",
-        "app_bmp.h": "c",
-        "rf_315m_drv.h": "c",
-        "rf_315m_ext.h": "c",
-        "debug.h": "c",
-        "ext.h": "c"
+        "cmath": "c",
+        "freertos.h": "c",
+        "lcd_drv.h": "c",
+        "projdefs.h": "c",
+        "freertosconfig.h": "c"
     }
 }

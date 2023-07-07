@@ -67,7 +67,7 @@ void play_set_volume(uint8_t volume)
 	play_buf[7] = (uint8_t)(sum >>8);
 	play_buf[8] = (uint8_t)(sum & 0x00ff);
 	uart_music_send( play_buf,sizeof(play_buf));
-	delay_ms(20);//必须要间隔 20MS延时
+	// delay_ms(20);//必须要间隔 20MS延时
 }
 
 //播放指定文件夹下的某个文件
@@ -83,7 +83,7 @@ void play_file_voice(uint8_t file,uint8_t num)
 	play_buf[7] = (uint8_t)(sum >>8);
 	play_buf[8] = (uint8_t)(sum & 0x00ff);
 	uart_music_send( play_buf,sizeof(play_buf));
-	delay_ms(20);//必须要间隔 20MS延时
+	// delay_ms(20);//必须要间隔 20MS延时
 }
 
 //循环顺序播放指定文件夹的文件
@@ -109,24 +109,41 @@ void play_test(void)
 {
 	delay_ms(2000);
 	play_set_flash();	//上电2000ms后才发送指令
-	delay_ms(200);		//设置存储设备后要延时200ms
-	play_set_volume(15);
+	delay_ms(2000);		//设置存储设备后要延时200ms
+	play_set_volume(1);
+  delay_ms(2000);
 	play_file_voice(1,1);
-	// play_file_loop(1);	
+  delay_ms(2000);
+	//play_file_loop(1);	
 	while(1)
 	{
 		delay_ms(50);
 	}
 }
 
+uint8_t musicNums[8];
+TLoopBuf music_FIFO;
 
 void music_init(void)
 {
-	delay_ms(2000);
-	play_set_flash();	//上电2000ms后才发送指令
-	delay_ms(200);		//设置存储设备后要延时200ms
-	play_set_volume(30);	
+	delay_ms(1000);
+	// play_set_flash();	//上电2000ms后才发送指令
+	// delay_ms(200);		//设置存储设备后要延时200ms
+
+	play_set_volume(ePVoiceLevel_1*10);	
 	
+	LoopQueue_Init(&music_FIFO,musicNums,sizeof(musicNums));
 	// play_test();
 }
 
+
+void music_play_task(void){
+	u8 num;
+	static u8 voiceLevel = ePVoiceLevel_1;
+	if(!READ_MUSIC_BUSY() && LoopQueue_ReadRelease(&music_FIFO,&num,1)){
+		play_file_voice(1,num);
+	}else if(voiceLevel != Remote_setting_para.VoiceLevel){
+		voiceLevel = Remote_setting_para.VoiceLevel;
+		play_set_volume(voiceLevel*10);
+	}
+}

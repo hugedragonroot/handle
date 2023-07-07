@@ -37,6 +37,21 @@
 .\output\display_task.o: ..\EXT\ext.h
 .\output\display_task.o: ..\APP\app_loopqueue.h
 .\output\display_task.o: ..\EXT\bt_ext.h
+.\output\display_task.o: ..\APP\app_protocol.h
+.\output\display_task.o: ..\APP\../PROTOCOL/protocol_427/protocol.h
+.\output\display_task.o: ..\APP\../PROTOCOL/protocol_427/xsto_api_ii.h
+.\output\display_task.o: ..\APP\../PROTOCOL/protocol_427/para.h
+.\output\display_task.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\stdbool.h
+.\output\display_task.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\stdlib.h
+.\output\display_task.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\string.h
+.\output\display_task.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\math.h
+.\output\display_task.o: ..\APP\../PROTOCOL/protocol_427/crc.h
+.\output\display_task.o: ..\PROTOCOL\common.h
+.\output\display_task.o: ..\APP\../PROTOCOL/protocol_427/protocol_api.h
+.\output\display_task.o: ..\APP\../PROTOCOL/protocol_427/alloc.h
+.\output\display_task.o: ..\APP\../PROTOCOL/protocol_427/rt_malloc.h
+.\output\display_task.o: ..\APP\../PROTOCOL/protocol_427/klist.h
+.\output\display_task.o: ..\APP\../PROTOCOL/protocol_427/protocol_register_management.h
 .\output\display_task.o: ..\EXT\buzz_ext.h
 .\output\display_task.o: ..\MAIN\main.h
 .\output\display_task.o: ..\EXT\joystick_ext.h
@@ -53,6 +68,7 @@
 .\output\display_task.o: ..\DRV\led_drv.h
 .\output\display_task.o: ..\EXT\can_ext.h
 .\output\display_task.o: ..\EXT\fwdgt_ext.h
+.\output\display_task.o: ..\EXT\ev1527_ext.h
 .\output\display_task.o: ..\DRV\drv.h
 .\output\display_task.o: ..\DRV\key_drv.h
 .\output\display_task.o: ..\DRV\buzz_drv.h
@@ -64,21 +80,7 @@
 .\output\display_task.o: ..\DRV\rf_315m_drv.h
 .\output\display_task.o: ..\DRV\music_drv.h
 .\output\display_task.o: ..\DRV\power_control.h
-.\output\display_task.o: ..\APP\app_protocol.h
-.\output\display_task.o: ..\APP\../PROTOCOL/protocol_427/protocol.h
-.\output\display_task.o: ..\APP\../PROTOCOL/protocol_427/xsto_api_ii.h
-.\output\display_task.o: ..\APP\../PROTOCOL/protocol_427/para.h
-.\output\display_task.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\stdbool.h
-.\output\display_task.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\stdlib.h
-.\output\display_task.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\string.h
-.\output\display_task.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\math.h
-.\output\display_task.o: ..\APP\../PROTOCOL/protocol_427/crc.h
-.\output\display_task.o: ..\PROTOCOL\common.h
-.\output\display_task.o: ..\APP\../PROTOCOL/protocol_427/protocol_api.h
-.\output\display_task.o: ..\APP\../PROTOCOL/protocol_427/alloc.h
-.\output\display_task.o: ..\APP\../PROTOCOL/protocol_427/rt_malloc.h
-.\output\display_task.o: ..\APP\../PROTOCOL/protocol_427/klist.h
-.\output\display_task.o: ..\APP\../PROTOCOL/protocol_427/protocol_register_management.h
+.\output\display_task.o: ..\DRV\ev1527_drv.h
 .\output\display_task.o: ..\APP\app_display.h
 .\output\display_task.o: ..\APP\app_bmp.h
 .\output\display_task.o: ..\APP\app_remote_para.h
@@ -91,6 +93,7 @@
 .\output\display_task.o: ..\TASK\commandTx_task.h
 .\output\display_task.o: ..\TASK\gps_task.h
 .\output\display_task.o: ..\TASK\CAN_task.h
+.\output\display_task.o: ..\DEBUG\debug.h
 .\output\display_task.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\FreeRTOS.h
 .\output\display_task.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\stddef.h
 .\output\display_task.o: ..\COMMON\FreeRTOSConfig.h
@@ -101,4 +104,3 @@
 .\output\display_task.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\mpu_wrappers.h
 .\output\display_task.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\task.h
 .\output\display_task.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\list.h
-.\output\display_task.o: ..\DEBUG\debug.h

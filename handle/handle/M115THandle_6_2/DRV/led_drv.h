@@ -16,6 +16,13 @@
 #define LED_SCK_GPIO_PORT       GPIOB
 #define LED_SCK_GPIO_PIN        GPIO_PIN_13//spi_sck
 
+#define LED_POWER_GPIO_PORT       GPIOB
+#define LED_POWER_GPIO_PIN        GPIO_PIN_2
+
+
+#define LED1_GPIO_PORT       GPIOC
+#define LED1_GPIO_PIN        GPIO_PIN_4
+
 #else
 
 #define LED_DATA_GPIO_PORT      GPIOB
@@ -29,6 +36,9 @@
 #define LED_SCK_GPIO_PORT       GPIOB
 // #define LED_SCK_GPIO_PIN        GPIO_PIN_14
 #define LED_SCK_GPIO_PIN        GPIO_PIN_13
+
+#define LED_POWER_GPIO_PORT       GPIOB
+#define LED_POWER_GPIO_PIN        GPIO_PIN_2
 
 //8x8
 // #define LED_DATA_GPIO_PORT      GPIOA

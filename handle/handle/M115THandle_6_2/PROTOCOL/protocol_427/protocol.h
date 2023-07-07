@@ -83,6 +83,10 @@ typedef enum {
 	BLDC_A_CURRENT_OVER ,// 左轮毂电机过流值      	R/W 
 	BLDC_A_ANGEL_REAL   ,// 左轮毂电机角度值      	R   
 	BLDC_A_TEMP         ,// 左轮毂电机温度值      	R   
+	HANDLE_ANGLE		,//手柄摇杆角度
+	HANDLE_GEAR			,//手柄速度挡位
+	HANDLE_X			,//手柄X坐标
+	HANDLE_Y			,//手柄Y坐标
 						// ,            // 	             		    
 	BLDC_U_ENABLE       ,// 右轮毂电机使能       	 R/W 
 	BLDC_U_MODE         ,// 右轮毂电机模式       	 R/W 
@@ -119,7 +123,18 @@ typedef enum {
 	DEVICE_TEMP         ,// 驱动器温度         		R  
 	DEVICE_VOLT         ,// 驱动器母线电压        	R   
 
-	HEART_BIT
+	HEART_BIT        ,//  	  心跳     	 	
+#if 0
+	ULTRASONIC_FIRST ,//        	第一超声波 
+	ULTRASONIC_SECOND,//          第二超声波
+	ULTRASONIC_THIRD ,//         	第三超声波
+	ULTRASONIC_FOUR  ,//        	第四超声波 
+#else
+	ULTRASONIC,//        	超声波 
+#endif
+
+	PITCH_ANGLE      ,//   	  俯仰角     	
+	ROLL_ANGLE       ,//   	  横滚角     	
 
 }REG_NAME;
 

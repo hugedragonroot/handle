@@ -14,4 +14,10 @@ bool CANlinkReceivePacketBlocking(MasterMsgData_t *p);
 void CANRxTask(void* param);
 
 
+void CANNoneOsTxTask(void);
+
+void CANNoneOsRxTask(void);
+
+void protocolSend(void);
+
 #endif

@@ -52,8 +52,19 @@ extern "C" {
 #define  M130T			0 
 #define  M115				1
 
+
+#define USING_FLASH 1
+#define USING_XY_TO_SPEED 0
 #define USING_6KEY 1
 #define USING_LED_POINT_DISPLAY 1
+#define USING_DEBUG 1
+#define USING_TASK_DEBUG 0
+#define USING_RTOS 0
+#define FWDGT_OPEN 0
+#define BT_CHANGE_NAME_FLAG 0
+
+#define EV1527_USER_NUM 1
+
 
 #define	DRIVER_MODEL	M130T
 
@@ -96,8 +107,12 @@ extern "C" {
 #include "gps_task.h"
 #include "CAN_task.h"
 /* FreeRtos includes */
+
+#if USING_RTOS
 #include "FreeRTOS.h"
 #include "task.h"
+#endif
+
 #include "debug.h"
 /*protocol*/
 #include "para.h"
