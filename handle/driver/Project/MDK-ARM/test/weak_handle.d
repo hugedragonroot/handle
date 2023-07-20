@@ -61,3 +61,5 @@ test\weak_handle.o: ..\PMSM\HALL_Encoder.h
 test\weak_handle.o: ..\Brush\Brush_Driver.h
 test\weak_handle.o: ..\module\adc_callback.h
 test\weak_handle.o: ..\BSP\adc.h
+test\weak_handle.o: ..\BSP\usart.h
+test\weak_handle.o: ..\module\Status_Check.h

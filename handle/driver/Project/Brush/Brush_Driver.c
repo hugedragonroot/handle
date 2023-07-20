@@ -9,7 +9,7 @@
 #include "tim.h"
 #include "adc_callback.h"
 #include "Brush_Calib.h"
-Brush_Motor_t Brushx;
+Brush_Motor_t Brush2[2];
 Brush_Motor_t Brush[2];
 
 /****************************************
@@ -74,6 +74,7 @@ void Brush_para_init(void)
 	
 //	pid_init(&Brush[Brush_U].MPU_PID,0.25f,0.0005f,0.0f,0.99f,-0.99f);
 //	pid_init(&Brush[Brush_U].MPU_PID,250.0f,0.0000f,0.0f,Brush[Brush_U].MAX_speed,-Brush[Brush_U].MAX_speed);
+//	pid_init(&Brush[Brush_U].MPU_PID,150.0f,0.0f,0.0f,150.0f,-150.0f);
 	pid_init(&Brush[Brush_U].MPU_PID,200.0f,0.0f,0.0f,150.0f,-150.0f);
 	
 }

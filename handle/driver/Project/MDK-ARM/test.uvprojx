@@ -80,9 +80,9 @@
             <nStopB2X>0</nStopB2X>
           </BeforeMake>
           <AfterMake>
-            <RunUserProg1>0</RunUserProg1>
+            <RunUserProg1>1</RunUserProg1>
             <RunUserProg2>0</RunUserProg2>
-            <UserProg1Name></UserProg1Name>
+            <UserProg1Name>"$K\ARM\ARMCC\bin\fromelf.exe" --bincombined "!L" --output="$L\M115.bin"</UserProg1Name>
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
@@ -186,6 +186,7 @@
             <RvdsVP>2</RvdsVP>
             <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
+            <nBranchProt>0</nBranchProt>
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -779,6 +780,21 @@
               <FileName>weak_handle.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\module\weak_handle.c</FilePath>
+            </File>
+            <File>
+              <FileName>CurveProgramme.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Module\CurveProgramme.c</FilePath>
+            </File>
+            <File>
+              <FileName>Scurve.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Module\Scurve.c</FilePath>
+            </File>
+            <File>
+              <FileName>ultrasonic.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Module\ultrasonic.c</FilePath>
             </File>
           </Files>
         </Group>

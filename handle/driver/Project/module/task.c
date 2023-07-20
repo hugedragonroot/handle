@@ -21,6 +21,7 @@
 #include "QMI8658C.h"
 #include "dma.h"
 #include "key_filter.h"
+#include "ultrasonic.h"
 
 //#include "qmi8658c.h"
 void main_config(void)
@@ -43,7 +44,10 @@ void main_config(void)
 	
 	QMI8658_init();
 //	
+	DypRd_Init();
 	MX_USART1_UART_Init();
+	MX_USART3_UART_Init();
+	MX_USART3_START();
 //	
 	
 	PMSM_para_init();
@@ -80,8 +84,6 @@ void task_1ms(void)
 	{
 		task_time.timer_1ms = 0;
 		//loop
-//		PMSM_Mode_Loop(PMSM_A);
-//		PMSM_Mode_Loop(PMSM_U);
 		can_receive();
 		PMSM_APP_LOOP();
 		ZERO_HANDLE_CHECK_LOOP();
@@ -173,7 +175,7 @@ void task_100ms(void)
 		//loop
 //		PMSM_TEST_LOOP();
 		led_loop();
-//		test_BRUSH();
+		test_BRUSH();
 		online_loop();
 		Brush_Fold_Check(Brush_A);
 		Brush_Fold_Check(Brush_U);
@@ -181,10 +183,13 @@ void task_100ms(void)
 		PMSM_Status_Loop();
 		Brush_Over_Current();
 		MPU_PROTECT_CHECK();
-		if(++count_500ms>=2)
+		modbus_recve();
+		if(++count_500ms>=3)
 		{
 			count_500ms = 0;
 //			api_loop(system_times);
+			serial3_send();
+			
 		}
 	}
 }

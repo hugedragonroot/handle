@@ -8,7 +8,7 @@
 #include "adc.h"
 #include "common.h"
 
-#define Nx 300
+#define Nx 10
 typedef struct
 {
 	uint16_t adc_offer;

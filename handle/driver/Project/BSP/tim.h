@@ -31,7 +31,7 @@ extern "C" {
 /* USER CODE BEGIN Includes */
 #define CKTIM	            168000000                     //系统时钟频率,72MHz
 #define PWM_PRSC          0                          //分频
-#define PWM_FREQ          10000                         //单位: kHz  20
+#define PWM_FREQ          40000                         //单位: kHz  20
 
 //PWM周期
 #define PWM_PERIOD_U          ((uint16_t)(CKTIM / PWM_FREQ / (PWM_PRSC + 1) - 1))   

@@ -9,6 +9,7 @@
 #include "adc_callback.h"
 #include "PLL.h"
 #include "PMSM_Calib.h"
+#include "filter.h"
 
 hall_encoder_t hall_test ={0};
 hall_encoder_t hall_encoder[2] ={0};
@@ -46,8 +47,8 @@ void HALL_Encoder_init(void)
 	Calibration_ReadCalibrationElectricalData(PMSM_U);
 	Calibration_Save_Write();
 	
-	PLL_init((PLL_Num)PMSM_A,190.0f,12.0f,0.0001f);
-	PLL_init((PLL_Num)PMSM_U,190.0f,12.0f,0.0001f);
+	PLL_init((PLL_Num)PMSM_A,190.0f,4.0f,0.0001f);
+	PLL_init((PLL_Num)PMSM_U,190.0f,4.0f,0.0001f);
 	
 }
 void Theta_Read(PMSM_Num num)
@@ -81,9 +82,11 @@ void Theta_Read(PMSM_Num num)
 		hall_encoder[num].first_speed_flage = true;
 		hall_encoder[num].last_Theta = hall_encoder[num].Theta;
 		hall_encoder[num].turns = 0;
+		
 	}
 	
 	hall_encoder[num].PLL_realspeed = PllGetSpeed((PLL_Num)num,hall_encoder[num].Theta)*my_rpm*my_pairs;
+//	hall_encoder[num].whill_pll = hall_encoder[num].whill_pll*0.99f + hall_encoder[num].PLL_realspeed*0.01f;
 	if(num == PMSM_A) hall_encoder[PMSM_A].return_speed = (int16_t)hall_encoder[PMSM_A].PLL_realspeed ;
 	if(num == PMSM_U) hall_encoder[PMSM_U].return_speed = (int16_t)(hall_encoder[PMSM_U].PLL_realspeed *-1.0f);
 	hall_encoder[num].Theta_Interval = hall_encoder[num].Theta - hall_encoder[num].last_Theta;
@@ -105,9 +108,15 @@ void Theta_Read(PMSM_Num num)
 	
 	if(++hall_encoder[num].speed_count>=2)
 	{
+//		hall_encoder[num].PLL_realspeed = PllGetSpeed((PLL_Num)num,hall_encoder[num].Theta)*my_rpm*my_pairs;
 		hall_encoder[num].speed_count = 0;
 		hall_encoder[num].real_speed = (hall_encoder[num].AngleReal - hall_encoder[num].lastAngle)*5000.0f*my_para_speed;
-		hall_encoder[num].filter_speed = hall_encoder[num].filter_speed*0.7f+hall_encoder[num].real_speed*0.3f;
+		hall_encoder[num].filter_speed = hall_encoder[num].filter_speed*0.9f+hall_encoder[num].real_speed*0.1f;
+		if(num == PMSM_A)
+		hall_encoder[num].whill_pll=biquadFilterApply(&accFilterLPF[0],hall_encoder[PMSM_A].PLL_realspeed);
+		
+		if(num == PMSM_U)
+		hall_encoder[num].whill_pll=biquadFilterApply(&accFilterLPF[1],hall_encoder[PMSM_U].PLL_realspeed);
 		hall_encoder[num].lastAngle = hall_encoder[num].AngleReal;
 	}
 //	hall_encoder[num].ElecAngle = hall_encoder[num].Theta_Compose*my_rad+180.0f;

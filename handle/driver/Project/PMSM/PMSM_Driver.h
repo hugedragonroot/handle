@@ -10,8 +10,8 @@
 #include "pid.h"
 
 
-#define IQ_MAX 15.0f
-#define Speed_MAX 2400.0f
+#define IQ_MAX 30.0f
+#define Speed_MAX 3000.0f
 
 typedef union 
 {
@@ -87,8 +87,70 @@ typedef enum
 	wheel_sec = 0x01,
 	dir_first = 0x02,
 	dir_sec = 0x04,
+	rise_first = 0x05,
 	null_break = 0x08,
 }Second_SPEED_STATUE;
+
+typedef enum
+{
+	firt_q = 1,
+	sec_q = 2,
+	third_q = 3,
+	four_q = 4,
+}quadrant_speed;
+
+typedef enum
+{
+	null_null = 0,
+	rise_speed = 1,
+	rise_mid_speed = 2,
+	low_speed = 3,
+	low_mid_speed = 4,
+}rise_low_t;
+
+typedef struct
+{
+	int16_t angle;
+	int16_t last_angle;
+	uint8_t Gear;
+	uint8_t count_angle;
+	rise_low_t rise_low;
+	int16_t new_speed_l;
+	int16_t new_speed_r;
+	int16_t x_new;
+	int16_t y_new;
+	float SET_COORANGLE;
+	float SET_COORANGLE_10X;
+	float cosf_angle;
+	float l_speed;
+	float r_speed;
+	float CoordSqrt;
+	float CoordSpeed;
+	float CoordSpeed_new;
+	float a_temp;
+	float a;
+	float b_temp;
+	float c;
+	float d;
+	
+	float a_temp_new;
+	float a_new;
+	float b_temp_new;
+	float c_new;
+	float d_new;
+	uint8_t	axis_x;
+	float axis_y_filter;
+	uint8_t axis_y;
+	uint8_t start_first;
+	quadrant_speed quadrant_t;
+	uint8_t count_axisy ;
+	float c_acc_d;
+	float c_dec_2b;
+	float temp_tanf;
+	float vector;
+}APP_PMSM_DRIVER;
+
+extern APP_PMSM_DRIVER APP_PMSM;
 typedef struct
 {
 	sStateTypeDef MotorState;						//当前状态
@@ -99,17 +161,24 @@ typedef struct
 	PMSM_Status_t PMSM_Status;
 	Second_SPEED_STATUE sec_speed_handle;
 	speed_state speed_status;
+	quadrant_speed quadrant;
 	Acc_state acc_status;
+	rise_low_t rise_lows;
 	
 	float SpeedCmd;		//速度控制
 	float SpeedSet;		//速度设定
 	float SpeedReal;	//真实速度
 	float SpeedFiler;	//滤波速度
-	int16_t SpeedNew;		//新速度设定
+	float SpeedNew;		//新速度设定
+	int16_t appspeed_l;
+	int16_t appspeed_r;
 	int16_t LastSpeedNew;
 	int16_t SpeedNew_100MS;
 	int16_t LastSpeedNew_100MS;
+	int16_t SpeedTemp;
 	uint8_t count_100ms;
+	float speed_temp ;
+	float speed_forward;
 	float dec_ratio;
 	
 	float SpeedNow;		//速度中间变量
@@ -137,6 +206,13 @@ typedef struct
 	float pairs;
 	float Mostemp;
 	
+	uint16_t count_buffers;
+	uint16_t count_put ;
+	uint8_t count_10ms;
+	float variance;
+	float mean_value;
+	
+	
 	float CurrOffset[3];		//A  B  C 三相的偏置电流
 	
 	float f_IqSet;   		//Iq设定值
@@ -152,6 +228,7 @@ typedef struct
 	bool first_offer;
 	bool first_start;
 	bool first_stop;
+	bool wheel_start;
 	
 	uint16_t i16_OverCurrentCount;	//过流次数
 	PIDFloat_Obj angle_pid;

@@ -21,7 +21,7 @@
 #include "usart.h"
 #include "utils_queue.h"
 /* USER CODE BEGIN 0 */
-
+ultrasonic_t app_ultrasonic;
 uint8_t temp_usart[BUFFER_MAX] = {0};
 uint8_t usart0_buffer_tx[BUFFER_MAX]={0};
 uint8_t usart0_buffer_rx[BUFFER_MAX]={0};
@@ -39,7 +39,7 @@ typedef struct
 }usart_t;
 usart_t serial_usart[4];
 static uint16_t content_number[4]={0};
-static uint16_t serial_dma_count[4];
+uint16_t serial_dma_count[4];
 /* USER CODE END 0 */
 
 UART_HandleTypeDef huart1;
@@ -47,6 +47,42 @@ UART_HandleTypeDef huart3;
 DMA_HandleTypeDef hdma_usart1_rx;
 DMA_HandleTypeDef hdma_usart3_rx;
 DMA_HandleTypeDef hdma_usart3_tx;
+
+
+uint8_t  Tx3_Control[5]={0};
+
+
+typedef struct
+{
+	uint8_t	FrameHeader1;	
+	uint8_t	FrameHeader2;
+	uint8_t	FrameAddr;
+	uint8_t	FrameContral;	
+	uint8_t	CheckSum;
+}Rs485_Tx;
+
+
+typedef union UNION_DypRdTx
+{
+	uint8_t Word[5];
+	Rs485_Tx TxData;	
+}DypRd_Tx;
+
+typedef struct
+{
+	DypRd_Tx Tx;
+}DYPA05_type;
+DYPA05_type DYPA05;
+
+void DypRd_Init(void)
+{
+	DYPA05.Tx.TxData.FrameHeader1 = 0x55;
+	DYPA05.Tx.TxData.FrameHeader2 = 0xaa;
+	DYPA05.Tx.TxData.FrameAddr =0x01;
+	DYPA05.Tx.TxData.FrameContral= 0x01;
+	DYPA05.Tx.TxData.CheckSum = 0x01;
+	memcpy(Tx3_Control,DYPA05.Tx.Word,sizeof(DYPA05.Tx.Word));
+}
 
 /* USART1 init function */
 
@@ -85,7 +121,8 @@ void MX_USART3_UART_Init(void)
 {
 
   /* USER CODE BEGIN USART3_Init 0 */
-
+	queue_init(&serial_usart[serial3].tx_usart,usart3_buffer_tx,BUFFER_MAX);
+	queue_init(&serial_usart[serial3].rx_usart,usart3_buffer_rx,BUFFER_MAX);
   /* USER CODE END USART3_Init 0 */
 
   /* USER CODE BEGIN USART3_Init 1 */
@@ -104,11 +141,15 @@ void MX_USART3_UART_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN USART3_Init 2 */
-
   /* USER CODE END USART3_Init 2 */
 
 }
 
+void MX_USART3_START(void)
+{
+	HAL_UART_Receive_DMA(&huart3,usart3_buffer_rx,BUFFER_MAX);
+	serial_dma_count[serial3] = __HAL_DMA_GET_COUNTER(huart3.hdmarx);
+}
 void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
 {
 
@@ -185,8 +226,8 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
     hdma_usart3_rx.Init.MemInc = DMA_MINC_ENABLE;
     hdma_usart3_rx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
     hdma_usart3_rx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
-    hdma_usart3_rx.Init.Mode = DMA_NORMAL;
-    hdma_usart3_rx.Init.Priority = DMA_PRIORITY_LOW;
+    hdma_usart3_rx.Init.Mode = DMA_CIRCULAR;
+    hdma_usart3_rx.Init.Priority = DMA_PRIORITY_VERY_HIGH;
     hdma_usart3_rx.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
     if (HAL_DMA_Init(&hdma_usart3_rx) != HAL_OK)
     {
@@ -196,22 +237,22 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
     __HAL_LINKDMA(uartHandle,hdmarx,hdma_usart3_rx);
 
     /* USART3_TX Init */
-    hdma_usart3_tx.Instance = DMA1_Stream3;
-    hdma_usart3_tx.Init.Channel = DMA_CHANNEL_4;
-    hdma_usart3_tx.Init.Direction = DMA_MEMORY_TO_PERIPH;
-    hdma_usart3_tx.Init.PeriphInc = DMA_PINC_DISABLE;
-    hdma_usart3_tx.Init.MemInc = DMA_MINC_ENABLE;
-    hdma_usart3_tx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
-    hdma_usart3_tx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
-    hdma_usart3_tx.Init.Mode = DMA_NORMAL;
-    hdma_usart3_tx.Init.Priority = DMA_PRIORITY_LOW;
-    hdma_usart3_tx.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
-    if (HAL_DMA_Init(&hdma_usart3_tx) != HAL_OK)
-    {
-      Error_Handler();
-    }
+//    hdma_usart3_tx.Instance = DMA1_Stream3;
+//    hdma_usart3_tx.Init.Channel = DMA_CHANNEL_4;
+//    hdma_usart3_tx.Init.Direction = DMA_MEMORY_TO_PERIPH;
+//    hdma_usart3_tx.Init.PeriphInc = DMA_PINC_DISABLE;
+//    hdma_usart3_tx.Init.MemInc = DMA_MINC_ENABLE;
+//    hdma_usart3_tx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
+//    hdma_usart3_tx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
+//    hdma_usart3_tx.Init.Mode = DMA_CIRCULAR;
+//    hdma_usart3_tx.Init.Priority = DMA_PRIORITY_LOW;
+//    hdma_usart3_tx.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
+//    if (HAL_DMA_Init(&hdma_usart3_tx) != HAL_OK)
+//    {
+//      Error_Handler();
+//    }
 
-    __HAL_LINKDMA(uartHandle,hdmatx,hdma_usart3_tx);
+//    __HAL_LINKDMA(uartHandle,hdmatx,hdma_usart3_tx);
 
   /* USER CODE BEGIN USART3_MspInit 1 */
 
@@ -257,7 +298,7 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
     HAL_GPIO_DeInit(GPIOD, GPIO_PIN_8|GPIO_PIN_9);
 
     /* USART3 DMA DeInit */
-    HAL_DMA_DeInit(uartHandle->hdmarx);
+//    HAL_DMA_DeInit(uartHandle->hdmarx);
     HAL_DMA_DeInit(uartHandle->hdmatx);
   /* USER CODE BEGIN USART3_MspDeInit 1 */
 
@@ -270,4 +311,48 @@ void serial0_send(uint8_t *data,uint16_t len)
 {
 	HAL_UART_Transmit(&huart1,data,len,10);
 }
+
+void serial3_send(void)
+{
+	HAL_UART_Transmit(&huart3,Tx3_Control,5,10);
+}
+
+void serial3_update(serialx_t port)
+{
+	uint16_t dma_count=0;
+	uint16_t len=0;
+
+	uint16_t rail_count = serial_usart[port].rx_usart.rail;
+	dma_count = __HAL_DMA_GET_COUNTER(huart3.hdmarx);
+	if (dma_count > serial_dma_count[port])
+	{
+			len =serial_usart[port].rx_usart.size + serial_dma_count[port] - dma_count;
+	}
+	else if (dma_count < serial_dma_count[port])
+	{
+			len = serial_dma_count[port] - dma_count;
+	}
+	serial_dma_count[port]=dma_count;
+	serial_usart[port].rx_usart.rail=(rail_count+len)%serial_usart[port].rx_usart.size;
+	if(len>0)
+	{
+	if(serial_usart[port].rx_usart.rail==serial_usart[port].rx_usart.front) serial_usart[port].rx_usart.overflow=true;
+	}
+}
+
+uint8_t serial_rx_queue_empty(serialx_t port)
+{
+	return queue_empty_full(&serial_usart[port].rx_usart);
+}
+
+uint8_t serial_receive(serialx_t port)
+{
+//	serial_update(port);
+//	queue_empty_full(&serial_usart[port].rx_usart);
+//	if(serial_usart[port].rx_usart.empty==true)
+//	return 0;
+	return queue_pop(&serial_usart[port].rx_usart);
+}
+
+
 /* USER CODE END 1 */

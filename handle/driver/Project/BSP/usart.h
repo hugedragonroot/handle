@@ -30,6 +30,16 @@ extern "C" {
 
 /* USER CODE BEGIN Includes */
 #include "common.h"
+
+typedef struct
+{
+	uint16_t length_first;
+	uint16_t length_second;
+	uint16_t length_third;
+	uint16_t length_four;
+}ultrasonic_t;
+
+extern ultrasonic_t app_ultrasonic;
 #define BUFFER_MAX 128
 #define SERIAL_STATUS_IDLE  0x00
 #define SERIAL_STATUS_IT    0x01
@@ -50,9 +60,18 @@ extern UART_HandleTypeDef huart3;
 
 void MX_USART1_UART_Init(void);
 void MX_USART3_UART_Init(void);
-
+void MX_USART3_START(void);
 /* USER CODE BEGIN Prototypes */
 void serial0_send(uint8_t *data,uint16_t len);
+void serial3_send(void);
+void serial3_update(serialx_t port);
+uint8_t serial_rx_queue_empty(serialx_t port);
+uint8_t serial_receive(serialx_t port);
+
+
+
+void DypRd_Init(void);
+
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

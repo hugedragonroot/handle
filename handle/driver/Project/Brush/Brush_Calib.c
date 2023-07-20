@@ -46,7 +46,7 @@ void Brush_Save_Para(Brush_Num num)
 
 
 #define Brush_Current_lim 500
-#define Brush_mpu_basic	8.0f
+#define Brush_mpu_basic	12.0f
 void Brush_Read_Para(Brush_Num num)
 {
 	if(num == Brush_A)

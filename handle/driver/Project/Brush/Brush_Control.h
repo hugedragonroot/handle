@@ -14,4 +14,5 @@ void brush_Cmd_handle(Brush_Num num);
 void ADC_CURRENT_HANDLE(void);
 void Brush_Over_Current(void);
 void test_BRUSH(void);
+void RESET_BRUSH_PARA(Brush_Num num);
 #endif

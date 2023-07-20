@@ -46,3 +46,4 @@ test\hall_encoder.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 test\hall_encoder.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 test\hall_encoder.o: ..\PMSM\PLL.h
 test\hall_encoder.o: ..\PMSM\PMSM_Calib.h
+test\hall_encoder.o: ..\Utils\filter.h

@@ -9,6 +9,7 @@
 #include "HALL_Encoder.h"
 #include "adc_callback.h"
 #include "bsp_flash.h"
+#include "gpio.h"
 typedef struct
 {
 	three_hall_t Amplitude;
@@ -177,6 +178,8 @@ void Electric_Angle_Calibration(PMSM_Num num)
 		PMSM_Calib[num].HallMin_B = 2048;
 		PMSM_Calib[num].HallMin_C = 2048;
 		PMSM[num].Theta_acc = 0.0008f;
+		pmsm_break_io(num,false);
+		MOS_ENABLE();
 		pmsm_start(num);
 		PMSM[num].foc.Theta	= PMSM[num].Theta_acc;
 		PMSM[num].OpenLoopVoltCmd = (float)DRAG_VOL;		
@@ -270,6 +273,7 @@ void Electric_Angle_Calibration(PMSM_Num num)
 		else if((PMSM_Calib[num].AngleCnt > POLE_PAIRS*3) &&(PMSM[num].MotorCali == MegCaliReverse)&&(++PMSM_Calib[num].DIR_cnt>=ZERO_CNT))
 		{
 			pmsm_stop(num);
+			pmsm_break_io(num,true);
 			for(PMSM_Calib[num].j=0; PMSM_Calib[num].j<PMSM_Calib[num].i; PMSM_Calib[num].j++)
 			{
 				PMSM_Calib[num].f_HallAngleCalibration += PMSM_Calib[num].f_Hall[PMSM_Calib[num].j];
@@ -300,6 +304,10 @@ void Electric_Angle_Calibration(PMSM_Num num)
 				
 				Calibration_SaveCalibrationElectricalData(num);
 				Calibration_Save_Write();
+			}
+			if(PMSM[PMSM_A].MotorCali == MegCaliOK&&PMSM[PMSM_U].MotorCali == MegCaliOK)
+			{
+				MOS_DISABLE();
 			}
 
 			//Calibration_SaveCalibrationElectricalData();

@@ -8,15 +8,21 @@
 #include "adc_callback.h"
 #include "gpio.h"
 #include "Brush_Driver.h"
+#include "Brush_Control.h"
 #include "PMSM_Driver.h"
 #include "key_filter.h"
 #include "xsto_api_ii.h"
 #include "weak_handle.h"
 #include "can.h"
 extern API_Config_t  API_Config;
+uint32_t BZ_MS = 0;
+
+
+IMU_T imu_mpu;
 void Status_Check_Loop(void)
 {
 	static uint8_t vd_count = 0;
+	BZ_MS++;
 	if(++vd_count>=5)
 	{
 		vd_count = 0;
@@ -64,8 +70,9 @@ void Status_Check_Loop(void)
 			PMSM[PMSM_A].PMSM_Status.bit.OverTemp = 0;
 			PMSM[PMSM_A].PMSM_Status.bit.OverTemp = 0;
 		}
-		PMSM[PMSM_A].PMSM_Status.bit.Bandbrake = BREAK1_READ_INPUT();//±§Õ¢×´Ì¬
-		PMSM[PMSM_U].PMSM_Status.bit.Bandbrake = BREAK2_READ_INPUT();//±§Õ¢×´Ì¬
+//		if(PMSM[PMSM_A].MotorPreState == StopMotor_e)
+		PMSM[PMSM_A].PMSM_Status.bit.Bandbrake = hold_filter(&Spacing[key_bz1],BREAK1_READ_INPUT(),BZ_MS);//±§Õ¢×´Ì¬
+		PMSM[PMSM_U].PMSM_Status.bit.Bandbrake = hold_filter(&Spacing[key_bz2],BREAK2_READ_INPUT(),BZ_MS);//±§Õ¢×´Ì¬
 	}
 }
 
@@ -74,6 +81,7 @@ void Status_Check_Loop(void)
 uint32_t ZERO_MS = 0;
 uint8_t top_value = 0;
 uint8_t bottom_value =0;
+uint8_t origin_value = 0;
 void KEY_ZERO_CHECK_LOOP(void)
 {
 	ZERO_MS++;
@@ -129,28 +137,31 @@ void KEY_ZERO_CHECK_LOOP(void)
 bool flage_firast = false;
 void ZERO_HANDLE_CHECK_LOOP(void)
 {
+	
+	#if 0
 	ZERO_MS++;
 	top_value = hold_filter(&Spacing[key_top],KEY_TOP_INPUT(),ZERO_MS);
 	
 	bottom_value = hold_filter(&Spacing[key_bottom],KEY_BOTTOM_INPUT(),ZERO_MS);
 	
 	
-	if(Brush[Brush_A].Control_mode == zero_mode&&ZERO_MS>=1000)
+	if(Brush[Brush_A].Control_mode == zero_mode&&Brush[Brush_U].Control_mode == zero_mode)
 	{
 		switch(top_value<<4|bottom_value)
 		{
 			case 0x00:
-				if(Brush[Brush_U].brush_state.bit.FINISH_calibration_One == 1)
-				{
 					Brush[Brush_A].brush_state.bit.FINISH_calibration_One = 1;
 					Brush[Brush_A].Control_mode = mpu_mode;
 					Brush[Brush_U].brush_Cmd_Pre = Brush_Cmd_Stop;
 					Brush[Brush_U].Control_mode = speed_mode;
 					Brush[Brush_A].brush_Cmd_Pre = Brush_Cmd_Star;
-//					Brush_Start_Filter(Brush_A);
-//					Brush_Start_Filter(Brush_U);
-				}
-//				Brush[Brush_A].brush_Cmd_Pre = Brush_Cmd_Stop;
+					RESET_BRUSH_PARA(Brush_A);
+					RESET_BRUSH_PARA(Brush_U);
+//					clear_pid(&Brush[Brush_A].ANGLE_PID);//Çå³ýÓ¦ÓÃpid²ÎÊý
+					clear_pid(&Brush[Brush_A].SPEED_PID);
+//
+			clear_pid(&Brush[Brush_A].CURRENT_PID);
+					clear_pid(&Brush[Brush_A].MPU_PID);
 				break;
 			case 0x01:
 				Brush[Brush_A].SpeedlNew = -300;
@@ -167,15 +178,15 @@ void ZERO_HANDLE_CHECK_LOOP(void)
 			break;
 		
 		}
-		if(flage_firast == false)
-			
-		{
-					flage_firast = true;
-					Brush[Brush_A].brush_Cmd_Pre = Brush_Cmd_Star;
-					Brush[Brush_A].Control_mode = mpu_mode;
-				}
+//		if(flage_firast == false)
+//			
+//		{
+//					flage_firast = true;
+//					Brush[Brush_A].brush_Cmd_Pre = Brush_Cmd_Star;
+//					Brush[Brush_A].Control_mode = mpu_mode;
+//				}
 	}
-	if(Brush[Brush_U].Control_mode == zero_mode&&ZERO_MS>=50)
+	if(Brush[Brush_U].Control_mode == zero_mode)
 	{
 		Brush[Brush_U].brush_Cmd_Pre = Brush_Cmd_Star;
 //		Brush_Start_Filter(Brush_U);
@@ -189,7 +200,22 @@ void ZERO_HANDLE_CHECK_LOOP(void)
 //		Brush[Brush_A].first_start = false;
 ////		Brush_Start_Filter(Brush_A);
 //	}
+	#endif
+	#if 1
+	if(Brush[Brush_U].Control_mode == zero_mode)
+	{
+		Brush[Brush_U].brush_Cmd_Pre = Brush_Cmd_Star;
+		Brush[Brush_U].SpeedlNew = -150;
+//		Brush_Start_Filter(Brush_U);
+	}
 	
+	if(Brush[Brush_A].Control_mode == zero_mode)
+	{
+		Brush[Brush_A].brush_Cmd_Pre = Brush_Cmd_Star;
+		Brush[Brush_A].SpeedlNew = 300;
+//		Brush_Start_Filter(Brush_U);
+	}
+	#endif
 }
 void Brush_Fold_Check(Brush_Num num)
 {
@@ -251,14 +277,20 @@ void online_loop(void)
 			PMSM[PMSM_U].SpeedNew = 0;
 		}
 	}
+	
 	#endif
 
+
+	float pitch_temp = fabs(mpu_filter.ptich - Brush[Brush_A].MPU_Basic);
+	imu_mpu.pitch_return = (int16_t)(pitch_temp*100.0f);
+	imu_mpu.roll_return =  (int16_t)(mpu_filter.roll*100.0f);
 }
 
 
 
 void MPU_PROTECT_CHECK(void)
 {
+	
 	if(fabs(mpu_filter.ptich - Brush[Brush_A].MPU_Basic)>=2.0f
 		||fabs(mpu_filter.ptich - Brush[Brush_U].MPU_Basic)>=2.0f)
 	{

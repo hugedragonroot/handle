@@ -51,3 +51,4 @@ test\pmsm_calib.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 test\pmsm_calib.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 test\pmsm_calib.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 test\pmsm_calib.o: ..\BSP\bsp_flash.h
+test\pmsm_calib.o: ..\BSP\gpio.h

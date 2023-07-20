@@ -47,6 +47,7 @@ test\status_check.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 test\status_check.o: ..\BSP\gpio.h
 test\status_check.o: ..\Brush\Brush_Driver.h
 test\status_check.o: ..\Utils\pid.h
+test\status_check.o: ..\Brush\Brush_Control.h
 test\status_check.o: ..\PMSM\PMSM_Driver.h
 test\status_check.o: ..\PMSM\FOC.h
 test\status_check.o: ..\BSP\arm_math.h

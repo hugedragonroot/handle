@@ -73,3 +73,4 @@ test\task.o: ..\Protocol\protocol_register_management.h
 test\task.o: ..\BSP\QMI8658C.h
 test\task.o: ..\BSP\dma.h
 test\task.o: ..\Utils\key_filter.h
+test\task.o: ..\module\ultrasonic.h

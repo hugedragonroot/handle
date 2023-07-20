@@ -52,3 +52,6 @@ test\pmsm_control.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 test\pmsm_control.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 test\pmsm_control.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 test\pmsm_control.o: ..\Utils\filter.h
+test\pmsm_control.o: ..\BSP\gpio.h
+test\pmsm_control.o: ..\module\CurveProgramme.h
+test\pmsm_control.o: ..\module\Scurve.h

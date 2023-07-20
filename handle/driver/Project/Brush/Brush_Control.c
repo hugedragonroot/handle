@@ -40,6 +40,9 @@ void RESET_BRUSH_PARA(Brush_Num num)
   函数返回值：无
 ***************************************/
 uint8_t flage_brush = 4;
+uint16_t test_count_B  = 0;
+uint8_t flage_test_B = 0;
+#define b_speed_t 150.0f
 void test_BRUSH(void)
 {
 	if(flage_brush == 0)
@@ -55,7 +58,7 @@ void test_BRUSH(void)
 		Brush[Brush_A].Control_mode = speed_mode;
 		Brush[Brush_A].SpeedlNew = 300;
 		Brush[Brush_U].Control_mode = mpu_mode;
-		Brush[Brush_U].set_speed = -150.0f;
+		Brush[Brush_U].set_speed = -120.0f;
 	}
 	
 	if(flage_brush == 2)
@@ -65,7 +68,7 @@ void test_BRUSH(void)
 		Brush[Brush_A].Control_mode = speed_mode;
 		Brush[Brush_A].SpeedlNew = -300;
 		Brush[Brush_U].Control_mode = mpu_mode;
-		Brush[Brush_U].set_speed = 150.0f;
+		Brush[Brush_U].set_speed = 120.0f;
 	}
 #endif
 #if 1
@@ -76,7 +79,7 @@ void test_BRUSH(void)
 		Brush[Brush_A].Control_mode = fold_mode;
 		Brush[Brush_A].SpeedlNew = 300;
 		Brush[Brush_U].Control_mode = fold_mode;
-		Brush[Brush_U].SpeedlNew = -300.0f;
+		Brush[Brush_U].SpeedlNew = -100.0f;
 	}
 	
 	if(flage_brush == 2)
@@ -86,7 +89,7 @@ void test_BRUSH(void)
 		Brush[Brush_A].Control_mode = speed_mode;
 		Brush[Brush_A].SpeedlNew = -300;
 		Brush[Brush_U].Control_mode = mpu_mode;
-		Brush[Brush_U].set_speed = 150.0f;
+		Brush[Brush_U].set_speed = b_speed_t;
 	}
 	if(flage_brush == 3)
 	{
@@ -95,7 +98,60 @@ void test_BRUSH(void)
 		Brush[Brush_A].Control_mode = speed_mode;
 		Brush[Brush_A].SpeedlNew = 300;
 		Brush[Brush_U].Control_mode = mpu_mode;
-		Brush[Brush_U].set_speed = -150.0f;
+		Brush[Brush_U].set_speed = -b_speed_t;
+	}
+	if(flage_brush == 5)
+	{
+//		Brush[Brush_A].brush_Cmd_Pre = Brush_Cmd_Star;
+//		Brush[Brush_U].brush_Cmd_Pre = Brush_Cmd_Star;
+		Brush[Brush_A].Control_mode = zero_mode;
+		Brush[Brush_U].Control_mode = zero_mode;
+	}
+#endif
+#if 0
+	if(flage_test_B == 0)
+	{
+		if(++test_count_B>=30)//3s启动
+		{
+			test_count_B = 0;
+			flage_test_B = 1;//下一个状态
+			Brush[Brush_A].brush_Cmd_Pre = Brush_Cmd_Star;
+			Brush[Brush_U].brush_Cmd_Pre = Brush_Cmd_Star;
+			Brush[Brush_A].Control_mode = Voltage_mode;
+			Brush[Brush_A].Voltage_New = 0.5f;
+			Brush[Brush_U].Control_mode = Voltage_mode;
+			Brush[Brush_U].Voltage_New = 0.5f;
+			
+			return;
+		}
+	}
+	if(flage_test_B == 1)
+	{
+		if(++test_count_B>=10*20)//运行3分钟
+		{
+			test_count_B = 0;
+			flage_test_B = 2;	//下一个状态		
+			Brush[Brush_A].Voltage_New = -0.5f;
+			Brush[Brush_U].Voltage_New = -0.5f;
+			return;
+		}
+	}
+	if(flage_test_B == 2)
+	{
+		if(++test_count_B>=10*20)//运行3分钟
+		{
+			test_count_B = 0;
+			flage_test_B = 3;	//下一个状态		
+			Brush[Brush_A].Voltage_New = 0.5f;
+			Brush[Brush_U].Voltage_New = 0.5f;
+			return;
+		}
+	}
+	if(flage_test_B == 3)
+	{
+		test_count_B = 0;
+		flage_test_B = 1;	//下一个状态		
+		return;
 	}
 #endif
 }
@@ -108,20 +164,34 @@ void BRUSH_SPEED_ANGLE_U(void)
 	if(BrushSpeed[Brush_U].TimeUs == 0x00000000) BrushSpeed[Brush_U].TimeUs = 0xffffffff;
 	//13是电机霍尔的极对数Z
 	//28.0f
-	BrushSpeed[Brush_U].i16_RealSpeed = (int16_t)((1000.0f * 1000.0f * 60.0f) / ((float)BrushSpeed[Brush_U].TimeUs * 28.0f)); // ==> us/r  * 1000 ==> ms/r  * 1000 = S/r  *60  ==> min/r   
-	Brush[Brush_U].return_speed = BrushSpeed[Brush_U].i16_RealSpeed ;
+//	BrushSpeed[Brush_U].i16_RealSpeed = (int16_t)((1000.0f * 1000.0f * 60.0f) / ((float)BrushSpeed[Brush_U].TimeUs * 15.0f)); // ==> us/r  * 1000 ==> ms/r  * 1000 = S/r  *60  ==> min/r   
+
+	BrushSpeed[Brush_U].i16_RealSpeed = (int16_t)((1000.0f * 1000.0f * 60.0f) / ((float)BrushSpeed[Brush_U].TimeUs * 28.0f));
 	//4.0f是人为设置的极对数，因为电机没有文档，只能人为设置大概转速
 	
 	//公式：N=60*f/ZM,f脉冲频率，z表示一圈产生的脉冲数（11，1倍频，极对数13），M采样周期内产生脉冲数
+//	if(__HAL_TIM_IS_TIM_COUNTING_DOWN(&htim4) == 1)//方向标志
+//	{
+//		Brush[Brush_U].real_speed = (float)BrushSpeed[Brush_U].i16_RealSpeed* (-1.0f);//速度赋值
+//		Brush[Brush_U].return_speed = -BrushSpeed[Brush_U].i16_RealSpeed ;
+//	}
+//	else
+//	{
+//		Brush[Brush_U].real_speed = (float)BrushSpeed[Brush_U].i16_RealSpeed ;//速度赋值
+//		Brush[Brush_U].return_speed = BrushSpeed[Brush_U].i16_RealSpeed ;
+//	}
+
 	if(__HAL_TIM_IS_TIM_COUNTING_DOWN(&htim4) == 1)//方向标志
 	{
 		Brush[Brush_U].real_speed = (float)BrushSpeed[Brush_U].i16_RealSpeed;//速度赋值
+		Brush[Brush_U].return_speed = BrushSpeed[Brush_U].i16_RealSpeed ;
 	}
 	else
 	{
-		Brush[Brush_U].real_speed = (float)BrushSpeed[Brush_U].i16_RealSpeed* (-1.0f) ;//速度赋值
+		Brush[Brush_U].real_speed = (float)BrushSpeed[Brush_U].i16_RealSpeed *(-1.0f);//速度赋值
+		Brush[Brush_U].return_speed = -BrushSpeed[Brush_U].i16_RealSpeed ;
 	}
-	
+//	
 	BrushSpeed[Brush_U].PosCountPHA =(BrushSpeed[Brush_U].PosWRIFCount - 1)*65536 + Brush_U_CNT();//计算A相脉冲个数，就是角度脉冲值
 
 	Brush[Brush_U].LineRealPullLenth = BrushSpeed[Brush_U].PosCountPHA - BrushSpeed[Brush_U].PosBase;//记录A相位置
@@ -145,17 +215,18 @@ void BRUSH_SPEED_ANGLE_A(void)
 	if(BrushSpeed[Brush_A].TimeUs == 0x00000000) BrushSpeed[Brush_A].TimeUs = 0xffffffff;
 	//13是电机霍尔的极对数Z
 	BrushSpeed[Brush_A].i16_RealSpeed = (int16_t)((1000.0f * 1000.0f * 60.0f) / ((float)BrushSpeed[Brush_A].TimeUs * 1.0f)); // ==> us/r  * 1000 ==> ms/r  * 1000 = S/r  *60  ==> min/r   24
-	Brush[Brush_A].return_speed = BrushSpeed[Brush_A].i16_RealSpeed ;
 	//4.0f是人为设置的极对数，因为电机没有文档，只能人为设置大概转速
 	
 	//公式：N=60*f/ZM,f脉冲频率，z表示一圈产生的脉冲数（11，1倍频，极对数13），M采样周期内产生脉冲数
 	if(__HAL_TIM_IS_TIM_COUNTING_DOWN(&htim3) == 0)//方向标志
 	{
 		Brush[Brush_A].real_speed = (float)BrushSpeed[Brush_A].i16_RealSpeed;//速度赋值
+		Brush[Brush_A].return_speed = BrushSpeed[Brush_A].i16_RealSpeed ;
 	}
 	else
 	{
 		Brush[Brush_A].real_speed = (float)BrushSpeed[Brush_A].i16_RealSpeed* (-1.0f) ;//速度赋值
+		Brush[Brush_A].return_speed = -BrushSpeed[Brush_A].i16_RealSpeed ;
 	}
 	
 	BrushSpeed[Brush_A].PosCountPHA =(BrushSpeed[Brush_A].PosWRIFCount - 1)*65536 + Brush_A_CNT();//计算A相脉冲个数，就是角度脉冲值
@@ -354,8 +425,8 @@ void Brush_MPU_Handle(Brush_Num num)
 	{
 		Brush[num].MPU_REAL = mpu_filter.ptich - Brush[num].MPU_Basic;
 		Brush[num].return_mpu = (int16_t)Brush[num].MPU_REAL;
-		if(Brush[Brush_A].SpeedlNew >0.0f)Brush[num].set_speed = -150;
-		if(Brush[Brush_A].SpeedlNew <0.0f)Brush[num].set_speed = 150;
+		if(Brush[Brush_A].SpeedlNew >0.0f)Brush[num].set_speed = -b_speed_t;
+		if(Brush[Brush_A].SpeedlNew <0.0f)Brush[num].set_speed = b_speed_t;
 		if(++Brush[num].angle_count>=2)//外环周期是内环的两倍
 		{
 			Brush[num].angle_count = 0;
@@ -395,29 +466,14 @@ void Brush_Zero_Handle(Brush_Num num)
 	{
 		Brush[num].MPU_REAL = mpu_filter.ptich - Brush[num].MPU_Basic;
 		Brush[num].return_mpu = (int16_t)Brush[num].MPU_REAL;
-		Brush_MPU_ACC_handle(num);
-		if(fabs(Brush[num].MPU_REAL- (float)Brush[num].MPU_New)>0.5f )//角度在误差范围外继续闭环
+		if(Brush[Brush_A].SpeedlNew >0.0f)Brush[num].set_speed = -b_speed_t;
+		if(Brush[Brush_A].SpeedlNew <0.0f)Brush[num].set_speed = b_speed_t;
+		if(++Brush[num].angle_count>=2)//外环周期是内环的两倍
 		{
-			if(++Brush[num].angle_count>=2)//外环周期是内环的两倍
-			{
-				Brush[num].angle_count = 0;
-//				Brush[num].Tem_MPU = (Brush[num].MPU_REAL - Brush[num].Last_MPU)/0.02f*100.0f;
-//				Brush[num].Last_MPU = Brush[num].MPU_REAL;
-				PID_run_FloatspdVolt(&Brush[num].MPU_PID,Brush[num].MPU_Set,Brush[num].MPU_REAL);//角度闭环
-				Brush[num].set_speed = Brush[num].MPU_PID.PIDOut;//输出给定速度环
-			}
-			PID_run_FloatspdVolt(&Brush[num].SPEED_PID,Brush[num].set_speed/Brush[num].MAX_speed,Brush[num].real_speed/Brush[num].MAX_speed);//速度闭环
-			Brush[num].brush_state.bit.FINISH_calibration_One = 0;
+			Brush[num].angle_count = 0;
+			PID_run_FloatspdVolt(&Brush[num].MPU_PID,Brush[num].MPU_Set,Brush[num].MPU_REAL);//角度闭环
 		}
-		else
-		{
-//			Brush[num].Last_MPU = Brush[num].MPU_REAL;
-			clear_pid(&Brush[num].MPU_PID);//角度在误差范围内清除pid参数
-			clear_pid(&Brush[num].SPEED_PID);
-			Brush[num].brush_state.bit.FINISH_calibration_One = 1;
-//		Brush[num].brush_Cmd =Brush_Cmd_Stop ;
-		}
-//		Brush_Control_Mode(num,Brush[num].MPU_PID.PIDOut);	
+		PID_run_FloatspdVolt(&Brush[num].SPEED_PID,(Brush[num].set_speed+ Brush[num].MPU_PID.PIDOut)/Brush[num].MAX_speed,Brush[num].real_speed/Brush[num].MAX_speed);
 		Brush_Control_Mode(num,Brush[num].SPEED_PID.PIDOut);
 	}
 }
@@ -471,7 +527,8 @@ void Brush_Run_Task(Brush_Num num)
 			Brush_Flod_Handle(num);
 			break;
 		case zero_mode:
-			Brush_Zero_Handle(num);
+			Brush_Flod_Handle(num);
+//			Brush_Zero_Handle(num);
 			break;
 		default:
 			break;

@@ -65,7 +65,7 @@ void PLL_init(PLL_Num num,float kp,float ki,float ts)
 * @param[in]  Theta	 		电角度
 * @return  计算后的电角度
 */
-float temp_t=0.1f;
+float temp_t=0.3f;
 float PllGetSpeed(PLL_Num num, float Theta)
 {
 	static float Pll_PI_Out = 0.0f;

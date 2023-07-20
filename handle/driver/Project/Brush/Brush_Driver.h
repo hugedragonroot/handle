@@ -51,6 +51,8 @@ typedef enum
 	zero_mode = 8,	//
 	stop_mode=0xff,
 }Brush_mode_t;
+
+
 typedef struct
 {
 	Brush_Status_t brush_state;	//µç»ú×´Ì¬

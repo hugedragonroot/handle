@@ -6,13 +6,15 @@
 #ifndef __KEY_FILTER_H__
 #define __KEY_FILTER_H__
 #include "common.h"
-#define keyNum	3
+#define keyNum	5
 
 typedef enum
 {
 	key_top = 0,
 	key_zero = 1,
 	key_bottom = 2,
+	key_bz1 = 3,
+	key_bz2 = 4,
 }key_num;
 typedef struct
 {

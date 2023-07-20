@@ -95,7 +95,7 @@ void MX_CAN1_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN CAN1_Init 2 */
-//	StdCanSetID(1,0x590,0);
+	StdCanSetID(1,0x590,0);
 	StdCanSetID(0,CAN_RECEIVE_ID,0);
 
 
@@ -401,6 +401,8 @@ void HAL_CAN_RxFifo1MsgPendingCallback(CAN_HandleTypeDef *hcan)
 				memcpy((uint8_t *)&mpu_angle,&buf[0],8);
 				mpu_filter.ptich = mpu_filter.ptich*0.9f + -mpu_angle.ptich*0.1f;
 				mpu_filter.roll = mpu_filter.roll*0.9f + mpu_angle.roll*0.1f;
+//				mpu_filter.ptich = -mpu_angle.ptich;
+//				mpu_filter.roll = mpu_angle.roll;
 			}
 		}
 	}

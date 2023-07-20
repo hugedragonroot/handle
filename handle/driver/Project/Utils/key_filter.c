@@ -6,19 +6,31 @@ void Key_Array_Init(void)
 {
   str_hold_filter *key_p;
   key_p = &Spacing[0];
-  key_p->holdTime = 3;
+  key_p->holdTime = 1;
   key_p->timePoint = 0;
   key_p->triggerVariable = 0;
   key_p->result = 0;
 	
 	key_p = &Spacing[1];
-  key_p->holdTime = 3;
+  key_p->holdTime = 1;
   key_p->timePoint = 0;
   key_p->triggerVariable = 0;
   key_p->result = 0;
 	
 	key_p = &Spacing[2];
-  key_p->holdTime = 3;
+  key_p->holdTime = 1;
+  key_p->timePoint = 0;
+  key_p->triggerVariable = 0;
+  key_p->result = 0;
+	
+	key_p = &Spacing[3];
+  key_p->holdTime = 1;
+  key_p->timePoint = 0;
+  key_p->triggerVariable = 0;
+  key_p->result = 0;
+	
+	key_p = &Spacing[4];
+  key_p->holdTime = 1;
   key_p->timePoint = 0;
   key_p->triggerVariable = 0;
   key_p->result = 0;

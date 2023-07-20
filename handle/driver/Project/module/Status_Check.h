@@ -6,7 +6,12 @@
 #ifndef __STATUS_CHECK_H__
 #define __STATUS_CHECK_H__
 #include "common.h"
-
+typedef struct
+{
+	int16_t pitch_return;
+	int16_t roll_return;
+}IMU_T;
+extern IMU_T imu_mpu;
 void Status_Check_Loop(void);
 void online_loop(void);
 void KEY_ZERO_CHECK_LOOP(void);

@@ -37,6 +37,7 @@ typedef struct
 	float last_Theta;
 	float Theta_Interval;
 	float PLL_realspeed;
+	float whill_pll;
 	int16_t return_speed;
 	int32_t turns;
 	float AngleReal;

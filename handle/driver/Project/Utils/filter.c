@@ -1,7 +1,7 @@
 #include "filter.h"
 
 #define M_PI_F 3.141592653589793f
-#define Sampling_Freq  20000
+#define Sampling_Freq  1000
 biquadFilter_t accFilterLPF[5];
 float ACCEL_LPF_CUTOFF_FREQ = 5.0f;
 
