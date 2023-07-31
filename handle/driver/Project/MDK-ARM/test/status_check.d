@@ -58,3 +58,4 @@ test\status_check.o: ..\Protocol\para.h
 test\status_check.o: ..\Utils\crc.h
 test\status_check.o: ..\module\weak_handle.h
 test\status_check.o: ..\BSP\can.h
+test\status_check.o: ..\module\icm42688.h

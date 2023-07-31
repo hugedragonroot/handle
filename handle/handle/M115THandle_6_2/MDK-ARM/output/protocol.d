@@ -15,7 +15,6 @@
 .\output\protocol.o: ..\PROTOCOL\protocol_427\rt_malloc.h
 .\output\protocol.o: ..\PROTOCOL\protocol_427\klist.h
 .\output\protocol.o: ..\PROTOCOL\protocol_427\protocol_register_management.h
-.\output\protocol.o: ..\APP\app_remote_para.h
 .\output\protocol.o: ..\MAIN\main.h
 .\output\protocol.o: ..\GD32F30x_Firmware_Library\CMSIS\GD\GD32F30x\Include\gd32f30x.h
 .\output\protocol.o: ..\GD32F30x_Firmware_Library\CMSIS\core_cm4.h

@@ -35,11 +35,20 @@ void drv_init(void)
 	rcu_periph_clock_enable(RCU_DMA0);	
 	rcu_periph_clock_enable(RCU_DMA1);	
 
+	rcu_periph_clock_enable(RCU_PMU);	
+
 	delay_init();
 	nvic_priority_group_set(NVIC_PRIGROUP_PRE4_SUB0);
   gpio_pin_remap_config(GPIO_SWJ_SWDPENABLE_REMAP,ENABLE);
 
   dbg_trace_pin_disable();
+
+
+#if USING_LED_POINT_DISPLAY
+	led_initIO();
+#else
+ 	lcd_initIO_PwrOff();	
+#endif
 	
 	powerContorIOInit();
 	key_initIO();
@@ -47,16 +56,28 @@ void drv_init(void)
 	joystick_initIO();
 	uart_initIO();	
 
-#if USING_LED_POINT_DISPLAY
-	led_initIO();
-#else
- 	lcd_initIO_PwrOff();	
-#endif
-
 	bt_initIO();
 	gps_initIO();
 	//rf_315m_initIO();
 	music_initIO();
 	ev1527_initIO();
+
+	nvic_irq_enable(LVD_IRQn,0,0);
+	exti_flag_clear(EXTI_16);
+	// exti_init(EXTI_16,EXTI_INTERRUPT,EXTI_TRIG_FALLING);
+	exti_init(EXTI_16,EXTI_INTERRUPT,EXTI_TRIG_RISING);
+	
+	while (RESET != pmu_flag_get(PMU_FLAG_LVD));
+	pmu_lvd_select(PMU_LVDT_7);
 }
 
+void LVD_IRQHandler(void){
+	if(RESET != exti_interrupt_flag_get(EXTI_16)){
+		__disable_irq();
+
+		// mem_save();
+
+		exti_interrupt_flag_clear(EXTI_16);
+		__enable_irq();
+	}
+}

@@ -12,7 +12,7 @@ void BRUSH_SPEED_ANGLE_U(void);
 void BRUSH_SPEED_ANGLE_A(void);
 void brush_Cmd_handle(Brush_Num num);
 void ADC_CURRENT_HANDLE(void);
-void Brush_Over_Current(void);
+void Brush_STATUS_LOOP(void);
 void test_BRUSH(void);
 void RESET_BRUSH_PARA(Brush_Num num);
 #endif

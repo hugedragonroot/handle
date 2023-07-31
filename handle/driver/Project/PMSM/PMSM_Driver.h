@@ -32,6 +32,7 @@ typedef union
   }bit;
   uint16_t all;
 }PMSM_Status_t;
+
 typedef enum
 {
 	MegCaliNone = 0,	//未校准
@@ -67,88 +68,8 @@ typedef enum
 	
 }sCtrlMode_e;
 
-typedef enum
-{
-	start_acc = 0,
-	run_acc = 1,
-	dec_acc = 2,
-}Acc_state;
-typedef enum
-{
-	hight_hight = 0x00,
-	hight_low = 0x01,
-	low_low = 0x02,
-	low_hight = 0x04,
-	zero_zero = 0x08,
-}speed_state;
-typedef enum
-{
-	wheel_first = 0x00,
-	wheel_sec = 0x01,
-	dir_first = 0x02,
-	dir_sec = 0x04,
-	rise_first = 0x05,
-	null_break = 0x08,
-}Second_SPEED_STATUE;
 
-typedef enum
-{
-	firt_q = 1,
-	sec_q = 2,
-	third_q = 3,
-	four_q = 4,
-}quadrant_speed;
 
-typedef enum
-{
-	null_null = 0,
-	rise_speed = 1,
-	rise_mid_speed = 2,
-	low_speed = 3,
-	low_mid_speed = 4,
-}rise_low_t;
-
-typedef struct
-{
-	int16_t angle;
-	int16_t last_angle;
-	uint8_t Gear;
-	uint8_t count_angle;
-	rise_low_t rise_low;
-	int16_t new_speed_l;
-	int16_t new_speed_r;
-	int16_t x_new;
-	int16_t y_new;
-	float SET_COORANGLE;
-	float SET_COORANGLE_10X;
-	float cosf_angle;
-	float l_speed;
-	float r_speed;
-	float CoordSqrt;
-	float CoordSpeed;
-	float CoordSpeed_new;
-	float a_temp;
-	float a;
-	float b_temp;
-	float c;
-	float d;
-	
-	float a_temp_new;
-	float a_new;
-	float b_temp_new;
-	float c_new;
-	float d_new;
-	uint8_t	axis_x;
-	float axis_y_filter;
-	uint8_t axis_y;
-	uint8_t start_first;
-	quadrant_speed quadrant_t;
-	uint8_t count_axisy ;
-	float c_acc_d;
-	float c_dec_2b;
-	float temp_tanf;
-	float vector;
-}APP_PMSM_DRIVER;
 
 extern APP_PMSM_DRIVER APP_PMSM;
 typedef struct
@@ -159,12 +80,9 @@ typedef struct
 	sCaliStatusDef	MotorCali;				//电机校准状态
 	sCtrlMode_e  ControlMode;				//控制模式
 	PMSM_Status_t PMSM_Status;
-	Second_SPEED_STATUE sec_speed_handle;
-	speed_state speed_status;
-	quadrant_speed quadrant;
-	Acc_state acc_status;
-	rise_low_t rise_lows;
-	
+
+
+	uint8_t SpeedCmdCount;
 	float SpeedCmd;		//速度控制
 	float SpeedSet;		//速度设定
 	float SpeedReal;	//真实速度
@@ -173,19 +91,15 @@ typedef struct
 	int16_t appspeed_l;
 	int16_t appspeed_r;
 	int16_t LastSpeedNew;
-	int16_t SpeedNew_100MS;
-	int16_t LastSpeedNew_100MS;
 	int16_t SpeedTemp;
 	uint8_t count_100ms;
 	float speed_temp ;
 	float speed_forward;
-	float dec_ratio;
 	
 	float SpeedNow;		//速度中间变量
 	float S_low_acc;	//启动加速度
 	float S_Add_acc;	//速度加速度
 	float S_Run_acc;
-	float SpeedFIL;
 	
 	float AngleCmd;		//角度控制
 	float AngleSet;		//角度设定
@@ -224,11 +138,12 @@ typedef struct
 	uint8_t speed_pid_count;
 	uint8_t current_pid_count;
 	uint16_t count_acc;
+	float dec_ratio;
+	
 	
 	bool first_offer;
 	bool first_start;
 	bool first_stop;
-	bool wheel_start;
 	
 	uint16_t i16_OverCurrentCount;	//过流次数
 	PIDFloat_Obj angle_pid;

@@ -82,17 +82,20 @@ void debugTask(void* param){
 	}
 	
 }
-#elif USING_DEBUG
+#elif 1
 
 #define VALNAME_AND_VAL(x) (#x),(x)
 
-static char debugTxBuffer[256] = "test 123";
+static char debugTxBuffer[512] = "test 123";
 
 void debugUartPrint(void){
-	u8 powerControlFlag = gpio_input_bit_get(POWER_CONTROL_PORT,POWER_CONTROL_PIN);
+
+	#if USING_DEBUG
+	// u8 powerControlFlag = gpio_input_bit_get(POWER_CONTROL_PORT,POWER_CONTROL_PIN);
 
 	sprintf((char *)debugTxBuffer,
 	"\r\n\
+	%s = %d\r\n\
 	%s = %d\r\n\
 	%s = %d\r\n\
 	%s = %d\r\n\
@@ -107,10 +110,12 @@ void debugUartPrint(void){
 	VALNAME_AND_VAL(Remote_setting_para.CoordY),
 	VALNAME_AND_VAL(Phone_receive_para.CoordX),
 	VALNAME_AND_VAL(Phone_receive_para.CoordY),
-	VALNAME_AND_VAL(powerControlFlag)
+	VALNAME_AND_VAL(Remote_setting_para.CANQueueLenMax),
+	VALNAME_AND_VAL(Remote_setting_para.CANBufferQueueLenMax)
 	);
 
 	uart_wire_send((uint8_t *)debugTxBuffer,strlen(debugTxBuffer));
+	#endif
 }
 
 #endif

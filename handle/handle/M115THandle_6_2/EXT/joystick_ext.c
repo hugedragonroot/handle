@@ -2,10 +2,20 @@
 #include "main.h"
 #include "stdlib.h"
 
+#define USING_ADC_MEDIAN_FILTER 1
+
+#if USING_ADC_MEDIAN_FILTER
+//adc dma通道中值滤波
+#define ADC_valuenum 10
+
+uint16_t adc1_val_buf[ADC_valuenum][2];
+
+#else
 uint16_t	adc1_val_buf[2];
 
 #define ADC_VAL_X		adc1_val_buf[0]
 #define ADC_VAL_Y  	adc1_val_buf[1]
+#endif
 
 JOYSTICK joyetick_adc;
 
@@ -53,10 +63,9 @@ void dma_config(void)
     /* ADC_DMA_channel configuration */
     dma_parameter_struct dma_data_parameter;
 
-		rcu_periph_clock_enable(RCU_DMA0);
     /*  ADC DMA0_0初始化 */
     dma_deinit(DMA0, DMA_CH0);
-
+#if USING_ADC_MEDIAN_FILTER
     /* initialize DMA single data mode */
     dma_data_parameter.periph_addr  = (uint32_t)(&ADC_RDATA(ADC0));//外设基地址
     dma_data_parameter.periph_inc   = DMA_PERIPH_INCREASE_DISABLE;//内存地址增量模式
@@ -65,8 +74,20 @@ void dma_config(void)
     dma_data_parameter.periph_width = DMA_PERIPHERAL_WIDTH_16BIT;//dma外设宽度16位，半字
     dma_data_parameter.memory_width = DMA_MEMORY_WIDTH_16BIT;  
     dma_data_parameter.direction    = DMA_PERIPHERAL_TO_MEMORY;//传输模式，外设到存储（接收）
+    dma_data_parameter.number       = ADC_valuenum*2;//长度
+    dma_data_parameter.priority     = DMA_PRIORITY_HIGH;//优先级高
+#else
+	dma_data_parameter.periph_addr  = (uint32_t)(&ADC_RDATA(ADC0));//外设基地址
+    dma_data_parameter.periph_inc   = DMA_PERIPH_INCREASE_DISABLE;//内存地址增量模式
+    dma_data_parameter.memory_addr  = (uint32_t)(&adc1_val_buf);//数据存放地址
+    dma_data_parameter.memory_inc   = DMA_MEMORY_INCREASE_ENABLE;//内存地址增量模式
+    dma_data_parameter.periph_width = DMA_PERIPHERAL_WIDTH_16BIT;//dma外设宽度16位，半字
+    dma_data_parameter.memory_width = DMA_MEMORY_WIDTH_16BIT;  
+    dma_data_parameter.direction    = DMA_PERIPHERAL_TO_MEMORY;//传输模式，外设到存储（接收）
     dma_data_parameter.number       = 2;//长度
     dma_data_parameter.priority     = DMA_PRIORITY_HIGH;//优先级高
+#endif
+
     dma_init(DMA0, DMA_CH0, &dma_data_parameter);
 
     dma_circulation_enable(DMA0, DMA_CH0);//循环模式开启dma_circulation_enable(DMA0, DMA_CH0)//dma_circulation_disable
@@ -82,11 +103,10 @@ void ADC_EXT_Init(void)
 	adc_config();
 }
  
-
 uint32_t joy_x_sum;
 uint32_t joy_y_sum;
 
-#define ADC_LEN		50
+#define ADC_LEN		10
 uint16_t adc_buff_x[ADC_LEN];
 uint16_t adc_buff_y[ADC_LEN];
 /*
@@ -128,26 +148,107 @@ uint16_t deadband(uint16_t value, const uint16_t midval, const uint16_t threshol
 	return value;
 }
 
+#if 1
+//channel adc通道
+uint16_t ObtainAdcMedian(uint8_t Channel)
+{
+	uint8_t i,j;
+	uint16_t adc_data;
+	uint16_t (*adc_buffer)[2] = adc1_val_buf;	
+	for(i=0;i<ADC_valuenum-1;i++)
+	{
+		for(j=1;j<(ADC_valuenum-i);j++)
+		{
+			if(adc_buffer[j][Channel]>adc_buffer[j-1][Channel])
+			{
+				adc_data =  adc_buffer[j][Channel];
+				adc_buffer[j][Channel] = adc_buffer[j-1][Channel];
+				adc_buffer[j-1][Channel] = adc_data;		
+			}
+		}
+	}
+	return 	adc_buffer[(ADC_valuenum-1)/2][Channel];
+}
+
+#define ACCRETION 0.1f
+
+//限幅
+//pre:上一次的值 now：当前值 Error:限幅值
+uint16_t AdcLevelled(uint16_t Pre,uint16_t Now,uint8_t Error)
+{
+    if((Pre-Now)>Error)
+	{
+		Pre-=(Pre-Now)*ACCRETION;
+	}
+	else if((Now-Pre)>Error)
+	{
+		Pre+= (Now-Pre)*ACCRETION;		
+	}	
+	return Pre;
+}
+#endif
+
+
 
 void scan_joyxy(void)
 {
 	uint16_t temp_x;
 	uint16_t temp_y;	
-	//static uint8_t t=0;
-	
-	
+
+#if USING_ADC_MEDIAN_FILTER
+
+	#if 1
+	static uint16_t pre_x = 0;
+	static uint16_t pre_y = 0;	
+
+	temp_x = ObtainAdcMedian(0);
+	temp_y = ObtainAdcMedian(1);
+
+	temp_x = AdcLevelled(pre_x,temp_x,10);
+	temp_y = AdcLevelled(pre_y,temp_y,10);
+
+	pre_x = temp_x;
+	pre_y = temp_y;
+	#else
+
+	static float pre_x = 0;
+	static float pre_y = 0;
+
+	temp_x = ObtainAdcMedian(0);
+	temp_y = ObtainAdcMedian(1);
+	#define fifterNum 0.05f
+
+	pre_x = temp_x*fifterNum + pre_x*(1.0f-fifterNum);
+	pre_y = temp_y*fifterNum + pre_y*(1.0f-fifterNum);
+
+	temp_x = (uint16_t)pre_x;
+	temp_y = (uint16_t)pre_y;
+	#endif
+
+	temp_x = deadband(temp_x,Coord_Base<<4,Coord_Dead<<4);
+	temp_y = deadband(temp_y,Coord_Base<<4,Coord_Dead<<4);
+
+#else	
 	temp_x = ADC_VAL_X;
 	temp_y = ADC_VAL_Y;
-
 
 	temp_x = deadband(temp_x,Coord_Base<<4,Coord_Dead<<4);
 	temp_y = deadband(temp_y,Coord_Base<<4,Coord_Dead<<4);
 		
 	// temp_x =GildeAverageValueFilter_MAG(temp_x,adc_buff_x,ADC_LEN);
 	// temp_y = GildeAverageValueFilter_MAG(temp_y,adc_buff_y,ADC_LEN);
+
+
+#endif
+
+
+
 		
 	temp_x = (temp_x>>4)&0xff;
 	temp_y = (temp_y>>4)&0xff;		
+
+
+
 #if DEBUG_MODECHANGE	
 	if(Remote_setting_para.Control_change)return;	
 #endif	

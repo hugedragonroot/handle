@@ -10,6 +10,24 @@
         "freertos.h": "c",
         "lcd_drv.h": "c",
         "projdefs.h": "c",
-        "freertosconfig.h": "c"
+        "freertosconfig.h": "c",
+        "led_ext.h": "c",
+        "cctype": "c",
+        "climits": "c",
+        "cstdarg": "c",
+        "cstdio": "c",
+        "cstdlib": "c",
+        "cwchar": "c",
+        "cwctype": "c",
+        "limits": "c",
+        "*.tcc": "c",
+        "type_traits": "c",
+        "gps_task.h": "c",
+        "app_display.h": "c",
+        "key_drv.h": "c",
+        "stdlib.h": "c",
+        "queue.h": "c",
+        "ext.h": "c",
+        "bt_ext.h": "c"
     }
 }

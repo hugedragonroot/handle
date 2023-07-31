@@ -90,6 +90,7 @@ typedef struct
 	float MPU_Set;
 	float MPU_acc;
 	float MPU_Basic;
+	float roll_basic;
 	float MPU_REAL;
 	float Last_MPU;
 	float Tem_MPU;
@@ -98,6 +99,7 @@ typedef struct
 	uint16_t AngelAcc;	//角加速度
 	uint8_t angle_count;	//位置环计数
 	uint8_t calib_count;
+	uint8_t zero_count;
 	
 	
 	int32_t LineRealPullLenth;	//圈数实际长度

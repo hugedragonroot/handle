@@ -2,14 +2,17 @@
 #include <string.h>
 #include "BTlink_task.h"
 /*FreeRtos includes*/
+
+#if 0
 #include "FreeRTOS.h"
 #include "task.h"
+#include "queue.h"
+#endif
+
 #include "key_ext.h"
 #include "uart_ext.h"
 #include "app_protocol.h"
-#include "queue.h"
 #include "debug.h"
-
 
 static TCOMMUN RxPack;
 
@@ -102,14 +105,15 @@ void BTRxTask(void* param)
 }
 #else
 
+
+
 void BTNoneOSTask(void){
 	uint8_t ch = 0;
 	uint8_t state = 0;
 	uint8_t i=0;
 	uint8_t sumchk=0;
 #if 1
-	while(BTGetDataWithTimout(&ch) && !Remote_setting_para.HandleLock) {			
-		Remote_setting_para.RemoteBTCount = 0;
+	while(BTGetDataWithTimout(&ch)) {			
 		switch(state)
 		{	
 			case 0:
@@ -161,17 +165,6 @@ void BTNoneOSTask(void){
 		}					
 		if(state == 0) return;
 	}
-	if(Remote_setting_para.RemoteBTConnect == eBlubtooth && 
-		++Remote_setting_para.RemoteBTCount == 255){
-
-		Remote_setting_para.RemoteBTConnect = eOffline;
-		Remote_setting_para.RemoteBTCount = 0;
-
-		Remote_setting_para.CoordX = Coord_Base;
-		Remote_setting_para.CoordY = Coord_Base;
-		Remote_trans_para.push_rod_speed = 0;
-	}
-
 
 	#else
 	if(BTGetPack(&RxPack)&&(Remote_setting_para.PowerStatus == ePowerOn)){
@@ -241,6 +234,7 @@ bool BTlinkSendPacket(const TCOMMUN *p){
 	dataLen = p->DataLen+6;
 	btSendBuffer[dataLen - 1] = cksum;
 
+	uart_wire_send(btSendBuffer, dataLen);
 	return uart_bt_send(btSendBuffer, dataLen);
 }
 

@@ -44,16 +44,19 @@ void Remote_para_default(void)
 	Remote_setting_para.SpeedGear = eGearOne;
 	Remote_setting_para.Peripherals = 0x00;
 	Remote_setting_para.Battery =0x00;
-	Remote_setting_para.HandleLock = 0;
+	// Remote_setting_para.HandleLock = eUnLock;
+	// Remote_setting_para.HandleLock = eLock;
 	// Remote_setting_para.VoiceLevel = ePVoiceLevel_1;
 	Remote_setting_para.VoiceSwitch = 0;
 	// Remote_setting_para.AlarmSwitch = 1;
 	Remote_setting_para.CruiseCtrlSwitch = 0;	
 	// Remote_setting_para.CurrentMusic = 0;
 	Remote_setting_para.Model = M115;
+	Remote_setting_para.folding_time = 0;
 
 	if(joyetick_adc.valX != Coord_Base || joyetick_adc.valY != Coord_Base){
-		Remote_setting_para.ErrorFlag |= ERROR_JOY_XY;
+		// Remote_setting_para.ErrorFlag |= 1<<ERROR_JOY_XY;
+		Remote_trans_para.errorFlag.bit.joyXyError = 1;
 	}
 
 	Remote_trans_para.walking_speed_L = 0x0000;
@@ -72,7 +75,8 @@ void Remote_para_default(void)
 	Remote_receive_para.Drivermodel = 0;
 	Remote_receive_para.Driversoftware = 1;
 	Remote_receive_para.Driversoftwarepre = 0;
-	
+
+	Remote_trans_para.folding_state = Remote_receive_para.folding_state;
 	
 	memset(&Phone_receive_para,0,sizeof(Phone_receive_para));		
 	// Phone_receive_para.SpeedLevel = eGearOne;	

@@ -41,8 +41,11 @@ typedef struct{
 	float acc_retry;
 	int8_t polar;
 	uint8_t zero_flag:1;
+	bool sub_falge;
 	float time;
 	SCURVE_STATE ScurveState;
+	bool overzero_dec_flag;
+	float overzero_speed_range;
 }SCURVE_STR;
 
 

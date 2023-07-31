@@ -21,9 +21,7 @@ void MUSIC_Init( uint32_t baudval);
 void Gps_Init( uint32_t baudval);
 void uart_init(void)
 {
-	#if USING_DEBUG
 	WIRE_Init(115200);
-	#endif
 
 	#if BT_CHANGE_NAME_FLAG
 	BT_Init(9600);
@@ -221,6 +219,8 @@ void uart_wire_send(uint8_t *array, uint16_t len)
   #else
 
 if(dma_flag_get(DMA0,DMA_CH3,DMA_FLAG_FTF) == RESET) return; 
+
+// while(dma_flag_get(DMA0,DMA_CH3,DMA_FLAG_FTF) == RESET);
 
   dma_channel_disable(DMA0,DMA_CH3);
   dma_memory_address_config(DMA0,DMA_CH3,(uint32_t)array);

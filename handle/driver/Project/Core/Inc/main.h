@@ -53,7 +53,7 @@ extern "C" {
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
-
+void delay_1ms(uint32_t count);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/

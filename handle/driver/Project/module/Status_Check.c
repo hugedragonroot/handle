@@ -14,11 +14,14 @@
 #include "xsto_api_ii.h"
 #include "weak_handle.h"
 #include "can.h"
+//#include "QMI8658C.h"
+#include "icm42688.h"
 extern API_Config_t  API_Config;
 uint32_t BZ_MS = 0;
 
 
 IMU_T imu_mpu;
+uint8_t break_a,break_u;	
 void Status_Check_Loop(void)
 {
 	static uint8_t vd_count = 0;
@@ -27,6 +30,8 @@ void Status_Check_Loop(void)
 	{
 		vd_count = 0;
 		GetVoltage_MOSTEMP();//»ñÈ¡Ä¸ÏßµçÑ¹
+		PMSM[PMSM_A].Mostemp = Get_MOTOR_MOSTEMP(PMSM_A);
+		PMSM[PMSM_U].Mostemp = Get_MOTOR_MOSTEMP(PMSM_U);
 		if(ADC_Data.Bus_Volt>=30)//¹ýÑ¹30v
 		{
 			Brush[Brush_A].brush_state.bit.OverVoltag = 1;
@@ -54,25 +59,61 @@ void Status_Check_Loop(void)
 			PMSM[PMSM_A].PMSM_Status.bit.OverVoltag = 0;
 			PMSM[PMSM_U].PMSM_Status.bit.OverVoltag = 0;
 		}
+		
+		if(PMSM[PMSM_A].Mostemp>80.0f)
+		{
+			PMSM[PMSM_A].PMSM_Status.bit.OverTemp = 1;
+		}
+		else 
+		{
+			PMSM[PMSM_A].PMSM_Status.bit.OverTemp = 0;
+		}
+		
+		if(PMSM[PMSM_U].Mostemp>80.0f)
+		{
+			PMSM[PMSM_U].PMSM_Status.bit.OverTemp = 1;
+		}
+		else 
+		{
+			PMSM[PMSM_U].PMSM_Status.bit.OverTemp = 0;
+		}
 		if(ADC_Data.mos_temp > 80.0f)//¹ýÎÂ
 		{
 			Brush[Brush_A].brush_state.bit.OverTemp = 1;
 			Brush[Brush_U].brush_state.bit.OverTemp = 1;
 			
-			PMSM[PMSM_A].PMSM_Status.bit.OverTemp = 1;
-			PMSM[PMSM_A].PMSM_Status.bit.OverTemp = 1;
 		}
 		else
 		{
 			Brush[Brush_A].brush_state.bit.OverTemp = 0;
 			Brush[Brush_U].brush_state.bit.OverTemp = 0;
 			
-			PMSM[PMSM_A].PMSM_Status.bit.OverTemp = 0;
-			PMSM[PMSM_A].PMSM_Status.bit.OverTemp = 0;
 		}
-//		if(PMSM[PMSM_A].MotorPreState == StopMotor_e)
-		PMSM[PMSM_A].PMSM_Status.bit.Bandbrake = hold_filter(&Spacing[key_bz1],BREAK1_READ_INPUT(),BZ_MS);//±§Õ¢×´Ì¬
-		PMSM[PMSM_U].PMSM_Status.bit.Bandbrake = hold_filter(&Spacing[key_bz2],BREAK2_READ_INPUT(),BZ_MS);//±§Õ¢×´Ì¬
+//		if(PMSM[PMSM_A].MotorPreState == StopMotor_e);
+		
+	}
+	
+	static uint8_t count_break = 0;
+	break_a = hold_filter(&Spacing[key_bz1],BREAK1_READ_INPUT(),BZ_MS);
+	break_u = hold_filter(&Spacing[key_bz2],BREAK2_READ_INPUT(),BZ_MS);//±§Õ¢×´Ì¬
+	if(break_a == 1||break_u == 1)
+	{
+		if((BREAK1_WRITE_READ()==0||BREAK2_WRITE_READ()==0)&&++count_break>=2)
+		{
+			PMSM[PMSM_A].PMSM_Status.bit.Bandbrake = 1;
+			PMSM[PMSM_U].PMSM_Status.bit.Bandbrake = 1;
+		}
+		else
+		{
+			PMSM[PMSM_A].PMSM_Status.bit.Bandbrake = 0;
+			PMSM[PMSM_U].PMSM_Status.bit.Bandbrake = 0;
+		}
+	}
+	else
+	{
+		count_break = 0;
+		PMSM[PMSM_A].PMSM_Status.bit.Bandbrake = 0;
+		PMSM[PMSM_U].PMSM_Status.bit.Bandbrake = 0;
 	}
 }
 
@@ -137,8 +178,6 @@ void KEY_ZERO_CHECK_LOOP(void)
 bool flage_firast = false;
 void ZERO_HANDLE_CHECK_LOOP(void)
 {
-	
-	#if 0
 	ZERO_MS++;
 	top_value = hold_filter(&Spacing[key_top],KEY_TOP_INPUT(),ZERO_MS);
 	
@@ -200,63 +239,46 @@ void ZERO_HANDLE_CHECK_LOOP(void)
 //		Brush[Brush_A].first_start = false;
 ////		Brush_Start_Filter(Brush_A);
 //	}
-	#endif
-	#if 1
-	if(Brush[Brush_U].Control_mode == zero_mode)
-	{
-		Brush[Brush_U].brush_Cmd_Pre = Brush_Cmd_Star;
-		Brush[Brush_U].SpeedlNew = -150;
-//		Brush_Start_Filter(Brush_U);
-	}
 	
-	if(Brush[Brush_A].Control_mode == zero_mode)
-	{
-		Brush[Brush_A].brush_Cmd_Pre = Brush_Cmd_Star;
-		Brush[Brush_A].SpeedlNew = 300;
-//		Brush_Start_Filter(Brush_U);
-	}
-	#endif
 }
-void Brush_Fold_Check(Brush_Num num)
+
+void MPU_ZERO_CHECK_HANDLE(void)
 {
-	
-	if(Brush[num].Control_mode == fold_mode&&Brush[num].brush_Cmd == Brush_Cmd_Run)
+	if(Brush[Brush_A].Control_mode == zero_mode&&Brush[Brush_U].Control_mode == zero_mode)
 	{
-		if(fabs(Brush[num].real_speed)<10.0f)
+		if(fabs(tQmi.Pitch - tQmi.bais_pitch)<1.0f)
 		{
-			if(++Brush[num].fold_speed_count>=10)
+			if(++Brush[Brush_A].zero_count>=10)
 			{
-				Brush[num].fold_speed_count = 0;
-				Brush[num].brush_Cmd_Pre = Brush_Cmd_Stop;
+				Brush[Brush_A].zero_count = 0;
+				Brush[Brush_A].brush_state.bit.FINISH_calibration_One = 1;
+				Brush[Brush_A].Control_mode = mpu_mode;
+				Brush[Brush_U].brush_Cmd_Pre = Brush_Cmd_Stop;
+				Brush[Brush_U].Control_mode = speed_mode;
+				Brush[Brush_A].brush_Cmd_Pre = Brush_Cmd_Star;
+				RESET_BRUSH_PARA(Brush_A);
+				RESET_BRUSH_PARA(Brush_U);
+	//					clear_pid(&Brush[Brush_A].ANGLE_PID);//Çå³ýÓ¦ÓÃpid²ÎÊý
+				clear_pid(&Brush[Brush_A].SPEED_PID);
+	//
+				clear_pid(&Brush[Brush_A].CURRENT_PID);
+				clear_pid(&Brush[Brush_A].MPU_PID);
 			}
 		}
 		else
 		{
-			Brush[num].fold_speed_count = 0;
+			Brush[Brush_A].brush_Cmd_Pre = Brush_Cmd_Star;
+			Brush[Brush_U].brush_Cmd_Pre = Brush_Cmd_Star;
+			Brush[Brush_A].zero_count = 0;
 		}
 	}
 }
 uint16_t online_count = 0;
+float pitch_temp = 0.0f;
+float roll_temp = 0.0f;
+float local_pitch = 0.0f;
 void online_loop(void)
 {
-	#if 0
-	if(API_Config.Status == MODULE_STATUS_OFFLINE)
-	{
-			Brush[Brush_U].brush_Cmd_Pre = Brush_Cmd_Stop;
-			Brush[Brush_A].brush_Cmd_Pre = Brush_Cmd_Stop;
-		
-			Brush_Start_Filter(Brush_A);
-			Brush_Start_Filter(Brush_U);
-		
-			PMSM[PMSM_A].SpeedNew = 0;
-			PMSM[PMSM_U].SpeedNew = 0;
-//			PMSM[PMSM_A].MotorPreState = MotorStop;
-//			PMSM[PMSM_U].MotorPreState = MotorStop;
-//		
-//			PMSM_Start_Filter(PMSM_A);
-//			PMSM_Start_Filter(PMSM_U);
-	}
-	#endif
 	#if 1
 	if(message_online_flage == true)
 	{
@@ -265,7 +287,7 @@ void online_loop(void)
 	}
 	else
 	{
-		if(++online_count>=20)
+		if(++online_count>=8)
 		{
 			Brush[Brush_U].brush_Cmd_Pre = Brush_Cmd_Stop;
 			Brush[Brush_A].brush_Cmd_Pre = Brush_Cmd_Stop;
@@ -275,15 +297,29 @@ void online_loop(void)
 		
 			PMSM[PMSM_A].SpeedNew = 0;
 			PMSM[PMSM_U].SpeedNew = 0;
+			
+			APP_PMSM.axis_x = 127;
+			APP_PMSM.axis_y = 127;
+			
+			if(PMSM[PMSM_A].SpeedSet == 0.0f&&PMSM[PMSM_U].SpeedSet == 0.0f)
+			{
+				PMSM[PMSM_A].MotorPreState = MotorStop;
+				PMSM[PMSM_U].MotorPreState = MotorStop;
+				PMSM_Start_Filter(PMSM_A);
+				PMSM_Start_Filter(PMSM_U);
+				
+			}
 		}
 	}
-	
 	#endif
 
-
-	float pitch_temp = fabs(mpu_filter.ptich - Brush[Brush_A].MPU_Basic);
+	pitch_temp = (mpu_filter.ptich - Brush[Brush_A].MPU_Basic)*0.3f + pitch_temp*0.7f;
+	roll_temp = (mpu_filter.roll - Brush[Brush_A].roll_basic)*0.3f + roll_temp*0.7f;
+	local_pitch =	(tQmi.Pitch - tQmi.bais_pitch)*0.3f + local_pitch*0.7f;
 	imu_mpu.pitch_return = (int16_t)(pitch_temp*100.0f);
-	imu_mpu.roll_return =  (int16_t)(mpu_filter.roll*100.0f);
+	imu_mpu.roll_return =  (int16_t)(roll_temp*100.0f);
+	imu_mpu.local_pitch = 	(int16_t)(local_pitch*100.0f);
+	imu_mpu.abs_angel = imu_mpu.pitch_return - imu_mpu.local_pitch;
 }
 
 

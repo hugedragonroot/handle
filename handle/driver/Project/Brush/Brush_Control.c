@@ -10,7 +10,9 @@
 #include "tim.h"
 #include "adc_callback.h"
 #include "can.h"
-#include "QMI8658C.h"
+//#include "QMI8658C.h"
+#include "icm42688.h"
+#include "gpio.h"
 
 /****************************************
   函数名称：RESET_BRUSH_PARA
@@ -42,13 +44,15 @@ void RESET_BRUSH_PARA(Brush_Num num)
 uint8_t flage_brush = 4;
 uint16_t test_count_B  = 0;
 uint8_t flage_test_B = 0;
-#define b_speed_t 150.0f
+#define b_speed_t 120.0f
 void test_BRUSH(void)
 {
 	if(flage_brush == 0)
 	{
 		Brush[Brush_A].brush_Cmd_Pre = Brush_Cmd_Stop;
 		Brush[Brush_U].brush_Cmd_Pre = Brush_Cmd_Stop;
+		Brush[Brush_A].Control_mode = normal_mode;
+		Brush[Brush_U].Control_mode = normal_mode;
 	}
 #if 0
 	if(flage_brush == 1)
@@ -109,6 +113,7 @@ void test_BRUSH(void)
 	}
 #endif
 #if 0
+	
 	if(flage_test_B == 0)
 	{
 		if(++test_count_B>=30)//3s启动
@@ -164,33 +169,22 @@ void BRUSH_SPEED_ANGLE_U(void)
 	if(BrushSpeed[Brush_U].TimeUs == 0x00000000) BrushSpeed[Brush_U].TimeUs = 0xffffffff;
 	//13是电机霍尔的极对数Z
 	//28.0f
-//	BrushSpeed[Brush_U].i16_RealSpeed = (int16_t)((1000.0f * 1000.0f * 60.0f) / ((float)BrushSpeed[Brush_U].TimeUs * 15.0f)); // ==> us/r  * 1000 ==> ms/r  * 1000 = S/r  *60  ==> min/r   
+	BrushSpeed[Brush_U].i16_RealSpeed = (int16_t)((1000.0f * 1000.0f * 60.0f) / ((float)BrushSpeed[Brush_U].TimeUs * 15.0f)); // ==> us/r  * 1000 ==> ms/r  * 1000 = S/r  *60  ==> min/r   
 
-	BrushSpeed[Brush_U].i16_RealSpeed = (int16_t)((1000.0f * 1000.0f * 60.0f) / ((float)BrushSpeed[Brush_U].TimeUs * 28.0f));
 	//4.0f是人为设置的极对数，因为电机没有文档，只能人为设置大概转速
 	
 	//公式：N=60*f/ZM,f脉冲频率，z表示一圈产生的脉冲数（11，1倍频，极对数13），M采样周期内产生脉冲数
-//	if(__HAL_TIM_IS_TIM_COUNTING_DOWN(&htim4) == 1)//方向标志
-//	{
-//		Brush[Brush_U].real_speed = (float)BrushSpeed[Brush_U].i16_RealSpeed* (-1.0f);//速度赋值
-//		Brush[Brush_U].return_speed = -BrushSpeed[Brush_U].i16_RealSpeed ;
-//	}
-//	else
-//	{
-//		Brush[Brush_U].real_speed = (float)BrushSpeed[Brush_U].i16_RealSpeed ;//速度赋值
-//		Brush[Brush_U].return_speed = BrushSpeed[Brush_U].i16_RealSpeed ;
-//	}
-
 	if(__HAL_TIM_IS_TIM_COUNTING_DOWN(&htim4) == 1)//方向标志
 	{
-		Brush[Brush_U].real_speed = (float)BrushSpeed[Brush_U].i16_RealSpeed;//速度赋值
-		Brush[Brush_U].return_speed = BrushSpeed[Brush_U].i16_RealSpeed ;
+		Brush[Brush_U].real_speed = (float)BrushSpeed[Brush_U].i16_RealSpeed* (-1.0f);//速度赋值
+		Brush[Brush_U].return_speed = -BrushSpeed[Brush_U].i16_RealSpeed ;
 	}
 	else
 	{
-		Brush[Brush_U].real_speed = (float)BrushSpeed[Brush_U].i16_RealSpeed *(-1.0f);//速度赋值
-		Brush[Brush_U].return_speed = -BrushSpeed[Brush_U].i16_RealSpeed ;
+		Brush[Brush_U].real_speed = (float)BrushSpeed[Brush_U].i16_RealSpeed ;//速度赋值
+		Brush[Brush_U].return_speed = BrushSpeed[Brush_U].i16_RealSpeed ;
 	}
+
 //	
 	BrushSpeed[Brush_U].PosCountPHA =(BrushSpeed[Brush_U].PosWRIFCount - 1)*65536 + Brush_U_CNT();//计算A相脉冲个数，就是角度脉冲值
 
@@ -397,15 +391,15 @@ void Brush_MPU_Handle(Brush_Num num)
 		Brush[num].MPU_REAL = mpu_filter.ptich - Brush[num].MPU_Basic;
 		Brush[num].return_mpu = (int16_t)Brush[num].MPU_REAL;
 		Brush_MPU_ACC_handle(num);
-		if(fabs(Brush[num].MPU_REAL- (float)Brush[num].MPU_New)>1.0f )//角度在误差范围外继续闭环
+		if(fabs(Brush[num].MPU_REAL- (float)Brush[num].MPU_New)>2.0f )//角度在误差范围外继续闭环
 		{
 			if(++Brush[num].angle_count>=2)//外环周期是内环的两倍
 			{
 				Brush[num].angle_count = 0;
 //				Brush[num].Tem_MPU = (Brush[num].MPU_REAL - Brush[num].Last_MPU)/0.02f*100.0f;
 //				Brush[num].Last_MPU = Brush[num].MPU_REAL;
-				if(Brush[num].MPU_REAL>0.0f) Brush[num].set_speed = -200.0f;
-				if(Brush[num].MPU_REAL<0.0f) Brush[num].set_speed = 200.0f;
+				if(Brush[num].MPU_REAL>0.0f) Brush[num].set_speed = -300.0f;
+				if(Brush[num].MPU_REAL<0.0f) Brush[num].set_speed = 300.0f;
 				PID_run_FloatspdVolt(&Brush[num].MPU_PID,Brush[num].MPU_Set,Brush[num].MPU_REAL);//角度闭环
 //				Brush[num].set_speed = Brush[num].MPU_PID.PIDOut;//输出给定速度环
 			}
@@ -425,8 +419,8 @@ void Brush_MPU_Handle(Brush_Num num)
 	{
 		Brush[num].MPU_REAL = mpu_filter.ptich - Brush[num].MPU_Basic;
 		Brush[num].return_mpu = (int16_t)Brush[num].MPU_REAL;
-		if(Brush[Brush_A].SpeedlNew >0.0f)Brush[num].set_speed = -b_speed_t;
-		if(Brush[Brush_A].SpeedlNew <0.0f)Brush[num].set_speed = b_speed_t;
+		if(Brush[Brush_A].SpeedlNew >0.0f)Brush[num].set_speed = -100.0f;
+		if(Brush[Brush_A].SpeedlNew <0.0f)Brush[num].set_speed = 100.0f;
 		if(++Brush[num].angle_count>=2)//外环周期是内环的两倍
 		{
 			Brush[num].angle_count = 0;
@@ -452,6 +446,7 @@ void Brush_Flod_Handle(Brush_Num num)
 
 void Brush_Zero_Handle(Brush_Num num)
 {
+	#if 0
 	if(num == Brush_A)
 	{
 		Brush_Speed_Acc_handle(num);//加速度坡度
@@ -476,6 +471,38 @@ void Brush_Zero_Handle(Brush_Num num)
 		PID_run_FloatspdVolt(&Brush[num].SPEED_PID,(Brush[num].set_speed+ Brush[num].MPU_PID.PIDOut)/Brush[num].MAX_speed,Brush[num].real_speed/Brush[num].MAX_speed);
 		Brush_Control_Mode(num,Brush[num].SPEED_PID.PIDOut);
 	}
+	#endif
+	#if 1
+	if(num == Brush_A)
+	{
+		if((tQmi.Pitch - tQmi.bais_pitch)>0.0f)Brush[num].SpeedlNew = -300;
+		if((tQmi.Pitch - tQmi.bais_pitch)<0.0f)Brush[num].SpeedlNew = 300;
+		Brush_Speed_Acc_handle(num);//加速度坡度
+		if(fabs(tQmi.Pitch - tQmi.bais_pitch)>1.0f )//角度在误差范围外继续闭环
+		{
+			PID_run_FloatspdVolt(&Brush[num].SPEED_PID,Brush[num].set_speed/Brush[num].MAX_speed,Brush[num].real_speed/Brush[num].MAX_speed);//速度闭环
+		}
+		else
+		{
+			clear_pid(&Brush[num].SPEED_PID);
+		}
+		Brush_Control_Mode(num,Brush[num].SPEED_PID.PIDOut);//双极性控制
+	}
+	else if(num == Brush_U)
+	{
+		Brush[num].MPU_REAL = mpu_filter.ptich - Brush[num].MPU_Basic;
+		Brush[num].return_mpu = (int16_t)Brush[num].MPU_REAL;
+		if(Brush[Brush_A].SpeedlNew >0.0f)Brush[num].set_speed = -b_speed_t;
+		if(Brush[Brush_A].SpeedlNew <0.0f)Brush[num].set_speed = b_speed_t;
+		if(++Brush[num].angle_count>=2)//外环周期是内环的两倍
+		{
+			Brush[num].angle_count = 0;
+			PID_run_FloatspdVolt(&Brush[num].MPU_PID,Brush[num].MPU_Set,Brush[num].MPU_REAL);//角度闭环
+		}
+		PID_run_FloatspdVolt(&Brush[num].SPEED_PID,(Brush[num].set_speed+ Brush[num].MPU_PID.PIDOut)/Brush[num].MAX_speed,Brush[num].real_speed/Brush[num].MAX_speed);
+		Brush_Control_Mode(num,Brush[num].SPEED_PID.PIDOut);
+	}
+	#endif
 }
 /****************************************
   函数名称：Brush_Current_Handle
@@ -527,14 +554,33 @@ void Brush_Run_Task(Brush_Num num)
 			Brush_Flod_Handle(num);
 			break;
 		case zero_mode:
-			Brush_Flod_Handle(num);
-//			Brush_Zero_Handle(num);
+			Brush_Zero_Handle(num);
 			break;
 		default:
 			break;
 	}
 	
 }
+void Brush_Fold_Check(Brush_Num num)
+{
+	
+	if(Brush[num].Control_mode == fold_mode&&Brush[num].brush_Cmd == Brush_Cmd_Run)
+	{
+		if(fabs(Brush[num].real_speed)<10.0f)
+		{
+			if(++Brush[num].fold_speed_count>=10)
+			{
+				Brush[num].fold_speed_count = 0;
+				Brush[num].brush_Cmd_Pre = Brush_Cmd_Stop;
+			}
+		}
+		else
+		{
+			Brush[num].fold_speed_count = 0;
+		}
+	}
+}
+extern APP_PMSM_DRIVER APP_PMSM;
 /****************************************
   函数名称：Over_Current
   函数表述：过流监测，保护
@@ -542,8 +588,11 @@ void Brush_Run_Task(Brush_Num num)
   函数返回值：无
 ***************************************/
 uint16_t CurrentFaultNumber[3]={0};		
-void Brush_Over_Current(void)
+void Brush_STATUS_LOOP(void)
 {
+	
+	Brush_Fold_Check(Brush_A);
+	Brush_Fold_Check(Brush_U);
 	if(Brush[Brush_A].Control_mode == calib_mode&&Brush[Brush_U].Control_mode == calib_mode)//校准模式下
 	{
 		if(fabs(Brush[Brush_A].Current_real)>Brush[Brush_A].Trip_Calib_Current||fabs(Brush[Brush_U].Current_real)>Brush[Brush_U].Trip_Calib_Current)//校准电流0.5a
@@ -595,6 +644,24 @@ void Brush_Over_Current(void)
 		{
 			CurrentFaultNumber[2]=0;
 		}
+	}
+	
+	if(Brush[Brush_A].brush_state.bit.Current_Error == 1||Brush[Brush_A].brush_state.bit.OverCur == 1)
+	{
+		APP_PMSM.APP_ERROR.bit.Brush_A_ERROR = 1;
+	}
+	else
+	{
+		APP_PMSM.APP_ERROR.bit.Brush_A_ERROR = 0;
+	}
+	
+	if(Brush[Brush_U].brush_state.bit.Current_Error == 1||Brush[Brush_U].brush_state.bit.OverCur == 1)
+	{
+		APP_PMSM.APP_ERROR.bit.Brush_U_ERROR = 1;
+	}
+	else
+	{
+		APP_PMSM.APP_ERROR.bit.Brush_U_ERROR = 0;
 	}
 
 }
@@ -702,6 +769,7 @@ void brush_Cmd_handle(Brush_Num num)
 				RESET_BRUSH_PARA(num);
 				break;
 			case Brush_Cmd_Star://电机启动模式
+				MOS_ENABLE();
 				if(++Brush[num].start_count>=5)//计数50ms运行电机
 				{
 					Brush_Star(num,0.0f);//开pwm

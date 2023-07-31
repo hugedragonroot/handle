@@ -10,7 +10,8 @@
 #include "PLL.h"
 #include "PMSM_Calib.h"
 #include "filter.h"
-
+#include "CurveProgramme.h"
+#include "PMSM_Control.h"
 hall_encoder_t hall_test ={0};
 hall_encoder_t hall_encoder[2] ={0};
 
@@ -66,10 +67,10 @@ void Theta_Read(PMSM_Num num)
 	TEMP_PMSM_HALL_V = (float)(HALL_V - hall_encoder[num].Median.HALL_V_VALUE)/(float)(hall_encoder[num].RANGE_Amplitude.HALL_V_VALUE);
 	TEMP_PMSM_HALL_W = (float)(HALL_W - hall_encoder[num].Median.HALL_W_VALUE)/(float)(hall_encoder[num].RANGE_Amplitude.HALL_W_VALUE);
 	
-	hall_encoder[num].Theta_Beta = TEMP_PMSM_HALL_U - TEMP_PMSM_HALL_V*my_cosf_1_3 - TEMP_PMSM_HALL_W*my_cosf_1_3;
-	hall_encoder[num].Theta_Alpha = -TEMP_PMSM_HALL_V*my_sinf_1_3 + TEMP_PMSM_HALL_W*my_sinf_1_3;
+	hall_encoder[num].Theta_Alpha = TEMP_PMSM_HALL_U - TEMP_PMSM_HALL_V*my_cosf_1_3 - TEMP_PMSM_HALL_W*my_cosf_1_3;
+	hall_encoder[num].Theta_Beta = -TEMP_PMSM_HALL_V*my_sinf_1_3 + TEMP_PMSM_HALL_W*my_sinf_1_3;
 	
-	hall_encoder[num].Theta_Compose = atan2f(hall_encoder[num].Theta_Alpha,hall_encoder[num].Theta_Beta);
+	hall_encoder[num].Theta_Compose = atan2f(hall_encoder[num].Theta_Beta,hall_encoder[num].Theta_Alpha);
 //	hall_encoder[num].Theta_Compose = atan2f(hall_encoder[num].Theta_Beta,hall_encoder[num].Theta_Alpha);
 	hall_encoder[num].Theta = hall_encoder[num].Theta_Compose - hall_encoder[num].Theta_Calib_Bias;
 //	hall_encoder[num].Theta = hall_encoder[num].Theta_Compose + basic_temp;
@@ -108,17 +109,12 @@ void Theta_Read(PMSM_Num num)
 	
 	if(++hall_encoder[num].speed_count>=2)
 	{
-//		hall_encoder[num].PLL_realspeed = PllGetSpeed((PLL_Num)num,hall_encoder[num].Theta)*my_rpm*my_pairs;
 		hall_encoder[num].speed_count = 0;
 		hall_encoder[num].real_speed = (hall_encoder[num].AngleReal - hall_encoder[num].lastAngle)*5000.0f*my_para_speed;
 		hall_encoder[num].filter_speed = hall_encoder[num].filter_speed*0.9f+hall_encoder[num].real_speed*0.1f;
-		if(num == PMSM_A)
-		hall_encoder[num].whill_pll=biquadFilterApply(&accFilterLPF[0],hall_encoder[PMSM_A].PLL_realspeed);
-		
-		if(num == PMSM_U)
-		hall_encoder[num].whill_pll=biquadFilterApply(&accFilterLPF[1],hall_encoder[PMSM_U].PLL_realspeed);
 		hall_encoder[num].lastAngle = hall_encoder[num].AngleReal;
 	}
+
 //	hall_encoder[num].ElecAngle = hall_encoder[num].Theta_Compose*my_rad+180.0f;
 	
 }

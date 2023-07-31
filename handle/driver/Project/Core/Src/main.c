@@ -47,6 +47,8 @@
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
+uint32_t sys_timer_get_micros(void);
+void system_driver_delay_us(uint32_t us);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -71,7 +73,10 @@ int main(void)
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
 
 
-  HAL_Init();
+
+
+
+	HAL_Init();
 
   /* USER CODE BEGIN Init */
 
@@ -90,6 +95,8 @@ int main(void)
 		
     /* USER CODE END WHILE */
 		task_1ms();
+//
+//
 		task_2ms();
 		task_5ms();
 		task_10ms();
@@ -99,6 +106,10 @@ int main(void)
   /* USER CODE END 3 */
 }
 
+volatile uint32_t time_temp;
+static volatile uint32_t usTicks = 0;
+#define sys_1ms   1000
+#define sys_1us    1000000
 /**
   * @brief System Clock Configuration
   * @retval None
@@ -142,10 +153,35 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+	usTicks=HAL_RCC_GetHCLKFreq()/sys_1us;
+  HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/sys_1ms);
+	HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
 }
 
 /* USER CODE BEGIN 4 */
+void system_driver_delay_us(uint32_t us)
+{
+	uint32_t tcnt=sys_timer_get_micros();
+	while(sys_timer_get_micros() - tcnt < us);
+}
+uint32_t sys_timer_get_micros(void)
+{
+    register uint32_t ms, cycle_cnt;
+    do {
+        ms = time_temp;
+        cycle_cnt = SysTick->VAL;
+    	} while (ms != time_temp);
+    return (ms * 1000) + (usTicks * 1000 - cycle_cnt) / usTicks;  //us
+}
 
+
+void delay_1ms(uint32_t count)
+{
+	uint32_t target;
+	target = system_times + count;
+	while(system_times<target);
+
+}
 /* USER CODE END 4 */
 
 /**

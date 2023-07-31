@@ -124,8 +124,9 @@ typedef enum {
 	DEVICE_VOLT         ,// 驱动器母线电压        	R   
 
 	HEART_BIT        ,//  	  心跳     	 	
-#if 0
-	ULTRASONIC_FIRST ,//        	第一超声波 
+#if 1
+	// ULTRASONIC_FIRST ,//        	第一超声波 
+	PCB_ANGLE,//板载角度
 	ULTRASONIC_SECOND,//          第二超声波
 	ULTRASONIC_THIRD ,//         	第三超声波
 	ULTRASONIC_FOUR  ,//        	第四超声波 
@@ -135,6 +136,8 @@ typedef enum {
 
 	PITCH_ANGLE      ,//   	  俯仰角     	
 	ROLL_ANGLE       ,//   	  横滚角     	
+
+	APP_ERROR_REG       ,//   	  返回错误寄存器     	
 
 }REG_NAME;
 

@@ -183,7 +183,7 @@ void MX_ADC3_Init(void (*handler)(void *pram))
   hadc3.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
   hadc3.Init.ExternalTrigConv = ADC_SOFTWARE_START;
   hadc3.Init.DataAlign = ADC_DATAALIGN_RIGHT;
-  hadc3.Init.NbrOfConversion = 6;
+  hadc3.Init.NbrOfConversion = 8;
   hadc3.Init.DMAContinuousRequests = ENABLE;
   hadc3.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
   if (HAL_ADC_Init(&hadc3) != HAL_OK)
@@ -245,6 +245,20 @@ void MX_ADC3_Init(void (*handler)(void *pram))
   {
     Error_Handler();
   }
+	
+	sConfig.Channel = ADC_CHANNEL_14;
+  sConfig.Rank = 7;
+  if (HAL_ADC_ConfigChannel(&hadc3, &sConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+	
+	sConfig.Channel = ADC_CHANNEL_15;
+  sConfig.Rank = 8;
+  if (HAL_ADC_ConfigChannel(&hadc3, &sConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
 
   /** Configures for the selected ADC injected channel its corresponding rank in the sequencer and its sample time
   */
@@ -281,7 +295,7 @@ void MX_ADC3_Init(void (*handler)(void *pram))
   }
   /* USER CODE BEGIN ADC3_Init 2 */
 	HAL_ADCEx_InjectedStart_IT(&hadc3);
-	HAL_ADC_Start_DMA(&hadc3, (uint32_t*)&adcDMAvalue_adc2,30);
+	HAL_ADC_Start_DMA(&hadc3, (uint32_t*)&adcDMAvalue_adc2,40);
   /* USER CODE END ADC3_Init 2 */
 
 }
@@ -367,7 +381,7 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* adcHandle)
     PA2     ------> ADC3_IN2
     PA3     ------> ADC3_IN3
     */
-    GPIO_InitStruct.Pin = GPIO_PIN_6|GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_9
+    GPIO_InitStruct.Pin = GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_9
                           |GPIO_PIN_10;
     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
     GPIO_InitStruct.Pull = GPIO_NOPULL;

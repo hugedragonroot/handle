@@ -30,6 +30,7 @@ uint8_t BTGetPack(TCOMMUN *pack);
 
 
 void BTdisconnect(void);
-void BTEnterStandby(void);
+// void BTEnterStandby(void);
 
+// void BTCleanLoopQueue(void);
 #endif

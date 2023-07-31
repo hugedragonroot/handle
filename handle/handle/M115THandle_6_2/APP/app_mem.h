@@ -36,19 +36,26 @@ typedef struct
 typedef union {
   
 	struct {
-		uint8_t folderState:1;//折叠状态
-		// uint8_t speedGear:3;//速度挡位
+		union {
+			uint8_t id[4];//版本号
+			uint32_t sum;
+		}version;
+
 		uint8_t voiceLevel:2;//音量
 		uint8_t AlarmSwitch:1;//报警提示
+		uint8_t HandleLock:1;//锁定状态
+
+		uint8_t folderState:1;//折叠状态
 		uint8_t	ev1527_user_id[EV1527_USER_NUM][2];
 	}data;
+	// uint32_t temp[2];
 	uint32_t temp[1];
 }MEM_STR;
 
 #endif
 
 
-extern MEM_STR Mem_set;
+extern MEM_STR Mem_Save;
 
 void mem_init(void);
 void mem_read(void);

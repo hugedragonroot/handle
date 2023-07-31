@@ -2,7 +2,57 @@
 #include "main.h"
 #include "stdlib.h"
 
-#if !USING_LED_POINT_DISPLAY
+#if USING_LED_POINT_DISPLAY
+
+ui_e getUiNum(int8_t logoX){
+	ui_e resUi;
+	if(Remote_setting_para.PowerStatus == ePowerOff){
+		 resUi = ui_led_off;
+	} 
+	else if(logoX > -20) resUi = ui_led_logo;
+	#if ERROR_CONTROL_FLAG
+	else if(Remote_trans_para.errorFlag.all[0] != 0) resUi = ui_led_error;
+	#endif
+	else if(Remote_setting_para.HandleLock == eLock) resUi = ui_led_lock;
+	else if(Remote_setting_para.RemoteBTConnect == eBlubtooth) resUi = ui_led_bt;
+	else resUi = ui_led_main;
+	
+	return resUi;
+}
+
+void app_display(void){
+    uint8_t keyState = bsp_GetKey();	
+	static int8_t logoX = -20;
+	switch (getUiNum(logoX)) {
+	case ui_led_off:
+		if(1||keyState == KEY_POWER_DOWN) {
+			logoX = 11;
+			ledDisplayON();
+		}
+		break;
+	case ui_led_logo:
+		logoX -= 2;
+		if(logoX > -20) ledDisplayLOGO(logoX);
+		break;
+	case ui_led_error:
+		ledDisplayError(keyState);
+		break;
+	case ui_led_lock:
+		ledDisplayLock(keyState);
+		break;
+	case ui_led_bt:
+		ledDisplayBT(keyState);
+		break;
+	case ui_led_main:
+		ledDisplayMain(keyState);
+		break;
+	default:
+		break;
+	}
+}
+
+
+#else
 
 ui_e page_num=ePAGE_PWROFF;
 
@@ -1806,4 +1856,5 @@ void app_display(void)
 	}
 	lcd_refreshGram();
 }
+
 #endif

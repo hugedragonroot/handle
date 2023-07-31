@@ -11,7 +11,7 @@
 #define HARD_KEY_NUM	   9									/* 实体按键个数 */
 #endif
 
-#define KEY_GROUP 1 //组合按键
+#define KEY_GROUP 2 //组合按键
 #define KEY_COUNT   	 	(HARD_KEY_NUM + KEY_GROUP)	/* 个独立建 + 0个组合按键 */
 
 
@@ -101,6 +101,11 @@ typedef enum
 	KEY_PUSH_ORD_ADD_SUB_UP = (HARD_KEY_NUM+0)*3+2,
 	KEY_PUSH_ORD_ADD_SUB_LONG = (HARD_KEY_NUM+0)*3+3,
 
+
+	// KEY_SPEED_ADD_SUB_DOWN = (HARD_KEY_NUM+1)*3+1,
+	// KEY_SPEED_ADD_SUB_UP = (HARD_KEY_NUM+1)*3+2,
+	// KEY_SPEED_ADD_SUB_LONG = (HARD_KEY_NUM+1)*3+3,
+
 	#else
 	KEY_NONE = 0,			/* 0 表示按键事件 */
 
@@ -174,6 +179,7 @@ uint8_t bsp_GetKeyState(KEY_ID_E _ucKeyID);
 void bsp_SetKeyParam(uint8_t _ucKeyID, uint16_t _LongTime, uint8_t  _RepeatSpeed);
 void bsp_ClearKey(void);
 
+uint8_t KeyPinActive(uint8_t _id);
 
 void TPAD_Init(void);
 

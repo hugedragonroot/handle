@@ -1,8 +1,8 @@
 Dependencies for Project 'test', Target 'test': (DO NOT MODIFY !)
 CompilerVersion: 5050106::V5.05 update 1 (build 106)::ARMCC
 F (startup_stm32f407xx.s)(0x6482C61F)(--cpu Cortex-M4.fp.sp -g --apcs=interwork -I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include--pd "__UVISION_VERSION SETA 537" --pd "_RTE_ SETA 1" --pd "STM32F407xx SETA 1" --pd "_RTE_ SETA 1"--list startup_stm32f407xx.lst --xref -o test\startup_stm32f407xx.o --depend test\startup_stm32f407xx.d)
-F (../Core/Src/main.c)(0x6482C61E)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\main.o --omf_browse test\main.crf --depend test\main.d)
-I (../Core/Inc/main.h)(0x6482C61E)
+F (../Core/Src/main.c)(0x64C38B60)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\main.o --omf_browse test\main.crf --depend test\main.d)
+I (../Core/Inc/main.h)(0x64C38B60)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6482C61F)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6482C61E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6482C61F)
@@ -38,15 +38,15 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x6482C61F)
 I (..\module\task.h)(0x6482C132)
-I (..\module\common.h)(0x6482C620)
+I (..\module\common.h)(0x64C388EB)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
 I (..\BSP\can.h)(0x6482C61E)
-F (../Core/Src/stm32f4xx_it.c)(0x6482C61E)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\stm32f4xx_it.o --omf_browse test\stm32f4xx_it.crf --depend test\stm32f4xx_it.d)
-I (../Core/Inc/main.h)(0x6482C61E)
+F (../Core/Src/stm32f4xx_it.c)(0x64AB9428)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\stm32f4xx_it.o --omf_browse test\stm32f4xx_it.crf --depend test\stm32f4xx_it.d)
+I (../Core/Inc/main.h)(0x64C38B60)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6482C61F)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6482C61E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6482C61F)
@@ -82,14 +82,14 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x6482C61F)
 I (../Core/Inc/stm32f4xx_it.h)(0x6482C61E)
-I (..\module\common.h)(0x6482C620)
+I (..\module\common.h)(0x64C388EB)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
 F (../Core/Src/stm32f4xx_hal_msp.c)(0x6482C61E)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\stm32f4xx_hal_msp.o --omf_browse test\stm32f4xx_hal_msp.crf --depend test\stm32f4xx_hal_msp.d)
-I (../Core/Inc/main.h)(0x6482C61E)
+I (../Core/Inc/main.h)(0x64C38B60)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6482C61F)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6482C61E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6482C61F)
@@ -650,7 +650,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x6482C61F)
-F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_can.c)(0x6482C61F)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\stm32f4xx_hal_can.o --omf_browse test\stm32f4xx_hal_can.crf --depend test\stm32f4xx_hal_can.d)
+F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_can.c)(0x64B4A0BC)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\stm32f4xx_hal_can.o --omf_browse test\stm32f4xx_hal_can.crf --depend test\stm32f4xx_hal_can.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6482C61F)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6482C61E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6482C61F)
@@ -825,9 +825,9 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x6482C61F)
-F (..\BSP\adc.c)(0x6482C61E)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\adc.o --omf_browse test\adc.crf --depend test\adc.d)
-I (..\BSP\adc.h)(0x6482C61E)
-I (../Core/Inc/main.h)(0x6482C61E)
+F (..\BSP\adc.c)(0x64C33B8D)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\adc.o --omf_browse test\adc.crf --depend test\adc.d)
+I (..\BSP\adc.h)(0x64C32D8F)
+I (../Core/Inc/main.h)(0x64C38B60)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6482C61F)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6482C61E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6482C61F)
@@ -862,7 +862,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x6482C61F)
-I (..\module\common.h)(0x6482C620)
+I (..\module\common.h)(0x64C388EB)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
@@ -870,7 +870,7 @@ I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
 F (..\BSP\dma.c)(0x6482C61E)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\dma.o --omf_browse test\dma.crf --depend test\dma.d)
 I (..\BSP\dma.h)(0x6482C61E)
-I (../Core/Inc/main.h)(0x6482C61E)
+I (../Core/Inc/main.h)(0x64C38B60)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6482C61F)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6482C61E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6482C61F)
@@ -905,9 +905,9 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x6482C61F)
-F (..\BSP\gpio.c)(0x6492A14F)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\gpio.o --omf_browse test\gpio.crf --depend test\gpio.d)
+F (..\BSP\gpio.c)(0x64B7B567)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\gpio.o --omf_browse test\gpio.crf --depend test\gpio.d)
 I (..\BSP\gpio.h)(0x6497B972)
-I (../Core/Inc/main.h)(0x6482C61E)
+I (../Core/Inc/main.h)(0x64C38B60)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6482C61F)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6482C61E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6482C61F)
@@ -942,15 +942,15 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x6482C61F)
-I (..\module\common.h)(0x6482C620)
+I (..\module\common.h)(0x64C388EB)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
-F (..\BSP\can.c)(0x64A3E8FF)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\can.o --omf_browse test\can.crf --depend test\can.d)
+F (..\BSP\can.c)(0x64A513DA)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\can.o --omf_browse test\can.crf --depend test\can.d)
 I (..\BSP\can.h)(0x6482C61E)
-I (../Core/Inc/main.h)(0x6482C61E)
+I (../Core/Inc/main.h)(0x64C38B60)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6482C61F)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6482C61E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6482C61F)
@@ -985,15 +985,15 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x6482C61F)
-I (..\module\common.h)(0x6482C620)
+I (..\module\common.h)(0x64C388EB)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
-F (..\BSP\tim.c)(0x64A3E404)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\tim.o --omf_browse test\tim.crf --depend test\tim.d)
+F (..\BSP\tim.c)(0x64A513DA)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\tim.o --omf_browse test\tim.crf --depend test\tim.d)
 I (..\BSP\tim.h)(0x649BC0A3)
-I (../Core/Inc/main.h)(0x6482C61E)
+I (../Core/Inc/main.h)(0x64C38B60)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6482C61F)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6482C61E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6482C61F)
@@ -1028,15 +1028,15 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x6482C61F)
-I (..\module\common.h)(0x6482C620)
+I (..\module\common.h)(0x64C388EB)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
-F (..\BSP\usart.c)(0x64A3D479)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\usart.o --omf_browse test\usart.crf --depend test\usart.d)
+F (..\BSP\usart.c)(0x64A7CAF7)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\usart.o --omf_browse test\usart.crf --depend test\usart.d)
 I (..\BSP\usart.h)(0x64A3D479)
-I (../Core/Inc/main.h)(0x6482C61E)
+I (../Core/Inc/main.h)(0x64C38B60)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6482C61F)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6482C61E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6482C61F)
@@ -1071,23 +1071,23 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x6482C61F)
-I (..\module\common.h)(0x6482C620)
+I (..\module\common.h)(0x64C388EB)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
 I (..\Utils\utils_queue.h)(0x6482C133)
-F (..\BSP\led_driver.c)(0x6482C61E)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\led_driver.o --omf_browse test\led_driver.crf --depend test\led_driver.d)
+F (..\BSP\led_driver.c)(0x64A68E1D)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\led_driver.o --omf_browse test\led_driver.crf --depend test\led_driver.d)
 I (..\BSP\led_driver.h)(0x6482C61E)
-I (..\module\common.h)(0x6482C620)
+I (..\module\common.h)(0x64C388EB)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
-I (../Core/Inc/main.h)(0x6482C61E)
+I (../Core/Inc/main.h)(0x64C38B60)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6482C61F)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6482C61E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6482C61F)
@@ -1121,8 +1121,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x6482C61F)
-F (..\BSP\QMI8658C.c)(0x6482C61E)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\qmi8658c.o --omf_browse test\qmi8658c.crf --depend test\qmi8658c.d)
-I (..\BSP\QMI8658C.h)(0x6482C61E)
+F (..\BSP\QMI8658C.c)(0x64ACBA90)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\qmi8658c.o --omf_browse test\qmi8658c.crf --depend test\qmi8658c.d)
+I (..\BSP\QMI8658C.h)(0x64ACB090)
 I (../Core/Inc/main.h)(0x6482C61E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6482C61F)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6482C61E)
@@ -1158,7 +1158,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x6482C61F)
-I (..\module\common.h)(0x6482C620)
+I (..\module\common.h)(0x64BA4004)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
@@ -1166,7 +1166,7 @@ I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
 F (..\BSP\bsp_flash.c)(0x6482C61E)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\bsp_flash.o --omf_browse test\bsp_flash.crf --depend test\bsp_flash.d)
 I (..\BSP\bsp_flash.h)(0x6482C61E)
-I (../Core/Inc/main.h)(0x6482C61E)
+I (../Core/Inc/main.h)(0x64C38B60)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6482C61F)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6482C61E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6482C61F)
@@ -1201,16 +1201,54 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x6482C61F)
-I (..\module\common.h)(0x6482C620)
+I (..\module\common.h)(0x64C388EB)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
 F (..\BSP\arm_cortexM4lf_math.lib)(0x6482C61E)()
+F (..\BSP\bsp_i2c.c)(0x64C388EB)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\bsp_i2c.o --omf_browse test\bsp_i2c.crf --depend test\bsp_i2c.d)
+I (..\BSP\bsp_i2c.h)(0x64C38B60)
+I (../Core/Inc/main.h)(0x64C38B60)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6482C61F)
+I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6482C61E)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x6482C61F)
+I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x6482C61F)
+I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h)(0x6482C61F)
+I (../Drivers/CMSIS/Include/core_cm4.h)(0x6482C61F)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
+I (../Drivers/CMSIS/Include/cmsis_version.h)(0x6482C61F)
+I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x6482C61F)
+I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x6482C61F)
+I (../Drivers/CMSIS/Include/mpu_armv7.h)(0x6482C61F)
+I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h)(0x6482C61F)
+I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5475F300)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_exti.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_adc.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_can.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x6482C61F)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 F (..\Utils\crc.c)(0x6482C133)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\crc.o --omf_browse test\crc.crf --depend test\crc.d)
 I (..\Utils\crc.h)(0x6482C133)
-I (..\module\common.h)(0x6482C620)
+I (..\module\common.h)(0x64C388EB)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
@@ -1219,7 +1257,7 @@ I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
 F (..\Utils\key_filter.c)(0x649A49CA)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\key_filter.o --omf_browse test\key_filter.crf --depend test\key_filter.d)
 I (..\Utils\key_filter.h)(0x6482C620)
-I (..\module\common.h)(0x6482C620)
+I (..\module\common.h)(0x64C388EB)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
@@ -1232,7 +1270,7 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
 F (..\Utils\utils_queue.c)(0x6482C133)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\utils_queue.o --omf_browse test\utils_queue.crf --depend test\utils_queue.d)
 I (..\Utils\utils_queue.h)(0x6482C133)
-I (..\module\common.h)(0x6482C620)
+I (..\module\common.h)(0x64C388EB)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
@@ -1263,7 +1301,7 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
 I (..\Utils\crc.h)(0x6482C133)
-I (..\module\common.h)(0x6482C620)
+I (..\module\common.h)(0x64C388EB)
 I (..\Protocol\protocol_api.h)(0x6482C132)
 I (..\Protocol\alloc.h)(0x6482C132)
 I (..\Protocol\rt_malloc.h)(0x6482C132)
@@ -1280,7 +1318,7 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
 I (..\Utils\crc.h)(0x6482C133)
-I (..\module\common.h)(0x6482C620)
+I (..\module\common.h)(0x64C388EB)
 I (..\Protocol\protocol_register_management.h)(0x6482C620)
 I (..\Protocol\alloc.h)(0x6482C132)
 I (..\Protocol\rt_malloc.h)(0x6482C132)
@@ -1303,17 +1341,17 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
 I (..\Utils\crc.h)(0x6482C133)
-I (..\module\common.h)(0x6482C620)
+I (..\module\common.h)(0x64C388EB)
 I (..\Protocol\protocol.h)(0x6482C132)
 I (..\Protocol\protocol_api.h)(0x6482C132)
 I (..\Protocol\alloc.h)(0x6482C132)
 I (..\Protocol\rt_malloc.h)(0x6482C132)
 I (..\Protocol\klist.h)(0x6482C132)
 I (..\Protocol\protocol_register_management.h)(0x6482C620)
-F (..\module\adc_callback.c)(0x6482C620)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\adc_callback.o --omf_browse test\adc_callback.crf --depend test\adc_callback.d)
-I (..\module\adc_callback.h)(0x649006B0)
-I (..\BSP\adc.h)(0x6482C61E)
-I (../Core/Inc/main.h)(0x6482C61E)
+F (..\module\adc_callback.c)(0x64C32D8F)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\adc_callback.o --omf_browse test\adc_callback.crf --depend test\adc_callback.d)
+I (..\module\adc_callback.h)(0x64C32D8F)
+I (..\BSP\adc.h)(0x64C32D8F)
+I (../Core/Inc/main.h)(0x64C38B60)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6482C61F)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6482C61E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6482C61F)
@@ -1348,7 +1386,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x6482C61F)
-I (..\module\common.h)(0x6482C620)
+I (..\module\common.h)(0x64C388EB)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
@@ -1356,7 +1394,7 @@ I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
 F (..\module\led.c)(0x6482C620)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\led.o --omf_browse test\led.crf --depend test\led.d)
 I (..\module\led.h)(0x6482C132)
-I (..\module\common.h)(0x6482C620)
+I (..\module\common.h)(0x64C388EB)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
@@ -1364,9 +1402,9 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
 I (..\BSP\led_driver.h)(0x6482C61E)
-F (..\module\serial_debug.c)(0x64A51085)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\serial_debug.o --omf_browse test\serial_debug.crf --depend test\serial_debug.d)
+F (..\module\serial_debug.c)(0x64C1CCCE)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\serial_debug.o --omf_browse test\serial_debug.crf --depend test\serial_debug.d)
 I (..\module\serial_debug.h)(0x6482C132)
-I (..\module\common.h)(0x6482C620)
+I (..\module\common.h)(0x64C388EB)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
@@ -1374,7 +1412,7 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
 I (..\BSP\usart.h)(0x64A3D479)
-I (../Core/Inc/main.h)(0x6482C61E)
+I (../Core/Inc/main.h)(0x64C38B60)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6482C61F)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6482C61E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6482C61F)
@@ -1409,33 +1447,34 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x6482C61F)
 I (..\BSP\can.h)(0x6482C61E)
-I (..\BSP\adc.h)(0x6482C61E)
-I (..\module\adc_callback.h)(0x649006B0)
+I (..\BSP\adc.h)(0x64C32D8F)
+I (..\module\adc_callback.h)(0x64C32D8F)
 I (..\BSP\tim.h)(0x649BC0A3)
-I (..\PMSM\PMSM_Driver.h)(0x64A7CF2B)
+I (..\PMSM\PMSM_Driver.h)(0x64B8F5B7)
 I (..\PMSM\FOC.h)(0x6482C132)
 I (..\BSP\arm_math.h)(0x6482C61E)
 I (..\Utils\pid.h)(0x6482C133)
-I (..\PMSM\HALL_Encoder.h)(0x648829A7)
-I (..\Brush\Brush_Driver.h)(0x64880760)
+I (..\PMSM\HALL_Encoder.h)(0x64AB712A)
+I (..\Brush\Brush_Driver.h)(0x64AE1DC9)
 I (..\module\weak_handle.h)(0x6482C620)
 I (..\Protocol\xsto_api_ii.h)(0x6482C132)
 I (..\Protocol\para.h)(0x6482C132)
 I (..\Utils\crc.h)(0x6482C133)
-I (..\module\CurveProgramme.h)(0x6497F28C)
-I (..\module\Scurve.h)(0x64993A68)
-F (..\module\Status_Check.c)(0x64A7D2FC)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\status_check.o --omf_browse test\status_check.crf --depend test\status_check.d)
-I (..\module\Status_Check.h)(0x64880760)
-I (..\module\common.h)(0x6482C620)
+I (..\module\CurveProgramme.h)(0x64BF9871)
+I (..\module\Scurve.h)(0x64C1DEDB)
+I (..\module\Status_Check.h)(0x64C213AE)
+F (..\module\Status_Check.c)(0x64C388EB)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\status_check.o --omf_browse test\status_check.crf --depend test\status_check.d)
+I (..\module\Status_Check.h)(0x64C213AE)
+I (..\module\common.h)(0x64C388EB)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
-I (..\module\adc_callback.h)(0x649006B0)
-I (..\BSP\adc.h)(0x6482C61E)
-I (../Core/Inc/main.h)(0x6482C61E)
+I (..\module\adc_callback.h)(0x64C32D8F)
+I (..\BSP\adc.h)(0x64C32D8F)
+I (../Core/Inc/main.h)(0x64C38B60)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6482C61F)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6482C61E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6482C61F)
@@ -1470,10 +1509,10 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x6482C61F)
 I (..\BSP\gpio.h)(0x6497B972)
-I (..\Brush\Brush_Driver.h)(0x64880760)
+I (..\Brush\Brush_Driver.h)(0x64AE1DC9)
 I (..\Utils\pid.h)(0x6482C133)
-I (..\Brush\Brush_Control.h)(0x649BAAEB)
-I (..\PMSM\PMSM_Driver.h)(0x64A7CF2B)
+I (..\Brush\Brush_Control.h)(0x64ABAF0A)
+I (..\PMSM\PMSM_Driver.h)(0x64B8F5B7)
 I (..\PMSM\FOC.h)(0x6482C132)
 I (..\BSP\arm_math.h)(0x6482C61E)
 I (..\Utils\key_filter.h)(0x6482C620)
@@ -1482,9 +1521,10 @@ I (..\Protocol\para.h)(0x6482C132)
 I (..\Utils\crc.h)(0x6482C133)
 I (..\module\weak_handle.h)(0x6482C620)
 I (..\BSP\can.h)(0x6482C61E)
-F (..\module\task.c)(0x64A3D479)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\task.o --omf_browse test\task.crf --depend test\task.d)
+I (..\module\icm42688.h)(0x64BF97C0)
+F (..\module\task.c)(0x64C388EB)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\task.o --omf_browse test\task.crf --depend test\task.d)
 I (..\module\task.h)(0x6482C132)
-I (..\module\common.h)(0x6482C620)
+I (..\module\common.h)(0x64C388EB)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
@@ -1493,7 +1533,7 @@ I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
 I (..\module\led.h)(0x6482C132)
 I (..\BSP\usart.h)(0x64A3D479)
-I (../Core/Inc/main.h)(0x6482C61E)
+I (../Core/Inc/main.h)(0x64C38B60)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6482C61F)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6482C61E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6482C61F)
@@ -1528,20 +1568,20 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x6482C61F)
 I (..\module\serial_debug.h)(0x6482C132)
-I (..\BSP\adc.h)(0x6482C61E)
+I (..\BSP\adc.h)(0x64C32D8F)
 I (..\BSP\tim.h)(0x649BC0A3)
-I (..\module\adc_callback.h)(0x649006B0)
+I (..\module\adc_callback.h)(0x64C32D8F)
 I (..\BSP\gpio.h)(0x6497B972)
 I (..\BSP\can.h)(0x6482C61E)
-I (..\PMSM\PMSM_Driver.h)(0x64A7CF2B)
+I (..\PMSM\PMSM_Driver.h)(0x64B8F5B7)
 I (..\PMSM\FOC.h)(0x6482C132)
 I (..\BSP\arm_math.h)(0x6482C61E)
 I (..\Utils\pid.h)(0x6482C133)
-I (..\PMSM\PMSM_Control.h)(0x6482C132)
-I (..\Brush\Brush_Driver.h)(0x64880760)
-I (..\Brush\Brush_Control.h)(0x649BAAEB)
-I (..\PMSM\HALL_Encoder.h)(0x648829A7)
-I (..\module\Status_Check.h)(0x64880760)
+I (..\PMSM\PMSM_Control.h)(0x64B61ED0)
+I (..\Brush\Brush_Driver.h)(0x64AE1DC9)
+I (..\Brush\Brush_Control.h)(0x64ABAF0A)
+I (..\PMSM\HALL_Encoder.h)(0x64AB712A)
+I (..\module\Status_Check.h)(0x64C213AE)
 I (..\module\weak_handle.h)(0x6482C620)
 I (..\Protocol\protocol.h)(0x6482C132)
 I (..\Protocol\xsto_api_ii.h)(0x6482C132)
@@ -1552,13 +1592,13 @@ I (..\Protocol\alloc.h)(0x6482C132)
 I (..\Protocol\rt_malloc.h)(0x6482C132)
 I (..\Protocol\klist.h)(0x6482C132)
 I (..\Protocol\protocol_register_management.h)(0x6482C620)
-I (..\BSP\QMI8658C.h)(0x6482C61E)
+I (..\module\icm42688.h)(0x64BF97C0)
 I (..\BSP\dma.h)(0x6482C61E)
 I (..\Utils\key_filter.h)(0x6482C620)
 I (..\module\ultrasonic.h)(0x64A39723)
-F (..\module\weak_handle.c)(0x649BD5DF)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\weak_handle.o --omf_browse test\weak_handle.crf --depend test\weak_handle.d)
+F (..\module\weak_handle.c)(0x64C388EB)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\weak_handle.o --omf_browse test\weak_handle.crf --depend test\weak_handle.d)
 I (..\module\weak_handle.h)(0x6482C620)
-I (..\module\common.h)(0x6482C620)
+I (..\module\common.h)(0x64C388EB)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
@@ -1566,7 +1606,7 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
 I (..\BSP\can.h)(0x6482C61E)
-I (../Core/Inc/main.h)(0x6482C61E)
+I (../Core/Inc/main.h)(0x64C38B60)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6482C61F)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6482C61E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6482C61F)
@@ -1609,21 +1649,40 @@ I (..\Protocol\alloc.h)(0x6482C132)
 I (..\Protocol\rt_malloc.h)(0x6482C132)
 I (..\Protocol\klist.h)(0x6482C132)
 I (..\Protocol\protocol_register_management.h)(0x6482C620)
-I (..\PMSM\PMSM_Driver.h)(0x64A7CF2B)
+I (..\PMSM\PMSM_Driver.h)(0x64B8F5B7)
 I (..\PMSM\FOC.h)(0x6482C132)
 I (..\BSP\arm_math.h)(0x6482C61E)
 I (..\Utils\pid.h)(0x6482C133)
-I (..\PMSM\HALL_Encoder.h)(0x648829A7)
-I (..\Brush\Brush_Driver.h)(0x64880760)
-I (..\module\adc_callback.h)(0x649006B0)
-I (..\BSP\adc.h)(0x6482C61E)
+I (..\PMSM\HALL_Encoder.h)(0x64AB712A)
+I (..\Brush\Brush_Driver.h)(0x64AE1DC9)
+I (..\module\adc_callback.h)(0x64C32D8F)
+I (..\BSP\adc.h)(0x64C32D8F)
 I (..\BSP\usart.h)(0x64A3D479)
-I (..\module\Status_Check.h)(0x64880760)
-F (..\Module\CurveProgramme.c)(0x64A7D34D)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\curveprogramme.o --omf_browse test\curveprogramme.crf --depend test\curveprogramme.d)
-I (..\Module\CurveProgramme.h)(0x6497F28C)
-I (..\Module\Scurve.h)(0x64993A68)
-I (..\PMSM\PMSM_Driver.h)(0x64A7CF2B)
-I (..\module\common.h)(0x6482C620)
+I (..\module\Status_Check.h)(0x64C213AE)
+I (..\module\icm42688.h)(0x64BF97C0)
+F (..\Module\Scurve.c)(0x64C375D1)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\scurve.o --omf_browse test\scurve.crf --depend test\scurve.d)
+I (..\Module\Scurve.h)(0x64C1DEDB)
+I (..\PMSM\PMSM_Driver.h)(0x64B8F5B7)
+I (..\module\common.h)(0x64C388EB)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
+I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
+I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
+I (..\PMSM\FOC.h)(0x6482C132)
+I (..\BSP\arm_math.h)(0x6482C61E)
+I (../Drivers/CMSIS/Include/core_cm4.h)(0x6482C61F)
+I (../Drivers/CMSIS/Include/cmsis_version.h)(0x6482C61F)
+I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x6482C61F)
+I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x6482C61F)
+I (..\Utils\pid.h)(0x6482C133)
+I (..\Module\CurveProgramme.h)(0x64BF9871)
+F (..\Module\CurveProgramme.c)(0x64C36B86)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\curveprogramme.o --omf_browse test\curveprogramme.crf --depend test\curveprogramme.d)
+I (..\Module\CurveProgramme.h)(0x64BF9871)
+I (..\Module\Scurve.h)(0x64C1DEDB)
+I (..\PMSM\PMSM_Driver.h)(0x64B8F5B7)
+I (..\module\common.h)(0x64C388EB)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
@@ -1638,27 +1697,9 @@ I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x6482C61F)
 I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x6482C61F)
 I (..\Utils\pid.h)(0x6482C133)
 I (..\Module\arm_math.h)(0x6482C620)
-F (..\Module\Scurve.c)(0x64A3D7C8)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\scurve.o --omf_browse test\scurve.crf --depend test\scurve.d)
-I (..\Module\Scurve.h)(0x64993A68)
-I (..\PMSM\PMSM_Driver.h)(0x64A7CF2B)
-I (..\module\common.h)(0x6482C620)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
-I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
-I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
-I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
-I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
-I (..\PMSM\FOC.h)(0x6482C132)
-I (..\BSP\arm_math.h)(0x6482C61E)
-I (../Drivers/CMSIS/Include/core_cm4.h)(0x6482C61F)
-I (../Drivers/CMSIS/Include/cmsis_version.h)(0x6482C61F)
-I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x6482C61F)
-I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x6482C61F)
-I (..\Utils\pid.h)(0x6482C133)
-I (..\Module\CurveProgramme.h)(0x6497F28C)
 F (..\Module\ultrasonic.c)(0x64A3AA49)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\ultrasonic.o --omf_browse test\ultrasonic.crf --depend test\ultrasonic.d)
 I (..\Module\ultrasonic.h)(0x64A39723)
-I (..\Module\common.h)(0x6482C620)
+I (..\Module\common.h)(0x64C388EB)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
@@ -1666,7 +1707,7 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
 I (..\BSP\usart.h)(0x64A3D479)
-I (../Core/Inc/main.h)(0x6482C61E)
+I (../Core/Inc/main.h)(0x64C38B60)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6482C61F)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6482C61E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6482C61F)
@@ -1700,6 +1741,50 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x6482C61F)
+F (..\Module\icm42688.c)(0x64C38B60)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\icm42688.o --omf_browse test\icm42688.crf --depend test\icm42688.d)
+I (..\Module\icm42688.h)(0x64BF97C0)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
+I (../Core/Inc/main.h)(0x64C38B60)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6482C61F)
+I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6482C61E)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x6482C61F)
+I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x6482C61F)
+I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h)(0x6482C61F)
+I (../Drivers/CMSIS/Include/core_cm4.h)(0x6482C61F)
+I (../Drivers/CMSIS/Include/cmsis_version.h)(0x6482C61F)
+I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x6482C61F)
+I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x6482C61F)
+I (../Drivers/CMSIS/Include/mpu_armv7.h)(0x6482C61F)
+I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h)(0x6482C61F)
+I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5475F300)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_exti.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_adc.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_can.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x6482C61F)
+I (..\Module\common.h)(0x64C388EB)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
+I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
+I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
+I (..\BSP\bsp_i2c.h)(0x64C38B60)
 F (..\PMSM\FOC.c)(0x6482C620)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\foc.o --omf_browse test\foc.crf --depend test\foc.d)
 I (..\PMSM\FOC.h)(0x6482C132)
 I (..\BSP\arm_math.h)(0x6482C61E)
@@ -1710,18 +1795,18 @@ I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x6482C61F)
 I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x6482C61F)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
-F (..\PMSM\HALL_Encoder.c)(0x649B9E7D)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\hall_encoder.o --omf_browse test\hall_encoder.crf --depend test\hall_encoder.d)
-I (..\PMSM\HALL_Encoder.h)(0x648829A7)
-I (..\module\common.h)(0x6482C620)
+F (..\PMSM\HALL_Encoder.c)(0x64C0EA0B)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\hall_encoder.o --omf_browse test\hall_encoder.crf --depend test\hall_encoder.d)
+I (..\PMSM\HALL_Encoder.h)(0x64AB712A)
+I (..\module\common.h)(0x64C388EB)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
-I (..\module\adc_callback.h)(0x649006B0)
-I (..\BSP\adc.h)(0x6482C61E)
-I (../Core/Inc/main.h)(0x6482C61E)
+I (..\module\adc_callback.h)(0x64C32D8F)
+I (..\BSP\adc.h)(0x64C32D8F)
+I (../Core/Inc/main.h)(0x64C38B60)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6482C61F)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6482C61E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6482C61F)
@@ -1756,27 +1841,34 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x6482C61F)
 I (..\PMSM\PLL.h)(0x6482C132)
-I (..\PMSM\PMSM_Calib.h)(0x6482C620)
+I (..\PMSM\PMSM_Calib.h)(0x64B789B1)
 I (..\Utils\filter.h)(0x6482C620)
+I (..\module\CurveProgramme.h)(0x64BF9871)
+I (..\module\Scurve.h)(0x64C1DEDB)
+I (..\PMSM\PMSM_Driver.h)(0x64B8F5B7)
+I (..\PMSM\FOC.h)(0x6482C132)
+I (..\BSP\arm_math.h)(0x6482C61E)
+I (..\Utils\pid.h)(0x6482C133)
+I (..\PMSM\PMSM_Control.h)(0x64B61ED0)
 F (..\PMSM\PLL.c)(0x6498EEB2)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\pll.o --omf_browse test\pll.crf --depend test\pll.d)
 I (..\PMSM\PLL.h)(0x6482C132)
-I (..\module\common.h)(0x6482C620)
+I (..\module\common.h)(0x64C388EB)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
-F (..\PMSM\PMSM_Calib.c)(0x6492A401)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\pmsm_calib.o --omf_browse test\pmsm_calib.crf --depend test\pmsm_calib.d)
-I (..\PMSM\PMSM_Calib.h)(0x6482C620)
-I (..\module\common.h)(0x6482C620)
+F (..\PMSM\PMSM_Calib.c)(0x64B9F8DC)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\pmsm_calib.o --omf_browse test\pmsm_calib.crf --depend test\pmsm_calib.d)
+I (..\PMSM\PMSM_Calib.h)(0x64B789B1)
+I (..\module\common.h)(0x64C388EB)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
-I (..\PMSM\PMSM_Driver.h)(0x64A7CF2B)
+I (..\PMSM\PMSM_Driver.h)(0x64B8F5B7)
 I (..\PMSM\FOC.h)(0x6482C132)
 I (..\BSP\arm_math.h)(0x6482C61E)
 I (../Drivers/CMSIS/Include/core_cm4.h)(0x6482C61F)
@@ -1784,10 +1876,10 @@ I (../Drivers/CMSIS/Include/cmsis_version.h)(0x6482C61F)
 I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x6482C61F)
 I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x6482C61F)
 I (..\Utils\pid.h)(0x6482C133)
-I (..\PMSM\HALL_Encoder.h)(0x648829A7)
-I (..\module\adc_callback.h)(0x649006B0)
-I (..\BSP\adc.h)(0x6482C61E)
-I (../Core/Inc/main.h)(0x6482C61E)
+I (..\PMSM\HALL_Encoder.h)(0x64AB712A)
+I (..\module\adc_callback.h)(0x64C32D8F)
+I (..\BSP\adc.h)(0x64C32D8F)
+I (../Core/Inc/main.h)(0x64C38B60)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6482C61F)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6482C61E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6482C61F)
@@ -1819,16 +1911,16 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x6482C61F)
 I (..\BSP\bsp_flash.h)(0x6482C61E)
 I (..\BSP\gpio.h)(0x6497B972)
-F (..\PMSM\PMSM_Control.c)(0x649B9E7D)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\pmsm_control.o --omf_browse test\pmsm_control.crf --depend test\pmsm_control.d)
-I (..\PMSM\PMSM_Control.h)(0x6482C132)
-I (..\module\common.h)(0x6482C620)
+F (..\PMSM\PMSM_Control.c)(0x64C37303)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\pmsm_control.o --omf_browse test\pmsm_control.crf --depend test\pmsm_control.d)
+I (..\PMSM\PMSM_Control.h)(0x64B61ED0)
+I (..\module\common.h)(0x64C388EB)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
-I (..\PMSM\PMSM_Driver.h)(0x64A7CF2B)
+I (..\PMSM\PMSM_Driver.h)(0x64B8F5B7)
 I (..\PMSM\FOC.h)(0x6482C132)
 I (..\BSP\arm_math.h)(0x6482C61E)
 I (../Drivers/CMSIS/Include/core_cm4.h)(0x6482C61F)
@@ -1836,11 +1928,11 @@ I (../Drivers/CMSIS/Include/cmsis_version.h)(0x6482C61F)
 I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x6482C61F)
 I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x6482C61F)
 I (..\Utils\pid.h)(0x6482C133)
-I (..\PMSM\HALL_Encoder.h)(0x648829A7)
-I (..\PMSM\PMSM_Calib.h)(0x6482C620)
-I (..\module\adc_callback.h)(0x649006B0)
-I (..\BSP\adc.h)(0x6482C61E)
-I (../Core/Inc/main.h)(0x6482C61E)
+I (..\PMSM\HALL_Encoder.h)(0x64AB712A)
+I (..\PMSM\PMSM_Calib.h)(0x64B789B1)
+I (..\module\adc_callback.h)(0x64C32D8F)
+I (..\BSP\adc.h)(0x64C32D8F)
+I (../Core/Inc/main.h)(0x64C38B60)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6482C61F)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6482C61E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6482C61F)
@@ -1872,11 +1964,11 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x6482C61F)
 I (..\Utils\filter.h)(0x6482C620)
 I (..\BSP\gpio.h)(0x6497B972)
-I (..\module\CurveProgramme.h)(0x6497F28C)
-I (..\module\Scurve.h)(0x64993A68)
-F (..\PMSM\PMSM_Driver.c)(0x649B9FAF)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\pmsm_driver.o --omf_browse test\pmsm_driver.crf --depend test\pmsm_driver.d)
-I (..\PMSM\PMSM_Driver.h)(0x64A7CF2B)
-I (..\module\common.h)(0x6482C620)
+I (..\module\CurveProgramme.h)(0x64BF9871)
+I (..\module\Scurve.h)(0x64C1DEDB)
+F (..\PMSM\PMSM_Driver.c)(0x64C37341)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\pmsm_driver.o --omf_browse test\pmsm_driver.crf --depend test\pmsm_driver.d)
+I (..\PMSM\PMSM_Driver.h)(0x64B8F5B7)
+I (..\module\common.h)(0x64C388EB)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
@@ -1891,7 +1983,7 @@ I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x6482C61F)
 I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x6482C61F)
 I (..\Utils\pid.h)(0x6482C133)
 I (..\BSP\tim.h)(0x649BC0A3)
-I (../Core/Inc/main.h)(0x6482C61E)
+I (../Core/Inc/main.h)(0x64C38B60)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6482C61F)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6482C61E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6482C61F)
@@ -1923,11 +2015,11 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x6482C61F)
 I (..\BSP\gpio.h)(0x6497B972)
 I (..\Utils\filter.h)(0x6482C620)
-I (..\module\CurveProgramme.h)(0x6497F28C)
-I (..\module\Scurve.h)(0x64993A68)
-F (..\Brush\Brush_Calib.c)(0x64992C5C)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\brush_calib.o --omf_browse test\brush_calib.crf --depend test\brush_calib.d)
+I (..\module\CurveProgramme.h)(0x64BF9871)
+I (..\module\Scurve.h)(0x64C1DEDB)
+F (..\Brush\Brush_Calib.c)(0x64C20246)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\brush_calib.o --omf_browse test\brush_calib.crf --depend test\brush_calib.d)
 I (..\Brush\Brush_Calib.h)(0x6482C132)
-I (..\module\common.h)(0x6482C620)
+I (..\module\common.h)(0x64C388EB)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
@@ -1935,7 +2027,7 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
 I (..\BSP\bsp_flash.h)(0x6482C61E)
-I (../Core/Inc/main.h)(0x6482C61E)
+I (../Core/Inc/main.h)(0x64C38B60)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6482C61F)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6482C61E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6482C61F)
@@ -1969,23 +2061,22 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x6482C61F)
-I (..\Brush\Brush_Driver.h)(0x64880760)
+I (..\Brush\Brush_Driver.h)(0x64AE1DC9)
 I (..\Utils\pid.h)(0x6482C133)
-I (..\module\adc_callback.h)(0x649006B0)
-I (..\BSP\adc.h)(0x6482C61E)
-F (..\Brush\Brush_Control.c)(0x64A7D2FC)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\brush_control.o --omf_browse test\brush_control.crf --depend test\brush_control.d)
-I (..\Brush\Brush_Control.h)(0x649BAAEB)
-I (..\module\common.h)(0x6482C620)
+I (..\module\adc_callback.h)(0x64C32D8F)
+I (..\BSP\adc.h)(0x64C32D8F)
+F (..\Brush\Brush_Driver.c)(0x64BA4004)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\brush_driver.o --omf_browse test\brush_driver.crf --depend test\brush_driver.d)
+I (..\Brush\Brush_Driver.h)(0x64AE1DC9)
+I (..\module\common.h)(0x64C388EB)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
-I (..\Brush\Brush_Driver.h)(0x64880760)
 I (..\Utils\pid.h)(0x6482C133)
-I (..\BSP\tim.h)(0x649BC0A3)
-I (../Core/Inc/main.h)(0x6482C61E)
+I (..\BSP\gpio.h)(0x6497B972)
+I (../Core/Inc/main.h)(0x64C38B60)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6482C61F)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6482C61E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6482C61F)
@@ -2019,56 +2110,58 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x6482C61F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x6482C61F)
-I (..\module\adc_callback.h)(0x649006B0)
-I (..\BSP\adc.h)(0x6482C61E)
+I (..\BSP\tim.h)(0x649BC0A3)
+I (..\module\adc_callback.h)(0x64C32D8F)
+I (..\BSP\adc.h)(0x64C32D8F)
+I (..\Brush\Brush_Calib.h)(0x6482C132)
+F (..\Brush\Brush_Control.c)(0x64C388EB)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\brush_control.o --omf_browse test\brush_control.crf --depend test\brush_control.d)
+I (..\Brush\Brush_Control.h)(0x64ABAF0A)
+I (..\module\common.h)(0x64C388EB)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
+I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
+I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
+I (..\Brush\Brush_Driver.h)(0x64AE1DC9)
+I (..\Utils\pid.h)(0x6482C133)
+I (..\BSP\tim.h)(0x649BC0A3)
+I (../Core/Inc/main.h)(0x64C38B60)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6482C61F)
+I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6482C61E)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x6482C61F)
+I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x6482C61F)
+I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h)(0x6482C61F)
+I (../Drivers/CMSIS/Include/core_cm4.h)(0x6482C61F)
+I (../Drivers/CMSIS/Include/cmsis_version.h)(0x6482C61F)
+I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x6482C61F)
+I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x6482C61F)
+I (../Drivers/CMSIS/Include/mpu_armv7.h)(0x6482C61F)
+I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h)(0x6482C61F)
+I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5475F300)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_exti.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_adc.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_can.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x6482C61F)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x6482C61F)
+I (..\module\adc_callback.h)(0x64C32D8F)
+I (..\BSP\adc.h)(0x64C32D8F)
 I (..\BSP\can.h)(0x6482C61E)
-I (..\BSP\QMI8658C.h)(0x6482C61E)
-F (..\Brush\Brush_Driver.c)(0x64A3E8FF)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\BSP -I ..\Protocol -I ..\Utils -I ..\module -I ..\PMSM -I ..\Brush-I.\RTE\_test-IC:\Keil_v5\ARM\Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\Pack\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="537" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -D__FPU_PRESENT="1U" -D__FPU_USED="1U"-o test\brush_driver.o --omf_browse test\brush_driver.crf --depend test\brush_driver.d)
-I (..\Brush\Brush_Driver.h)(0x64880760)
-I (..\module\common.h)(0x6482C620)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
-I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5475F300)
-I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
-I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
-I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5475F2FE)
-I (..\Utils\pid.h)(0x6482C133)
+I (..\module\icm42688.h)(0x64BF97C0)
 I (..\BSP\gpio.h)(0x6497B972)
-I (../Core/Inc/main.h)(0x6482C61E)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6482C61F)
-I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6482C61E)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6482C61F)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x6482C61F)
-I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x6482C61F)
-I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h)(0x6482C61F)
-I (../Drivers/CMSIS/Include/core_cm4.h)(0x6482C61F)
-I (../Drivers/CMSIS/Include/cmsis_version.h)(0x6482C61F)
-I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x6482C61F)
-I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x6482C61F)
-I (../Drivers/CMSIS/Include/mpu_armv7.h)(0x6482C61F)
-I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h)(0x6482C61F)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h)(0x6482C61F)
-I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5475F300)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h)(0x6482C61F)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h)(0x6482C61F)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x6482C61F)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_exti.h)(0x6482C61F)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x6482C61F)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x6482C61F)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x6482C61F)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x6482C61F)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_adc.h)(0x6482C61F)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x6482C61F)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_can.h)(0x6482C61F)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x6482C61F)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x6482C61F)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x6482C61F)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h)(0x6482C61F)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x6482C61F)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x6482C61F)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x6482C61F)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x6482C61F)
-I (..\BSP\tim.h)(0x649BC0A3)
-I (..\module\adc_callback.h)(0x649006B0)
-I (..\BSP\adc.h)(0x6482C61E)
-I (..\Brush\Brush_Calib.h)(0x6482C132)

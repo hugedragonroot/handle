@@ -18,6 +18,11 @@ void CANNoneOsTxTask(void);
 
 void CANNoneOsRxTask(void);
 
+void api_port_send(uint16_t len, uint8_t * data);
+
+void CANSubInit(void);
+void CANPackAnalyze(MasterMsgData_t *recvMessage);
+
 void protocolSend(void);
 
 #endif

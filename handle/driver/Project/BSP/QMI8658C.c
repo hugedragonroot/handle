@@ -1,6 +1,8 @@
 #include "QMI8658C.h"
 #include "math.h"
 /*************************************************************/
+
+extern void system_driver_delay_us(uint32_t us);
 float Gyro_X,Gyro_Y,Accel_X,Accel_Y;
 int16_t Roll,Pitch;
 tQmi_type tQmi;
@@ -42,9 +44,9 @@ void I2C_Start(void)
 	QMI_SDA_OUT();
 	i2c_sda_1;
 	i2c_scl_1;
-	i2c_delay(30);
+	system_driver_delay_us(1);
 	i2c_sda_0;	
-	i2c_delay(50);
+	system_driver_delay_us(1);
 	i2c_scl_0;
 }	
 
@@ -53,10 +55,10 @@ void I2C_Stop(void)
 	QMI_SDA_OUT();
 	i2c_scl_0;
 	i2c_sda_0;
-	i2c_delay(50);
+	system_driver_delay_us(1);
 	i2c_scl_1;
 	i2c_sda_1;
-	i2c_delay(50);
+	system_driver_delay_us(1);
 }
 
 uint8_t I2C_WaitAck(void)
@@ -64,9 +66,9 @@ uint8_t I2C_WaitAck(void)
 	uint16_t cnt_data = 0;
 	i2c_sda_1;
 	QMI_SDA_IN();
-	i2c_delay(50);
+	system_driver_delay_us(1);
 	i2c_scl_1;
-	i2c_delay(50);
+	system_driver_delay_us(1);
 	while(i2c_sda_state)
 	{
 		cnt_data++;
@@ -86,11 +88,11 @@ void I2C_SendAck(void)
 	i2c_scl_0;
 	QMI_SDA_OUT();
 	i2c_sda_0;
-	i2c_delay(50);
+	system_driver_delay_us(1);
 	i2c_scl_1;
-	i2c_delay(50);
+	system_driver_delay_us(1);
 	i2c_scl_0;
-	i2c_delay(50);
+	system_driver_delay_us(1);
 	i2c_sda_1;
 }
 void I2C_SendnAck(void)
@@ -98,9 +100,9 @@ void I2C_SendnAck(void)
 	i2c_scl_0;
 	QMI_SDA_OUT();
 	i2c_sda_1;
-	i2c_delay(50);
+	system_driver_delay_us(1);
 	i2c_scl_1;
-	i2c_delay(50);
+	system_driver_delay_us(1);
 	i2c_scl_0;
 }
 
@@ -108,18 +110,18 @@ void I2C_WriteBit(uint8_t data)
 {
 	uint8_t t;
 	QMI_SDA_OUT();
-	i2c_delay(50);
+	system_driver_delay_us(1);
 	i2c_scl_0;
-	i2c_delay(50);
+	system_driver_delay_us(1);
 	for(t=0;t<8;t++)
 	{					
 		i2c_sda_write((data&0x80)>>7);
 		data<<=1;
-		i2c_delay(50);
+		system_driver_delay_us(1);
 		i2c_scl_1;
-		i2c_delay(50);
+		system_driver_delay_us(1);
 		i2c_scl_0;
-		i2c_delay(50);
+		system_driver_delay_us(1);
 	}
 }
 
@@ -127,16 +129,16 @@ uint8_t I2C_ReadBit(uint8_t ack)
 {
 	uint8_t i,q;
 	QMI_SDA_IN();
-	i2c_delay(50);
+	system_driver_delay_us(1);
 	for(i=0;i<8;i++)
 	{
 		
 		i2c_scl_0;
-		i2c_delay(50);
+		system_driver_delay_us(1);
 		q <<=1;
 		i2c_scl_1;
 		if(i2c_sda_state)q++;		
-		i2c_delay(50);		
+		system_driver_delay_us(1);		
 	}
 	if(!ack)	I2C_SendnAck();
 	else		I2C_SendAck();
@@ -216,6 +218,7 @@ uint8_t I2C_ReadData(uint8_t addr,uint8_t reg,uint8_t len,uint8_t *buf)
 
 uint8_t QMI8658_init(void)
 {
+	tQmi.bais_pitch = 128.0f;
 	uint8_t mistake,flag=0;
 	mistake += I2C_WriteByte(QMI8658_SA0_H,CTL1,CTL1_INIT);
 	delay_1ms(50);
@@ -275,7 +278,7 @@ float Yijielvbo(float accel_m, float gyro_m)
 	static float Angle_one,Angle_L1;
 	
 	Angle_L1 = Angle_one;
-	Angle_one = 0.04f*accel_m + (1.0f-0.04f)*(Angle_L1 + gyro_m*0.01f);
+	Angle_one = 0.1f*accel_m + (1.0f-0.1f)*Angle_L1;
 	return Angle_one;
 }
 
@@ -294,7 +297,7 @@ int16_t Erjielvbo(float accel_m, float gyro_m)
 
 void QMI_ReadData(void)
 {
-	Read_Gyro();
+//	Read_Gyro();
 	Read_Accele();
 	tQmi.Pitch=Yijielvbo(Accel_X,Gyro_X);	
 //	tSys.AngleData = tQmi.Pitch;

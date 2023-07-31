@@ -13,6 +13,7 @@ void PMSM_Status_Loop(void);
 void PMSM_Mode_Loop(PMSM_Num num);
 void PMSM_APP_LOOP(void);
 void PMSM_TEST_LOOP(void);
+void app_angel_handle(void);
 #endif
 
 

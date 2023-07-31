@@ -29,3 +29,10 @@ void gpsTask(void* param)
 	}
 }
 
+void GPSNoneOSTask(void){
+	static u8 flag = DTU_WORKMODE_GPS;
+    if(dtu_work_mode(flag) == DTU_SUCCEED){
+		flag ^= DTU_WORKMODE_GPS^DTU_WORKMODE_XSTOYUN;
+    }
+	
+}

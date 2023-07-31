@@ -23,7 +23,7 @@ void PMSM_para_init(void)
 	memset(&PMSM[PMSM_U],0,sizeof(sMotorCtrlTypeDef));
 	
 	FOC_Config(FOC_1,&PMSM[PMSM_A].foc);
-	FilterInit(1000);
+//	FilterInit(1000);
 	PMSM[PMSM_A].MaxCurrent = IQ_MAX;
 	PMSM[PMSM_A].MaxSpeed = Speed_MAX;
 	PMSM[PMSM_A].ControlMode = SpeedCtrl_e;//速度，电流环，直接给iq
@@ -35,7 +35,6 @@ void PMSM_para_init(void)
 	PMSM[PMSM_A].S_Add_acc = 3.5f;
 	PMSM[PMSM_A].S_low_acc = 0.8f;
 	PMSM[PMSM_A].S_Run_acc = 1.5f;
-	PMSM[PMSM_A].sec_speed_handle = null_break;
 //	PMSM[PMSM_A].MotorCali = MegCaliNone;
 	
 	FOC_Config(FOC_2,&PMSM[PMSM_U].foc);
@@ -50,25 +49,24 @@ void PMSM_para_init(void)
 	PMSM[PMSM_U].S_Add_acc = 3.5f;
 	PMSM[PMSM_U].S_low_acc = 0.8f;
 	PMSM[PMSM_U].S_Run_acc = 1.5f;
-	PMSM[PMSM_U].sec_speed_handle = null_break;
 //	PMSM[PMSM_U].MotorCali = MegCaliNone;
 	
-	pid_init(&PMSM[PMSM_A].angle_pid,10.0f,0.0f,0.0f,PMSM[PMSM_A].MaxSpeed,-PMSM[PMSM_A].MaxSpeed);
+	pid_init(&PMSM[PMSM_A].angle_pid,5.0f,0.0f,0.0f,PMSM[PMSM_A].MaxSpeed,-PMSM[PMSM_A].MaxSpeed);
 //	pid_init(&PMSM[PMSM_A].speed_pid,15.0f,0.15f,0.0f,PMSM[PMSM_A].MaxCurrent,-PMSM[PMSM_A].MaxCurrent);
-	pid_init(&PMSM[PMSM_A].speed_pid,0.015f,0.00015f,0.0f,PMSM[PMSM_A].MaxCurrent,-PMSM[PMSM_A].MaxCurrent);
+	pid_init(&PMSM[PMSM_A].speed_pid,0.02f,0.0002f,0.0f,PMSM[PMSM_A].MaxCurrent,-PMSM[PMSM_A].MaxCurrent);
 //	pid_init(&PMSM[PMSM_A].speed_pid,0.004f,0.00008f,0.0f,PMSM[PMSM_A].MaxCurrent,-PMSM[PMSM_A].MaxCurrent);
 	pid_init(&PMSM[PMSM_A].current_id_pid,0.02f,0.0002f,0.0f,0.6f,-0.6f);
 	pid_init(&PMSM[PMSM_A].current_iq_pid,0.02f,0.0002f,0.0f,1.154f,-1.154f);
 	
 	pid_init(&PMSM[PMSM_U].angle_pid,10.0F,0.0f,0.0f,PMSM[PMSM_U].MaxSpeed,-PMSM[PMSM_U].MaxSpeed);
 //	pid_init(&PMSM[PMSM_U].speed_pid,15.0f,0.15f,0.0f,PMSM[PMSM_U].MaxCurrent,-PMSM[PMSM_U].MaxCurrent);
-	pid_init(&PMSM[PMSM_U].speed_pid,0.015f,0.00015f,0.0f,PMSM[PMSM_A].MaxCurrent,-PMSM[PMSM_A].MaxCurrent);
+	pid_init(&PMSM[PMSM_U].speed_pid,0.02f,0.0002f,0.0f,PMSM[PMSM_A].MaxCurrent,-PMSM[PMSM_A].MaxCurrent);
 	pid_init(&PMSM[PMSM_U].current_id_pid,0.02f,0.0002f,0.0f,0.6f,-0.6f);
 	pid_init(&PMSM[PMSM_U].current_iq_pid,0.02f,0.0002f,0.0f,1.154f,-1.154f);
 	
 	APP_PMSM.axis_x = 127;
 	APP_PMSM.axis_y = 127;
-	APP_PMSM.axis_y_filter = 127.0f;
+
 	
 	curve_config(SCURVE_1);
 	curve_config(SCURVE_2);
@@ -82,10 +80,9 @@ void PMSM_para_clear(PMSM_Num num)
 {
 //	PMSM[num].AngleSet = 0.0f;
 	PMSM[num].SpeedSet = 0.0f;
+	PMSM[num].SpeedNew = 0.0f;
 	PMSM[num].CurrentSet = 0.0f;
-	PMSM[num].SpeedNew_100MS = 0;
 	PMSM[num].LastSpeedNew = 0;
-	PMSM[num].LastSpeedNew_100MS = 0;
 	PMSM[num].SpeedNow = 0.0f;
 	PMSM[num].SpeedCmd = 0.0f;
 }
@@ -179,7 +176,6 @@ void PMSM_Start_Filter(PMSM_Num num)
 			{
 				PMSM[num].MotorState = MotorStart;
 				PMSM[num].first_start = true;
-				PMSM[num].acc_status = start_acc;
 			}
 			PMSM[num].first_stop = false;
 			break;

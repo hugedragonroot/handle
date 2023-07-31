@@ -309,7 +309,7 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 /* USER CODE BEGIN 1 */
 void serial0_send(uint8_t *data,uint16_t len)
 {
-	HAL_UART_Transmit(&huart1,data,len,10);
+	HAL_UART_Transmit(&huart1,data,len,5);
 }
 
 void serial3_send(void)

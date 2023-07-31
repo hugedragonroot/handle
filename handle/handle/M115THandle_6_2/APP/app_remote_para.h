@@ -157,11 +157,15 @@ typedef enum {
 	eSupportdown						= 0x01,			//支撑降
 } EPeripherals;
 
+typedef enum{
+	eUnLock,//解锁状态
+	eLock,//锁定状态
+}ELockState;
 
 /* 外设状态 */
 typedef enum {
   eOffline                = 0,     //离线
-  eWire										= 1,     //有线连接
+  eWire					= 1,     //有线连接
   eBlubtooth              = 2,     //蓝牙连接
 
 } ERemoteConnect;
@@ -180,6 +184,27 @@ typedef enum {
 	eSupportUp								=	2,		//上升	
 	eSupportDown							=	3,		//下降
 } ESupport;
+
+#define HANDLE_ERROR_NUM 3
+typedef union {
+	struct {
+		// struct{
+			uint8_t joyXyError:1;
+			uint8_t CANDisconnectError:1;
+			uint8_t angleError:1;
+		// }handle_bit;
+		// struct {
+			uint8_t leftWheelError:1;
+			uint8_t rightWheelError:1;
+			uint8_t pushRodError:1;
+			uint8_t seatRodError:1;
+			uint8_t breakError:1;
+		// }control_bit;
+	}bit;
+	uint8_t all[1];
+}APP_Error_t;
+
+
 
 /* 遥控通信 */
 typedef struct remote_setting
@@ -200,7 +225,6 @@ typedef struct remote_setting
 //   uint8_t   CoordYL;          /* 摇杆 Y 坐标低8位 */
   int16_t   CoordY;           /* 摇杆 Y 坐标 */
 
-  uint32_t   ErrorFlag;          /* 错误标志位 */
 	
 #if USING_XY_TO_SPEED
   int16_t   CoordSqrt;        /* 坐标平方根 */	
@@ -221,8 +245,9 @@ typedef struct remote_setting
   uint8_t   SpeedPre;
   uint8_t   Peripherals;      /* 外设状态 */
   uint8_t   PeripheryPre;
-	uint8_t   HandleLock;				/* 锁定状态 */
+	uint8_t   HandleLock:1;				/* 锁定状态 */
 //   uint8_t   Reserved;         /* 保留位 */ 
+	uint8_t folding_time; //折叠时间
 
 	uint8_t   Battery;          /* 电池电量 */
 
@@ -238,10 +263,23 @@ typedef struct remote_setting
 	uint8_t		AlarmSwitch;			//警报提示
 	uint8_t		CruiseCtrlSwitch;	//定速巡航
 	// uint8_t		CurrentMusic;	//按下喇叭键要播放的音乐
+	int8_t angleAlarmPrecent;//角度报警百分比 随座椅角度变化
 	uint8_t	ev1527_user_id[EV1527_USER_NUM][2] ;//无线遥控器ID
+	uint8_t CANQueueLenMax:4;
+	uint8_t CANQueueLenCur:4;
+	uint16_t CANBufferQueueLenMax;
+	uint16_t CANBufferQueueLenCur;
 
 } TREMOTE_SETTING_PARA;
 extern TREMOTE_SETTING_PARA   Remote_setting_para;
+
+
+typedef struct {
+	int16_t 	pcbAngle;//板载角度 下降大
+	uint16_t 	ultrasonic[3];//超声波距离
+	int16_t		pitch_angle; // 俯仰角,上坡大			//水平值 -18000< x < 18000  默认0 
+	int16_t		roll_angle;	//横滚角,左倾大 	//水平值 -18000< x < 18000  默认0
+}ATTITUDE_PARA;
 
 
 typedef struct remote_trans
@@ -259,10 +297,17 @@ typedef struct remote_trans
 	uint8_t folding_state:1;//折叠状态
 	// uint16_t push_rod_state;//推杆状态
 
+#if 0
 	int16_t		pitch_angle; // 俯仰角,上坡大			//水平值 -18000< x < 18000  默认0 
 	int16_t		roll_angle;	//横滚角,左倾大 	//水平值 -18000< x < 18000  默认0
 
 	uint16_t ultrasonic[4];
+#else
+	ATTITUDE_PARA m115_attitude;
+#endif
+
+	APP_Error_t errorFlag;
+
 #if 0
 
 	uint16_t	fornt_ultrasonic_y;				//前置纵向超声		(mm)
@@ -273,7 +318,6 @@ typedef struct remote_trans
 
 //   uint8_t   Battery;          /* 电池电量 */
 	float BatteryVol;//电池电压
-	
 
 }TREMOTE_TRANS_PARA;
 
@@ -340,9 +384,15 @@ typedef enum {
 /*错误代码*/
 typedef enum{
 	ERROR_NONE = 0,//没有错误
-	ERROR_JOY_XY = 1<<2,//开机摇杆不在原点
-	ERROR_CHARGE_LOW = 1<<5,//充电错误
-	ERROR_TEMPERATURE_LOW = 1<<6,//温度低错误
+
+	ERROR_JOY_XY,//开机摇杆不在原点
+	ERROR_CAN_DISCONNECT ,//与控制器通信故障
+
+	ERROR_LEFT_WHEEL,//左轮错误
+	ERROR_RIGHT_WHEEL,//右轮错误
+	ERROR_PUSH_ROB,//升降推杆错误
+	ERROR_SEAT_ROB,//座椅推杆错误
+	
 }APP_ERROR_FLAG;
 
 

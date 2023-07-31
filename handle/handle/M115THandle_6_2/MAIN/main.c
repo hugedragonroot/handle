@@ -11,7 +11,8 @@ int main(void)
 	//uint8_t keyS;
 	
 	
-    drv_init();	
+
+	drv_init();	
 	ext_init();
 
 	Remote_buff_init();	
@@ -26,8 +27,15 @@ int main(void)
 
 	while(1){
 
-		if(time_flag.time_10ms == 1){
+		if(time_flag.time_2ms == 1 ){
+			if(Remote_setting_para.PowerStatus == ePowerOn){
+				can_receive();
+			}
+			can_transmit();
+			time_flag.time_2ms = 0;
+		}
 
+		if(time_flag.time_10ms == 1){
 			if(Remote_setting_para.PowerStatus == ePowerOn){
 				BTNoneOSTask();
 				app_cltprocess();
@@ -39,55 +47,41 @@ int main(void)
 		}
 
 		if(time_flag.time_20ms == 1){
-
-			if(Remote_setting_para.PowerStatus == ePowerOn){
-				can_receive();
-			}
 			time_flag.time_20ms = 0;
 		}
 
 		if(time_flag.time_100ms == 1){
-			#if USING_LED_POINT_DISPLAY
-			ledShow();
-			#else
 			app_display();
-			#endif
-			music_play_task();
 			ev1527_task();
+			BTdisconnect();
+
 			time_flag.time_100ms = 0;
 		}
 
 		if(time_flag.time_200ms == 1){
+			music_play_task();
 			LED1_BLINK();
 			time_flag.time_200ms = 0;
 		}
 
 		if(time_flag.time_1000ms == 1){
-
-			#if USING_DEBUG
+			GPSNoneOSTask();
 			debugUartPrint();
-			#endif
 			fwdgt_feed();
+			mem_save();
 
 			if(Remote_setting_para.PowerStatus == ePowerOff){
-				BTdisconnect();
 				powerOFF();
 			}else{
 				powerON();
-				mem_save();
 			}
-			if(Remote_setting_para.HandleLock == 1){
-				Remote_setting_para.CoordX = Coord_Base;
-				Remote_setting_para.CoordY = Coord_Base;
-				Remote_trans_para.push_rod_speed = 0;
-				BTdisconnect();
-			}
+			
 
 			// static uint8_t array[] = "AT\r\n";
 			// uart_bt_send(array,sizeof(array));
 			// uart_gps_send(array, sizeof(array));
-	// static uint8_t array1[] = "AT+NAMEXSTOM115000115\r\n";
-	// uart_bt_send(array1, sizeof(array1));
+			// static uint8_t array1[] = "AT+NAMEXSTOM115temp000115\r\n";
+			// uart_bt_send(array1, sizeof(array1));
 
 			time_flag.time_1000ms = 0;
 		}

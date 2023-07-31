@@ -7,6 +7,7 @@ typedef struct
 	uint32_t cnt;
 	// uint16_t cnt;
 	uint8_t time_1ms:1;
+	uint8_t time_2ms:1;
 	uint8_t time_5ms:1;
 	uint8_t time_10ms:1;
 	uint8_t time_20ms:1;

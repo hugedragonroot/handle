@@ -58,12 +58,17 @@ extern "C" {
 #define USING_6KEY 1
 #define USING_LED_POINT_DISPLAY 1
 #define USING_DEBUG 1
+#define FWDGT_OPEN 1
+#define BT_CHANGE_NAME_FLAG 0
+#define ERROR_CONTROL_FLAG 1
+
 #define USING_TASK_DEBUG 0
 #define USING_RTOS 0
-#define FWDGT_OPEN 0
-#define BT_CHANGE_NAME_FLAG 0
 
 #define EV1527_USER_NUM 1
+
+
+
 
 
 #define	DRIVER_MODEL	M130T

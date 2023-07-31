@@ -1,5 +1,14 @@
 #include "gps_drv.h"
 #include "drv.h"
+
+void gps_reset(void){
+	gpio_bit_set(GPIOA,GPIO_PIN_15);
+	gpio_bit_reset(GPIOA,GPIO_PIN_15);
+	delay_ms(110);
+	gpio_bit_set(GPIOA,GPIO_PIN_15);
+
+}
+
 void gps_initIO(void)
 {
 #if !HARD_TYPE_NEW	
@@ -9,6 +18,12 @@ void gps_initIO(void)
 #endif
 	GPIO_InitIO(GPIOC,GPIO_PIN_10,GPIO_MODE_AF_PP,GPIO_OSPEED_10MHZ);				//GPS
 	GPIO_InitIO(GPIOC,GPIO_PIN_11,GPIO_MODE_IN_FLOATING,GPIO_OSPEED_10MHZ);	//GPS	
-	
+
+	// GPIO_InitIO(GPIOA,GPIO_PIN_15,GPIO_MODE_OUT_PP,GPIO_OSPEED_10MHZ);//rst
+
+	// gps_reset();
+
 }
+
+
 

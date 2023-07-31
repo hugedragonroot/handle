@@ -119,7 +119,7 @@ static uint8_t KeyPinVal()
 *	返 回 值: 返回值1 表示按下(导通），0表示未按下（释放）
 *********************************************************************************************************
 */
-static uint8_t KeyPinActive(uint8_t _id)
+uint8_t KeyPinActive(uint8_t _id)
 {	
 	if(gpio_val[_id]==0)
 	{
@@ -155,8 +155,14 @@ static uint8_t IsKeyDownFunc(uint8_t _id)
 		{
 			if (KeyPinActive(i)) 
 			{
+
 				count++;
 				save = i;
+				if(i == KID_POWER){
+					count = 1;
+					keys = 0;
+					break;
+				}
 			}
 		}
 		if(count > 1 ) keys=1;			
@@ -170,9 +176,13 @@ static uint8_t IsKeyDownFunc(uint8_t _id)
 	}
 	
 	/* 组合键*/
-	if (_id == HARD_KEY_NUM + 0)
-	{
+	if (_id == HARD_KEY_NUM + 0) {
 		if (KeyPinActive(KID_PUSH_ORD_ADD) && KeyPinActive(KID_PUSH_ORD_SUB))
+			return 1;
+		else 
+			return 0;
+	}else if(_id == HARD_KEY_NUM + 1){
+		if (KeyPinActive(KID_SPEED_ADD) && KeyPinActive(KID_SPEED_SUB))
 			return 1;
 		else 
 			return 0;
@@ -433,7 +443,7 @@ static void bsp_DetectKey(uint8_t i)
 		pBtn->RepeatCount = 0;
 	}
 }
-
+#if 0
 /*
 *********************************************************************************************************
 *	函 数 名: bsp_DetectFastIO
@@ -496,7 +506,7 @@ static void bsp_DetectFastIO(uint8_t i)
 		pBtn->RepeatCount = 0;
 	}
 }
-
+#endif
 /*
 *********************************************************************************************************
 *	函 数 名: bsp_KeyScan10ms

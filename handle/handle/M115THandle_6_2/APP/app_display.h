@@ -4,6 +4,19 @@
 
 #include <stdint.h>
 
+#if USING_LED_POINT_DISPLAY
+
+typedef enum{
+	ui_led_off,
+	ui_led_logo,
+	ui_led_error,
+	ui_led_lock,
+	ui_led_bt,
+	ui_led_main,
+}ui_e;
+
+#else
+
 #define SPEED_DELAY		30// *50 ms
 #define SURE_TIMES		10//3
 
@@ -83,6 +96,9 @@ typedef enum
 void display_init(void);
 void setdisplay_ui(ui_e ui);
 uint8_t getdisplay_ui(void);
+#endif
 void app_display(void);
+
+
 #endif
 

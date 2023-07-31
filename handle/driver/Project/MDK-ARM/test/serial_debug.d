@@ -60,3 +60,4 @@ test\serial_debug.o: ..\Protocol\para.h
 test\serial_debug.o: ..\Utils\crc.h
 test\serial_debug.o: ..\module\CurveProgramme.h
 test\serial_debug.o: ..\module\Scurve.h
+test\serial_debug.o: ..\module\Status_Check.h

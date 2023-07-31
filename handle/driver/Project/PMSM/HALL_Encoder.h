@@ -44,6 +44,7 @@ typedef struct
 	float lastAngle;
 	bool first_speed_flage;
 	uint8_t speed_count;
+	uint8_t scurve_count;
 }__attribute__((packed))hall_encoder_t;
 extern hall_encoder_t hall_encoder[2];
 

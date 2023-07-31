@@ -23,6 +23,7 @@
 #define CMD_GetCtrl           0x07    //控制命令
 #define CMD_FaultEvent        0xff    //故障信息
 
+#if 0
 /************************* 执行状态 *************************/
 #define ExecState_Suc         0x01    //成功
 #define ExecState_ErrParam    0x02    //参数范围错误
@@ -67,9 +68,17 @@
 #define ELONGATION_0			40 //伸长量0
 #define ELONGATION_MID			1500 //伸长量
 #define ELONGATION_ERR			40 //伸长量0
+#endif
 
-#define ANGLE_SLOPE_MAX 700//0.01度
-#define ULTRASONIC_DISTANCE_MAX 700//mm
+#define ANGLE_PITCH_UP_WARNING 300 //*1.0~2.0
+#define ANGLE_PITCH_DOWN_WARNING -600//*1.0~2.0
+
+#define ANGLE_ROLL_WARNING 600
+
+#define ANGLE_PITCH_MAX 1000//0.01度
+#define ANGLE_ROLL_MAX 500//0.01度
+
+#define ULTRASONIC_DISTANCE_MAX 200//mm
 
 /* 通用 */
 typedef struct

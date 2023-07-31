@@ -487,6 +487,7 @@ HAL_StatusTypeDef HAL_CAN_DeInit(CAN_HandleTypeDef *hcan)
 #endif /* (USE_HAL_CAN_REGISTER_CALLBACKS) */
 
   /* Reset the CAN peripheral */
+
   SET_BIT(hcan->Instance->MCR, CAN_MCR_RESET);
 
   /* Reset the CAN ErrorCode */

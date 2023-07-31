@@ -108,6 +108,31 @@ static float myln(float a)
    return 2.0f*x*y;
 }
 
+#define MOTOR_Rp 10.0f
+#define MOTOR_T2 (273.15f+25.0f)
+#define MOTOR_Bx 3453.0f
+#define MOTOR_Ka 273.15f
+
+float Get_MOTOR_MOSTEMP(PMSM_Num num)
+{
+	float Rt=0.0f;
+	float v_t =0.0f;
+	float N1,N2,N3;
+	if(num == PMSM_A)
+	{
+		v_t = (float)(adc_ReadAvgRaw_2(MOTOR_TEMP1)/4096.0f*3.3f);
+	}
+	else if(num == PMSM_U)
+	{
+		v_t = (float)(adc_ReadAvgRaw_2(MOTOR_TEMP2)/4096.0f*3.3f);
+	}
+		Rt = v_t*10.0f/(3.3f-v_t);
+		N1 = (myln(Rt)-myln(Rp))/Bx;
+		N2 = 1.0f/T2 - N1;
+		N3 = 1.0f/N2;
+		return (N3-Ka);
+
+}
 void GetVoltage_MOSTEMP(void)
 {
   ADC_Data.Bus_Volt = 3.3f*adc_ReadAvgRaw_0(V_BUS)/4096.0f/56.0f*1056.0f;	//Vbus
@@ -152,7 +177,7 @@ void Brush_GetCurrent(void)
 
 
 
-float GildeAverageValueFilter_MAG(int16_t NewValue,int16_t *Data)
+uint8_t GildeAverageValueFilter_MAG(uint8_t NewValue,uint8_t *Data)
 {
 	float max,min;
 	float sum;
@@ -171,7 +196,7 @@ float GildeAverageValueFilter_MAG(int16_t NewValue,int16_t *Data)
 	i=Nx-2;
 	sum=sum-max-min;
 	sum=sum/i;
-	return(sum);
+	return((uint8_t)sum);
 }
 
 

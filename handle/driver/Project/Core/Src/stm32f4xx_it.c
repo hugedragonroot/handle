@@ -187,17 +187,14 @@ void PendSV_Handler(void)
   /* USER CODE END PendSV_IRQn 1 */
 }
 
+extern volatile uint32_t time_temp;
 /**
   * @brief This function handles System tick timer.
   */
-uint32_t test_counts =0 ;
 void SysTick_Handler(void)
 {
   /* USER CODE BEGIN SysTick_IRQn 0 */
-	if(++test_counts>=1000*60)
-	{
-		test_counts = 0;
-	}
+	time_temp++;
 	system_times ++;
 	task_time.timer_1ms++;
 	task_time.timer_2ms++;

@@ -23,21 +23,13 @@
 /* 私有类型定义 --------------------------------------------------------------*/
 typedef enum{
 	speed_push_I = 500,
-	speed_push_II = 700,
-	speed_push_III = 1050,
+	speed_push_II = 400,
+	speed_push_III = 900,
 	speed_run_I = 1600,
-	speed_run_II = 2200,
-	speed_run_III = 2800,
+	speed_run_II = 2000,
+	speed_run_III = 2500,
 }SpeedRank;//速度挡位设置
 
-
-typedef enum{
-	CtrlCurveWait,
-	CtrlCurveStart,
-	CtrlCurveQuickAdj,
-	CtrlCurveNormalAdj,
-	CtrlCurveEnd,
-}Running_Curve_State;
 
 
 /* 私有宏定义 ----------------------------------------------------------------*/
@@ -49,7 +41,7 @@ SpeedRank SpeedMax[6] = {speed_push_I, speed_push_II, speed_push_III, speed_run_
 //float return_gear[6] = {0.5f,0.5f,0.4f,0.3f,0.3f,0.3f};
 //float quicky_gear[6] = {0.1f,0.1f,0.2f,0.5f,0.5f,0.5f};
 
-float wheel_gear[6] = {0.2f,0.2f,0.2f,0.18f,0.18f,0.18f};
+float wheel_gear[6] = {0.4f,0.5f,0.35f,0.3f,0.25f,0.25f};
 float return_gear[6] = {0.5f,0.5f,0.4f,0.3f,0.3f,0.3f};
 float quicky_gear[6] = {0.1f,0.1f,0.2f,0.5f,0.5f,0.5f};
 
@@ -112,144 +104,75 @@ void test_runningCurve(void)
 float test_speed;
 float bxx;
 float kxx;
-//static void LRspeed_delimit(void)
-//{
-//	float speedbuff;
-//	if(*RunningCurve.VecAngle < PI)
-//	{
-//		speedbuff = *RunningCurve.VecValue * SpeedMax[*RunningCurve.Rank] * ((1.0f - wheel_gear[*RunningCurve.Rank]) * arm_sin_f32(*RunningCurve.VecAngle) + wheel_gear[*RunningCurve.Rank]);
-//		bxx = (*RunningCurve.VecValue) * (SpeedMax[*RunningCurve.Rank]) * (wheel_gear[*RunningCurve.Rank]);
-//		kxx = ((*RunningCurve.VecValue) * (SpeedMax[*RunningCurve.Rank]) +bxx)/ PI_2l;
-//		if(*RunningCurve.VecAngle > PI_2l)
-//		{
-//			RunningCurve.SpeedSetLeft = (PI - *RunningCurve.VecAngle) / PI_2l * speedbuff;
-//			RunningCurve.SpeedSetRight = speedbuff;
-////			RunningCurve.SpeedSetLeft = kxx*(PI - *RunningCurve.VecAngle) - bxx;
-////			RunningCurve.SpeedSetRight = speedbuff;
-//			RunningCurve.region = 0x02;
-//		}
-//		else if(*RunningCurve.VecAngle == PI_2l)
-//		{
-//			RunningCurve.region = 0x01;
-//			RunningCurve.SpeedSetLeft = (PI - *RunningCurve.VecAngle) / PI_2l * speedbuff;
-//			RunningCurve.SpeedSetRight = speedbuff;
-////			RunningCurve.SpeedSetLeft = kxx*(PI - *RunningCurve.VecAngle) - bxx;
-////			RunningCurve.SpeedSetRight = speedbuff;
-//		}
-//		else
-//		{
-//			RunningCurve.SpeedSetLeft = speedbuff;
-//			RunningCurve.SpeedSetRight = *RunningCurve.VecAngle / PI_2l * speedbuff;
-////			RunningCurve.SpeedSetLeft = speedbuff;
-////			RunningCurve.SpeedSetRight = kxx*(*RunningCurve.VecAngle)- bxx;
-//			RunningCurve.region = 0x00;
-//		}
-//		test_speed = *RunningCurve.VecValue * SpeedMax[*RunningCurve.Rank] * ((1.0f - wheel_gear[*RunningCurve.Rank]) * arm_sin_f32(*RunningCurve.VecAngle) + wheel_gear[*RunningCurve.Rank]);
-//	}
-//	else if(*RunningCurve.VecAngle < PI * 5.0f / 4.0f)
-//	{
-//		RunningCurve.SpeedSetLeft = -*RunningCurve.VecValue * SpeedMax[*RunningCurve.Rank] * wheel_gear[*RunningCurve.Rank] * (*RunningCurve.VecAngle - PI) / (PI / 4);
-//		RunningCurve.SpeedSetRight = *RunningCurve.VecValue * SpeedMax[*RunningCurve.Rank] * wheel_gear[*RunningCurve.Rank] * (PI * 5.0f / 4.0f - *RunningCurve.VecAngle) / (PI / 4);
-//		RunningCurve.region = 0x02;
-//	}
-//	else if(*RunningCurve.VecAngle < PI * 7.0f / 4.0f)
-//	{
-//		speedbuff = -*RunningCurve.VecValue * SpeedMax[*RunningCurve.Rank] * ((return_gear[*RunningCurve.Rank] - wheel_gear[*RunningCurve.Rank]) * arm_sin_f32((*RunningCurve.VecAngle - PI * 5.0f / 4.0f) * 2) + wheel_gear[*RunningCurve.Rank]);
-//		if(*RunningCurve.VecAngle < PI_2l * 3.0f)
-//		{
-//			RunningCurve.SpeedSetLeft = speedbuff;
-//			RunningCurve.SpeedSetRight = (*RunningCurve.VecAngle - PI * 5.0f / 4.0f) / (PI / 4) * speedbuff;
-//			RunningCurve.region = 0x02;
-//		}
-//		else
-//		{
-//			RunningCurve.SpeedSetLeft = (PI * 7.0f / 4.0f - *RunningCurve.VecAngle) / (PI / 4) * speedbuff;
-//			RunningCurve.SpeedSetRight = speedbuff;
-//			RunningCurve.region = 0x00;
-//		}
-//	}
-//	else if(*RunningCurve.VecAngle <= PI_2)
-//	{
-//		RunningCurve.SpeedSetLeft = *RunningCurve.VecValue * SpeedMax[*RunningCurve.Rank] * wheel_gear[*RunningCurve.Rank] * (*RunningCurve.VecAngle - PI * 7.0f / 4.0f) / (PI / 4);
-//		RunningCurve.SpeedSetRight = *RunningCurve.VecValue * SpeedMax[*RunningCurve.Rank] * wheel_gear[*RunningCurve.Rank] * (*RunningCurve.VecAngle - PI_2) / (PI / 4);
-//		RunningCurve.region = 0x00;
-//	}
-
-//	RunningCurve.SpeedSetLeft = RunningCurve.SpeedSetLeft;
-//	RunningCurve.SpeedSetRight = -RunningCurve.SpeedSetRight;
-//}
 static void LRspeed_delimit(void)
 {
 	float speedbuff;
-	if(*RunningCurve.VecAngle < PI)
+	float speedbuff_temp;
+	if(*RunningCurve.VecAngle >=0.0f&&*RunningCurve.VecAngle <= PI)
 	{
 		speedbuff = *RunningCurve.VecValue * SpeedMax[*RunningCurve.Rank] * ((1.0f - wheel_gear[*RunningCurve.Rank]) * arm_sin_f32(*RunningCurve.VecAngle) + wheel_gear[*RunningCurve.Rank]);
+//		speedbuff_temp = *RunningCurve.VecValue * SpeedMax[*RunningCurve.Rank] * ((1.0f + wheel_gear[*RunningCurve.Rank]) * arm_sin_f32(*RunningCurve.VecAngle) - wheel_gear[*RunningCurve.Rank]);
 		bxx = (*RunningCurve.VecValue) * (SpeedMax[*RunningCurve.Rank]) * (wheel_gear[*RunningCurve.Rank]);
 		kxx = ((*RunningCurve.VecValue) * (SpeedMax[*RunningCurve.Rank]) +bxx)/ PI_2l;
-		if(*RunningCurve.VecAngle > PI_2l)
+		
+//		bxx = (*RunningCurve.VecValue) * (SpeedMax[*RunningCurve.Rank]) * (wheel_gear[*RunningCurve.Rank]);
+//		kxx = ((1.0f+wheel_gear[*RunningCurve.Rank])/1.0f)/ PI_2l;
+		
+		if(*RunningCurve.VecAngle >=0.0f&&*RunningCurve.VecAngle <= PI)
 		{
-//			RunningCurve.SpeedSetLeft = (PI - *RunningCurve.VecAngle) / PI_2l * speedbuff;
-//			RunningCurve.SpeedSetRight = speedbuff;
-			RunningCurve.SpeedSetLeft = kxx*(PI - *RunningCurve.VecAngle) - bxx;
-			RunningCurve.SpeedSetRight = speedbuff;
-			RunningCurve.region = 0x02;
+			if(*RunningCurve.VecAngle > PI_2l)
+			{
+//				
+				RunningCurve.SpeedSetLeft = kxx*(PI - *RunningCurve.VecAngle) - bxx;
+				RunningCurve.SpeedSetRight = speedbuff;
+				
+//				RunningCurve.SpeedSetLeft = speedbuff_temp;
+//				RunningCurve.SpeedSetRight = speedbuff;
+				RunningCurve.region = 0x00;
+				if(*RunningCurve.VecAngle <= PI_2l*95.0f/90.0f)
+				{
+					RunningCurve.region = 0x01;
+				}
+			}
+			else if(*RunningCurve.VecAngle == PI_2l)
+			{
+
+				RunningCurve.region = 0x01;
+				
+				RunningCurve.SpeedSetLeft = kxx*(PI - *RunningCurve.VecAngle) - bxx;
+				RunningCurve.SpeedSetRight = speedbuff;
+			}
+			else
+			{
+//				
+				RunningCurve.SpeedSetLeft =speedbuff;
+				RunningCurve.SpeedSetRight = kxx*(*RunningCurve.VecAngle) - bxx;
+				
+//				RunningCurve.SpeedSetLeft = speedbuff;
+//				RunningCurve.SpeedSetRight = speedbuff_temp;
+				RunningCurve.region = 0x00;
+				if(*RunningCurve.VecAngle >= PI_2l*85.0f/90.0f)
+				{
+					RunningCurve.region = 0x01;
+				}
+			}
 		}
-		else if(*RunningCurve.VecAngle == PI_2l)
-		{
-			RunningCurve.region = 0x01;
-//			RunningCurve.SpeedSetLeft = (PI - *RunningCurve.VecAngle) / PI_2l * speedbuff;
-//			RunningCurve.SpeedSetRight = speedbuff;
-			RunningCurve.SpeedSetLeft = kxx*(PI - *RunningCurve.VecAngle) - bxx;
-			RunningCurve.SpeedSetRight = speedbuff;
-		}
-		else
-		{
-//			RunningCurve.SpeedSetLeft = speedbuff;
-//			RunningCurve.SpeedSetRight = *RunningCurve.VecAngle / PI_2l * speedbuff;
-			RunningCurve.SpeedSetLeft = speedbuff;
-			RunningCurve.SpeedSetRight = kxx*(*RunningCurve.VecAngle)- bxx;
-			RunningCurve.region = 0x00;
-		}
-		test_speed = *RunningCurve.VecValue * SpeedMax[*RunningCurve.Rank] * ((1.0f - wheel_gear[*RunningCurve.Rank]) * arm_sin_f32(*RunningCurve.VecAngle) + wheel_gear[*RunningCurve.Rank]);
 	}
-//	else if(*RunningCurve.VecAngle < PI * 5.0f / 4.0f)
-//	{
-//		RunningCurve.SpeedSetLeft = -*RunningCurve.VecValue * SpeedMax[*RunningCurve.Rank] * wheel_gear[*RunningCurve.Rank] * (*RunningCurve.VecAngle - PI) / (PI / 4);
-//		RunningCurve.SpeedSetRight = *RunningCurve.VecValue * SpeedMax[*RunningCurve.Rank] * wheel_gear[*RunningCurve.Rank] * (PI * 5.0f / 4.0f - *RunningCurve.VecAngle) / (PI / 4);
-//		RunningCurve.region = 0x02;
-//	}
-//	else if(*RunningCurve.VecAngle < PI * 7.0f / 4.0f)
-//	{
-//		speedbuff = -*RunningCurve.VecValue * SpeedMax[*RunningCurve.Rank] * ((return_gear[*RunningCurve.Rank] - wheel_gear[*RunningCurve.Rank]) * arm_sin_f32((*RunningCurve.VecAngle - PI * 5.0f / 4.0f) * 2) + wheel_gear[*RunningCurve.Rank]);
-//		if(*RunningCurve.VecAngle < PI_2l * 3.0f)
-//		{
-//			RunningCurve.SpeedSetLeft = speedbuff;
-//			RunningCurve.SpeedSetRight = (*RunningCurve.VecAngle - PI * 5.0f / 4.0f) / (PI / 4) * speedbuff;
-//			RunningCurve.region = 0x02;
-//		}
-//		else
-//		{
-//			RunningCurve.SpeedSetLeft = (PI * 7.0f / 4.0f - *RunningCurve.VecAngle) / (PI / 4) * speedbuff;
-//			RunningCurve.SpeedSetRight = speedbuff;
-//			RunningCurve.region = 0x00;
-//		}
-//	}
-//	else if(*RunningCurve.VecAngle <= PI_2)
-//	{
-//		RunningCurve.SpeedSetLeft = *RunningCurve.VecValue * SpeedMax[*RunningCurve.Rank] * wheel_gear[*RunningCurve.Rank] * (*RunningCurve.VecAngle - PI * 7.0f / 4.0f) / (PI / 4);
-//		RunningCurve.SpeedSetRight = *RunningCurve.VecValue * SpeedMax[*RunningCurve.Rank] * wheel_gear[*RunningCurve.Rank] * (*RunningCurve.VecAngle - PI_2) / (PI / 4);
-//		RunningCurve.region = 0x00;
-//	}
-	else if(*RunningCurve.VecAngle < PI_2)
+	else if(*RunningCurve.VecAngle <= PI_2&&*RunningCurve.VecAngle >= PI)
 	{
 		speedbuff = -*RunningCurve.VecValue * SpeedMax[*RunningCurve.Rank] * ((return_gear[*RunningCurve.Rank] - wheel_gear[*RunningCurve.Rank]) * arm_sin_f32(*RunningCurve.VecAngle - PI) + wheel_gear[*RunningCurve.Rank]);
+//		speedbuff_temp = -*RunningCurve.VecValue * SpeedMax[*RunningCurve.Rank] * ((return_gear[*RunningCurve.Rank] + wheel_gear[*RunningCurve.Rank]) * arm_sin_f32(*RunningCurve.VecAngle - PI) - wheel_gear[*RunningCurve.Rank]);
 		if(*RunningCurve.VecAngle < PI_2l * 3.0f)
 		{
 			bxx = -*RunningCurve.VecValue * SpeedMax[*RunningCurve.Rank]* wheel_gear[*RunningCurve.Rank];
 			kxx = (-*RunningCurve.VecValue* SpeedMax[*RunningCurve.Rank]*return_gear[*RunningCurve.Rank] + bxx)/PI_2l;
 			RunningCurve.SpeedSetLeft = speedbuff;
 			RunningCurve.SpeedSetRight = kxx*(*RunningCurve.VecAngle - PI) - bxx;
-			RunningCurve.region = 0x02;
+			
+//			RunningCurve.SpeedSetLeft = speedbuff;
+//			RunningCurve.SpeedSetRight = speedbuff_temp;
+			
+			RunningCurve.region = 0x00;
 		}
 		else
 		{
@@ -257,12 +180,21 @@ static void LRspeed_delimit(void)
 			bxx = -*RunningCurve.VecValue * SpeedMax[*RunningCurve.Rank]* (2.0f*return_gear[*RunningCurve.Rank] + wheel_gear[*RunningCurve.Rank]);
 			RunningCurve.SpeedSetLeft = kxx*(*RunningCurve.VecAngle - PI) + bxx;
 			RunningCurve.SpeedSetRight = speedbuff;
+			
+//			RunningCurve.SpeedSetLeft = speedbuff;
+//			RunningCurve.SpeedSetRight = speedbuff_temp;
 			RunningCurve.region = 0x00;
 		}
+	}
+	if(*RunningCurve.VecValue == 0.0f)
+	{
+		RunningCurve.region_last_pre =	RunningCurve.region_last = RunningCurve.region;
 	}
 
 	RunningCurve.SpeedSetLeft = RunningCurve.SpeedSetLeft;
 	RunningCurve.SpeedSetRight = -RunningCurve.SpeedSetRight;
+	
+
 }
 /**
 	* 函数功能: 运动曲线规划.
@@ -273,7 +205,7 @@ static void LRspeed_delimit(void)
 //#define abs(a)         (a < 0 ? -a : a)
 //#define max(a, b)      (a > b ? a : b)
 //#define abs_sub(a, b)  (abs(abs(a) - abs(b)))
-
+uint16_t temp_region  = 0;
 void running_programme(SCURVE_NUM num)
 {
 	float speedbuff = 0.0f;
@@ -284,10 +216,20 @@ void running_programme(SCURVE_NUM num)
 	switch(runstate)
 	{
 		case CtrlCurveWait:
-			if((*RunningCurve.VecAngle != RunningCurve.VecAnglePre) || (*RunningCurve.VecValue != RunningCurve.VecValuePre))
+			if(RunningCurve.VecValuePre == 0.0f&&*RunningCurve.VecValue !=0.0f)
+			{
+				RunningCurve.start_flage = true;
+			}
+			else if(*RunningCurve.curve[SCURVE_1].speed_now!=0.0f&&*RunningCurve.curve[SCURVE_2].speed_now!=0.0f&&RunningCurve.VecValuePre >=0.3f)
+			{
+				if((*RunningCurve.curve[SCURVE_1].speed_now>=*RunningCurve.curve[SCURVE_1].speed_set*0.5f) && (*RunningCurve.curve[SCURVE_2].speed_now>=*RunningCurve.curve[SCURVE_2].speed_set*0.5f))
+				RunningCurve.start_flage = false;
+			}
+			if((*RunningCurve.VecAngle != RunningCurve.VecAnglePre) || (*RunningCurve.VecValue != RunningCurve.VecValuePre)||*RunningCurve.Rank != RunningCurve.RankPre)
 			{
 				RunningCurve.VecAnglePre = *RunningCurve.VecAngle;
 				RunningCurve.VecValuePre = *RunningCurve.VecValue;
+				RunningCurve.RankPre = *RunningCurve.Rank;
 				runstate = CtrlCurveStart;
 			}
 		
@@ -344,82 +286,92 @@ void running_programme(SCURVE_NUM num)
 				RunningCurve.confine = 0x01;
 			}*/
 			
+//			if(RunningCurve.start_flage  == true)
+//			{
+//				runstate = CtrlCurvelow;
+//				sync_flag = OutSync;
+//				*RunningCurve.curve[SCURVE_1].speed_set = RunningCurve.SpeedSetLeft;
+//				*RunningCurve.curve[SCURVE_2].speed_set = RunningCurve.SpeedSetRight;
+////				fast_flag = OutSync;
+//			}
 			/*快速修正角度，速度的正负与电机的固有正方向有关*/
-			if(RunningCurve.region != RunningCurve.region_last)
-			{
-				if(-*RunningCurve.curve[SCURVE_1].speed_now > *RunningCurve.curve[SCURVE_2].speed_now)
+
+				if(*RunningCurve.Rank >=3)
 				{
-					 RunningCurve.curve[SCURVE_1].correct_speed = *RunningCurve.curve[SCURVE_1].speed_now;
-					 RunningCurve.curve[SCURVE_2].correct_speed = *RunningCurve.curve[SCURVE_2].speed_now;
-					*RunningCurve.curve[SCURVE_1].speed_set = -*RunningCurve.curve[SCURVE_2].speed_now;//快速调整速度
-					*RunningCurve.curve[SCURVE_2].speed_set = -*RunningCurve.curve[SCURVE_1].speed_now;
-					runstate = CtrlCurveQuickAdj;
-					sync_flag = OutSync;
-					fast_flag = OutSync;
-					
-					RunningCurve.confine = 0x10;
+						if(RunningCurve.region != RunningCurve.region_last)
+						{
+							temp_region = RunningCurve.region<<4|RunningCurve.region_last<<0;
+							if(temp_region == 0x10)
+							{
+								if(-*RunningCurve.curve[SCURVE_1].speed_now > *RunningCurve.curve[SCURVE_2].speed_now)
+								{
+									*RunningCurve.curve[SCURVE_1].speed_set = -*RunningCurve.curve[SCURVE_2].speed_now;//快速调整速度
+									*RunningCurve.curve[SCURVE_2].speed_set = -*RunningCurve.curve[SCURVE_1].speed_now;
+									runstate = CtrlCurveQuickAdj;
+									sync_flag = OutSync;
+									fast_flag = OutSync;
+								
+									RunningCurve.confine = 0x10;
+								}
+								else if(-*RunningCurve.curve[SCURVE_1].speed_now < *RunningCurve.curve[SCURVE_2].speed_now)
+								{
+									*RunningCurve.curve[SCURVE_1].speed_set = -*RunningCurve.curve[SCURVE_2].speed_now;//快速调整速度
+									*RunningCurve.curve[SCURVE_2].speed_set = -*RunningCurve.curve[SCURVE_1].speed_now;
+									runstate = CtrlCurveQuickAdj;
+									sync_flag = OutSync;
+									fast_flag = OutSync;
+									RunningCurve.confine = 0x01;
+								}
+							}
+							RunningCurve.region_last_pre = RunningCurve.region_last;
+							RunningCurve.region_last = RunningCurve.region;
+//						}
+						}						
 				}
-				else if(-*RunningCurve.curve[SCURVE_1].speed_now < *RunningCurve.curve[SCURVE_2].speed_now)
-				{
-					 RunningCurve.curve[SCURVE_1].correct_speed = *RunningCurve.curve[SCURVE_1].speed_now;
-					 RunningCurve.curve[SCURVE_2].correct_speed = *RunningCurve.curve[SCURVE_2].speed_now;
-					*RunningCurve.curve[SCURVE_1].speed_set = -*RunningCurve.curve[SCURVE_2].speed_now;//快速调整速度
-					*RunningCurve.curve[SCURVE_2].speed_set = -*RunningCurve.curve[SCURVE_1].speed_now;
-					runstate = CtrlCurveQuickAdj;
-					sync_flag = OutSync;
-					fast_flag = OutSync;
-					RunningCurve.confine = 0x01;
-				}
-				
-				RunningCurve.region_last = RunningCurve.region;
-			}
 			
 			
-			if(sync_flag == Sync)
-			{
-				*RunningCurve.curve[SCURVE_1].speed_set = RunningCurve.SpeedSetLeft;
-				*RunningCurve.curve[SCURVE_2].speed_set = RunningCurve.SpeedSetRight;
-			}
+				if(sync_flag == Sync)
+				{
+					*RunningCurve.curve[SCURVE_1].speed_set = RunningCurve.SpeedSetLeft;
+					*RunningCurve.curve[SCURVE_2].speed_set = RunningCurve.SpeedSetRight;
+				}
 			
 		break;
 		case CtrlCurveQuickAdj:
+//			if((*RunningCurve.VecAngle != RunningCurve.VecAnglePre) || (*RunningCurve.VecValue != RunningCurve.VecValuePre)||(*RunningCurve.Rank != RunningCurve.RankPre))
+//			{
+//				runstate = CtrlCurveWait;
+//				break;
+//			}
 			/* 检测是否快速调整到目标位置，速度的正负与电机的固有正方向有关 */
-//			if(((RunningCurve.confine == 0x10) && (-*RunningCurve.curve[SCURVE_1].speed_now <= *RunningCurve.curve[SCURVE_2].speed_now))\
-//				 || ((RunningCurve.confine == 0x01) && (-*RunningCurve.curve[SCURVE_1].speed_now >= *RunningCurve.curve[SCURVE_2].speed_now)))
-			if(((RunningCurve.confine == 0x10) && (fabs(-*RunningCurve.curve[SCURVE_1].speed_now - *RunningCurve.curve[SCURVE_2].speed_now))<(120.0f*quicky_gear[*RunningCurve.Rank]))\
-				 || ((RunningCurve.confine == 0x01) && (fabs(-*RunningCurve.curve[SCURVE_2].speed_now - *RunningCurve.curve[SCURVE_1].speed_now)<(120.0f*quicky_gear[*RunningCurve.Rank]))))
+			if(((RunningCurve.confine == 0x10) && (-*RunningCurve.curve[SCURVE_1].speed_now <= *RunningCurve.curve[SCURVE_2].speed_now))\
+				 || ((RunningCurve.confine == 0x01) && (-*RunningCurve.curve[SCURVE_1].speed_now >= *RunningCurve.curve[SCURVE_2].speed_now))
+			||((RunningCurve.confine == 0x10) && (fabs(-*RunningCurve.curve[SCURVE_1].speed_now - *RunningCurve.curve[SCURVE_2].speed_now))<(160.0f*quicky_gear[*RunningCurve.Rank]))
+			||((RunningCurve.confine == 0x01) && (fabs(-*RunningCurve.curve[SCURVE_2].speed_now - *RunningCurve.curve[SCURVE_1].speed_now)<(160.0f*quicky_gear[*RunningCurve.Rank]))))
 			{
-//				if(++RunningCurve.SyncCount>=100)
-//				{
-					RunningCurve.SyncCount = 0;
 					*RunningCurve.curve[SCURVE_1].speed_set = RunningCurve.SpeedSetLeft;
 					*RunningCurve.curve[SCURVE_2].speed_set = RunningCurve.SpeedSetRight;
 					runstate = CtrlCurveNormalAdj;
 					sync_flag = Sync;
 					fast_flag = Sync;
 					RetryDraw = 1;
-//				}
-//				else
-//				{
-//					return;
-//				}
+
 			}
-//			else
-//			{
-//				RunningCurve.SyncCount = 0;
-//			}
 			draw_scurve(num);
 		break;
 		case CtrlCurveNormalAdj:
-			if((*RunningCurve.VecAngle != RunningCurve.VecAnglePre) || (*RunningCurve.VecValue != RunningCurve.VecValuePre))
+			if((*RunningCurve.VecAngle != RunningCurve.VecAnglePre) || (*RunningCurve.VecValue != RunningCurve.VecValuePre)||(*RunningCurve.Rank != RunningCurve.RankPre))
 			{
 				runstate = CtrlCurveWait;
 				break;
 			}
+			*RunningCurve.curve[SCURVE_1].speed_set = RunningCurve.SpeedSetLeft;
+			*RunningCurve.curve[SCURVE_2].speed_set = RunningCurve.SpeedSetRight;
 			draw_scurve(num);
 //			if((*RunningCurve.curve[SCURVE_1].state == ScurveWait) && (*RunningCurve.curve[SCURVE_2].state == ScurveWait))
 			if((*RunningCurve.curve[SCURVE_1].speed_set == *RunningCurve.curve[SCURVE_1].speed_now) && (*RunningCurve.curve[SCURVE_2].speed_set == *RunningCurve.curve[SCURVE_2].speed_now))
 			{
+				RunningCurve.start_flage = false;
 				runstate = CtrlCurveEnd;
 			}
 		break;

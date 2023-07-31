@@ -14,6 +14,8 @@
 #include "adc_callback.h"
 #include "usart.h"
 #include "Status_Check.h"
+//#include "QMI8658C.h"
+#include "icm42688.h"
 bool send_flage = false;
 API_Config_t  API_Config;
 API_Message_t API_Message;
@@ -63,6 +65,8 @@ void test_protocol(void)
 	}
 }
 
+int16_t xpitch_temp = 0;
+int16_t xroll_temp = 0;
 void map_init(void)
 {
 	register_map(0x0000, (uint8_t *)&firmwareV, 4);
@@ -71,8 +75,7 @@ void map_init(void)
 	register_map(0x0008, (uint8_t *)&PMSM[PMSM_A].MotorPreState, 1);
 	register_map(0x0009, (uint8_t *)&PMSM[PMSM_A].ControlMode, 1);
 	register_map(0x000A, (uint8_t *)&PMSM[PMSM_A].PMSM_Status, 2);
-//	register_map(0x000C, (uint8_t *)&PMSM[PMSM_A].SpeedNew, 2);
-	register_map(0x000C, (uint8_t *)&APP_PMSM.new_speed_l, 2);
+	register_map(0x000C, (uint8_t *)&PMSM[PMSM_A].SpeedNew, 2);
 	register_map(0x000E, (uint8_t *)&hall_encoder[PMSM_A].return_speed, 2);
 	register_map(0x0010, (uint8_t *)&PMSM[PMSM_A].foc.Id_Iq.I2, 4);
 	register_map(0x0014, (uint8_t *)&PMSM[PMSM_A].Current_over, 4);
@@ -86,8 +89,7 @@ void map_init(void)
 	register_map(0x0032, (uint8_t *)&PMSM[PMSM_U].MotorPreState, 1);
 	register_map(0x0033, (uint8_t *)&PMSM[PMSM_U].ControlMode, 1);
 	register_map(0x0034, (uint8_t *)&PMSM[PMSM_U].PMSM_Status, 2);
-//	register_map(0x0036, (uint8_t *)&PMSM[PMSM_U].SpeedNew, 2);
-	register_map(0x0036, (uint8_t *)&APP_PMSM.new_speed_r, 2);
+	register_map(0x0036, (uint8_t *)&PMSM[PMSM_U].SpeedNew, 2);
 	register_map(0x0038, (uint8_t *)&hall_encoder[PMSM_U].return_speed, 2);
 	register_map(0x003A, (uint8_t *)&PMSM[PMSM_U].foc.Id_Iq.I2, 4);
 	register_map(0x003E, (uint8_t *)&PMSM[PMSM_U].Current_over, 4);
@@ -120,12 +122,22 @@ void map_init(void)
 	register_map(0x00C8, (uint8_t *)&ADC_Data.mos_temp,4);
 	register_map(0x00CC, (uint8_t *)&ADC_Data.Bus_Volt,4);
 	register_map(0x00D0, (uint8_t *)&message_online_flage,1);
-	register_map(0x00D1, (uint8_t *)&app_ultrasonic.length_first,2);
+	register_map(0x00D1, (uint8_t *)&imu_mpu.local_pitch,2);
 	register_map(0x00D3, (uint8_t *)&app_ultrasonic.length_second,2);
 	register_map(0x00D5, (uint8_t *)&app_ultrasonic.length_third,2);
 	register_map(0x00D7, (uint8_t *)&app_ultrasonic.length_four,2);
-	register_map(0x00D9, (uint8_t *)&imu_mpu.pitch_return ,2);
-	register_map(0x00DB, (uint8_t *)&imu_mpu.roll_return,2);
+
+//	register_map(0x00D9, (uint8_t *)&imu_mpu.pitch_return ,2);
+//	register_map(0x00DB, (uint8_t *)&imu_mpu.roll_return,2);
+	register_map(0x00D9, (uint8_t *)&xpitch_temp ,2);
+	register_map(0x00DB, (uint8_t *)&xroll_temp,2);
+	register_map(0x00DD, (uint8_t *)&APP_PMSM.APP_ERROR,1);
+	register_map(0x00DE, (uint8_t *)&imu_mpu.abs_angel,2);
+//	register_map(0x00DD, (uint8_t *)&APP_PMSM.APP_ERROR,1);
+//
+
+	
+	
 	
 
 //	register_map(0x0098, (uint8_t *)&Brush[Brush_U].brush_state, 2);	

@@ -10,6 +10,7 @@
 #include "weak_handle.h"
 #include "xsto_api_ii.h"
 #include "CurveProgramme.h"
+#include "Status_Check.h"
 DebugData_t DebugData;
 uint8_t get_decode_data[]=
 {	
@@ -61,16 +62,22 @@ void uart_WaveformData (/*uint8_t* data,uint16_t wavesize*/void)
 uint8_t values=0;
 extern API_Config_t  API_Config;
 extern RUNNING_CURVE_STR RunningCurve;
+extern float TIMER_ACC_T ;
+extern float TIMER_SUB_T ;
+extern SCURVE_STR scurve[SCURVE_ALL_NUM];
+extern Running_Curve_State runstate;
+extern IMU_T imu_mpu;
+extern float T_MIN;
 void serial_loop(void)
 {
 	if(++values>=3)
 	{
 		values = 0;
-		DebugData.data1 = APP_PMSM.SET_COORANGLE_10X;
-		DebugData.data2 = APP_PMSM.CoordSqrt;
-		DebugData.data3 = hall_encoder[PMSM_A].whill_pll;
-		DebugData.data4 = -hall_encoder[PMSM_U].whill_pll;
-		DebugData.data5 = PMSM[PMSM_A].SpeedNow;
+		DebugData.data1 =  hall_encoder[PMSM_A].Theta;
+		DebugData.data2 = 	hall_encoder[PMSM_U].Theta;
+		DebugData.data3 = hall_encoder[PMSM_A].PLL_realspeed;
+		DebugData.data4 = -hall_encoder[PMSM_U].PLL_realspeed;
+		DebugData.data5 = T_MIN;
 		DebugData.data6 = PMSM[PMSM_A].SpeedNew;
 		DebugData.data7 = PMSM[PMSM_U].SpeedNew;
 		DebugData.data8 = PMSM[PMSM_U].SpeedNow;
@@ -78,10 +85,10 @@ void serial_loop(void)
 		DebugData.data10 = -hall_encoder[PMSM_U].real_speed;
 		DebugData.data11 = PMSM[PMSM_A].SpeedSet + PMSM[PMSM_A].angle_pid.PIDOut;
 		DebugData.data12 =   PMSM[PMSM_U].SpeedSet + PMSM[PMSM_A].angle_pid.PIDOut;
-		DebugData.data13 =	PMSM[PMSM_A].SpeedSet;
-		DebugData.data14 =  -PMSM[PMSM_U].SpeedSet;
-		DebugData.data15 = PMSM[PMSM_A].MotorState;
-		DebugData.data16 = APP_PMSM.SET_COORANGLE_10X;
+		DebugData.data13 =	imu_mpu.local_pitch;
+		DebugData.data14 =  TIMER_SUB_T;
+		DebugData.data15 = scurve[SCURVE_1].time;
+		DebugData.data16 = scurve[SCURVE_2].time;
 		
 //		GPIO_WritePin(GPIOE,GPIO_PIN2,values%2);
 		

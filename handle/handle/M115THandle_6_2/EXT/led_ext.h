@@ -26,12 +26,24 @@ if(gpio_output_bit_get(LED1_GPIO_PORT,LED1_GPIO_PIN)){\
 
 void led_ext_init(void);
 
-void ledShow(void);
+// void ledShow(void);
 
 void ledSpiDmaRefreshRow(void);
 // void ledSpiDmaRefreshRow(uint8_t h);
 
 // void led8x8Test(void);
+
+void ledDisplayOFF(void);
+void ledDisplayON(void);
+void ledDisplayLOGO(int8_t x);
+
+void ledDisplayError(u8 keyVal);
+void ledDisplayLock(u8 keyVal);
+void ledDisplayBT(u8 keyVal);
+void ledDisplayMain(u8 keyVal);
+
+
+
 
 #endif
 

@@ -9,10 +9,6 @@ void BTProcessTask(void* param);
 void CANProcessTask(void* param);
 
 
-void CANSubInit(void);
-void CANPackAnalyze(MasterMsgData_t *recvMessage);
-
-
 void BTNoneOsProcessTask(TCOMMUN *p);
 
 #endif

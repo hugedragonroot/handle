@@ -33,7 +33,7 @@ extern "C" {
 #define ADC0_CHANNEL_NUMBER  	4 		//采样通道数
 
 #define ADC2_SAMPLING_NUMBER  	5 		//单通道采样点数
-#define ADC2_CHANNEL_NUMBER  	6 		//采样通道数
+#define ADC2_CHANNEL_NUMBER  	8 		//采样通道数
 
 
 extern uint16_t adcDMAvalue_adc0[ADC0_SAMPLING_NUMBER][ADC0_CHANNEL_NUMBER];	

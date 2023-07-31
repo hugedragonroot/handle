@@ -7,8 +7,8 @@
 #define __PMSM_CALIB_H__
 #include "common.h"
 #define POLE_PAIRS 4
-#define Hall_adc_lim	800
-#define Hall_adc_mid 2000
+#define Hall_adc_lim	600
+#define Hall_adc_mid 1500
 typedef struct
 {
 	uint32_t HallMax_A ;   //记录一个电周期线性霍尔A轴最大值

@@ -17,16 +17,6 @@
 .\output\btlink_task.o: ..\APP\../PROTOCOL/protocol_427/rt_malloc.h
 .\output\btlink_task.o: ..\APP\../PROTOCOL/protocol_427/klist.h
 .\output\btlink_task.o: ..\APP\../PROTOCOL/protocol_427/protocol_register_management.h
-.\output\btlink_task.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\FreeRTOS.h
-.\output\btlink_task.o: D:\App\MDK\MDK5.32\program files\ARM\ARMCC\Bin\..\include\stddef.h
-.\output\btlink_task.o: ..\COMMON\FreeRTOSConfig.h
-.\output\btlink_task.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\projdefs.h
-.\output\btlink_task.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\portable.h
-.\output\btlink_task.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\deprecated_definitions.h
-.\output\btlink_task.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\portable\RVDS\ARM_CM4F\portmacro.h
-.\output\btlink_task.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\mpu_wrappers.h
-.\output\btlink_task.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\task.h
-.\output\btlink_task.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\list.h
 .\output\btlink_task.o: ..\EXT\key_ext.h
 .\output\btlink_task.o: ..\MAIN\main.h
 .\output\btlink_task.o: ..\GD32F30x_Firmware_Library\CMSIS\GD\GD32F30x\Include\gd32f30x.h
@@ -105,4 +95,3 @@
 .\output\btlink_task.o: ..\TASK\gps_task.h
 .\output\btlink_task.o: ..\TASK\CAN_task.h
 .\output\btlink_task.o: ..\DEBUG\debug.h
-.\output\btlink_task.o: ..\GD32F30x_Firmware_Library\Third_party\FreeRTOSv10.3.1\Source\include\queue.h

@@ -1,6 +1,6 @@
 #include "ext.h"
 
-// API_Config_t  API_Config;
+API_Config_t  API_Config;
  void ext_init(void)
 {	
 	// mem_init();	
@@ -22,8 +22,9 @@
 	gps_init();
 	
 	//注册，心跳变量初始化
-	// API_Config.Type = NODE_SELF;
-	// api_init(&API_Config);
+	API_Config.Type = NODE_SELF;
+	api_init(&API_Config);
+
 	can_myinit();
 
 	//rf_315m_init();

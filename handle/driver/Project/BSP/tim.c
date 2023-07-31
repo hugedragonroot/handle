@@ -866,7 +866,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	else if(htim == &htim7)
 	{
 		BrushSpeed[Brush_U].u16_TimerOverflowCnt++;	//定时器中断 自动++
-		if(BrushSpeed[Brush_U].u16_TimerOverflowCnt > 100)
+		if(BrushSpeed[Brush_U].u16_TimerOverflowCnt > 500)
 		{
 			BrushSpeed[Brush_U].u16_TimerOverflowCnt = 0;
 			BrushSpeed[Brush_U].i16_RealSpeed = 0;

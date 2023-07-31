@@ -11,10 +11,18 @@ typedef struct{
 	float *speed_now;
 	float *speed_unit;
 	float speed_unit_pre;
-	float correct_speed;
 	SCURVE_STATE *state;
 }CURVE_PARA_STR;
 
+
+typedef enum{
+	CtrlCurveWait,
+	CtrlCurveStart,
+	CtrlCurveQuickAdj,
+	CtrlCurveNormalAdj,
+	CtrlCurvelow,
+	CtrlCurveEnd,
+}Running_Curve_State;
 typedef struct{
 	CURVE_PARA_STR curve[SCURVE_ALL_NUM];
 	float *VecAngle;
@@ -22,16 +30,17 @@ typedef struct{
 	float VecAnglePre;
 	float VecValuePre;
 	uint8_t *Rank;
+	uint8_t	RankPre;
 	SYNC_STATE SyncFlag;
 	float SpeedSetLeft;
 	float SpeedSetRight;
 	uint8_t region;           //矢量当前所处位置
 	uint8_t region_last;
+	uint8_t region_last_pre;
 	uint8_t confine;          //左右轮速度大小界定
 	uint16_t SyncCount;
-	float wheel_ratio;
-	float return_ratio;
-	uint8_t fast_flage;
+	bool start_flage;
+	bool satrt_flage_last;
 }RUNNING_CURVE_STR;
 
 

@@ -8,7 +8,7 @@
 #include "adc.h"
 #include "common.h"
 
-#define Nx 10
+#define Nx 3
 typedef struct
 {
 	uint16_t adc_offer;
@@ -41,6 +41,8 @@ typedef enum
 	Brush_adc_A = 3,
 	Brush_adc_U = 4,
 	MOS_TEMP = 5,
+	MOTOR_TEMP1 = 6,
+	MOTOR_TEMP2 = 7,
 }adc2_num;
 
 typedef enum
@@ -56,5 +58,6 @@ void GetVoltage_MOSTEMP(void);
 void Brush_ADC_OffsetSample(void);
 void Brush_GetCurrent(void);
 uint16_t adc_ReadAvgRaw(uint8_t channel,PMSM_Num num);
-float GildeAverageValueFilter_MAG(int16_t NewValue,int16_t *Data);
+uint8_t GildeAverageValueFilter_MAG(uint8_t NewValue,uint8_t *Data);
+float Get_MOTOR_MOSTEMP(PMSM_Num num);
 #endif

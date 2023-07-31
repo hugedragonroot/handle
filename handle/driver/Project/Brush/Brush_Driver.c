@@ -39,6 +39,7 @@ void Brush_para_init(void)
 	Brush[Brush_A].MPU_acc = 0.5f;
 	Brush[Brush_A].MPU_Set = 0.0f;
 	Brush[Brush_A].MPU_New = 0.0f; 
+	Brush[Brush_A].roll_basic = 1.58f;
 
 	
 	Brush_Read_Para(Brush_U);
@@ -54,11 +55,12 @@ void Brush_para_init(void)
 	Brush[Brush_U].MPU_acc = 0.5f;
 	Brush[Brush_U].MPU_Set = 0.0f;
 	Brush[Brush_U].MPU_New = 0.0f; 
+	Brush[Brush_U].roll_basic = 1.58f;
 	
 
 	pid_init(&Brush[Brush_A].ANGLE_PID,3.0f,0.0f,0.0f,Brush[Brush_A].MAX_speed,-Brush[Brush_A].MAX_speed);
 	
-	pid_init(&Brush[Brush_A].SPEED_PID,0.1f,0.05f,0.0f,0.99f,-0.99f);
+	pid_init(&Brush[Brush_A].SPEED_PID,0.1f,0.01f,0.0f,0.99f,-0.99f);
 	
 	pid_init(&Brush[Brush_A].CURRENT_PID,20.0f,5.0f,0.0f,0.99f,-0.99f);
 	
@@ -68,14 +70,14 @@ void Brush_para_init(void)
 	
 	pid_init(&Brush[Brush_U].ANGLE_PID,0.9f,0.0f,0.0f,Brush[Brush_U].MAX_speed,-Brush[Brush_U].MAX_speed);
 	
-	pid_init(&Brush[Brush_U].SPEED_PID,1.0f,0.1f,0.0f,0.99f,-0.99f);
+	pid_init(&Brush[Brush_U].SPEED_PID,0.5f,0.05f,0.0f,0.99f,-0.99f);
 	
 	pid_init(&Brush[Brush_U].CURRENT_PID,20.0f,5.0f,0.0f,0.99f,-0.99f);
 	
 //	pid_init(&Brush[Brush_U].MPU_PID,0.25f,0.0005f,0.0f,0.99f,-0.99f);
 //	pid_init(&Brush[Brush_U].MPU_PID,250.0f,0.0000f,0.0f,Brush[Brush_U].MAX_speed,-Brush[Brush_U].MAX_speed);
 //	pid_init(&Brush[Brush_U].MPU_PID,150.0f,0.0f,0.0f,150.0f,-150.0f);
-	pid_init(&Brush[Brush_U].MPU_PID,200.0f,0.0f,0.0f,150.0f,-150.0f);
+	pid_init(&Brush[Brush_U].MPU_PID,100.0f,0.0f,0.0f,120.0f,-120.0f);
 	
 }
 /****************************************************************************

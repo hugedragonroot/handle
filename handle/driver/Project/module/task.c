@@ -18,7 +18,8 @@
 #include "weak_handle.h"
 #include "protocol.h"
 #include "xsto_api_ii.h"
-#include "QMI8658C.h"
+//#include "QMI8658C.h"
+#include "icm42688.h"
 #include "dma.h"
 #include "key_filter.h"
 #include "ultrasonic.h"
@@ -30,8 +31,8 @@ void main_config(void)
 	//led
 	led_init();
 	led_set(led_sys, led_mode_init);	
-	led_set(led_rf, led_mode_init);
-	led_set(led_net, led_mode_init);
+	led_set(led_rf, led_mode_off);
+	led_set(led_net, led_mode_off);
 	
 	MX_DMA_Init();
 	MX_GPIO_Init();
@@ -42,7 +43,8 @@ void main_config(void)
 	protocol_init();
 	MX_CAN1_Init();
 	
-	QMI8658_init();
+	Icm42688Init();
+//	QMI8658_init();
 //	
 	DypRd_Init();
 	MX_USART1_UART_Init();
@@ -59,7 +61,7 @@ void main_config(void)
 	MX_ADC3_Init(adc2_callback_handle);
 	MX_TIM8_Init();
 	
-//	
+	
 	Brush_para_init();
 	MX_TIM3_Init();
 	MX_TIM4_Init();
@@ -84,9 +86,9 @@ void task_1ms(void)
 	{
 		task_time.timer_1ms = 0;
 		//loop
+//
 		can_receive();
-		PMSM_APP_LOOP();
-		ZERO_HANDLE_CHECK_LOOP();
+		MPU_ZERO_CHECK_HANDLE();
 		Brush_Mode_Loop(Brush_A);
 		Brush_Mode_Loop(Brush_U);	
 	}
@@ -102,8 +104,6 @@ void task_2ms(void)
 		task_time.timer_2ms = 0;
 		//loop
 		serial_loop();
-//		test_protocol();
-//		serial_send(serial0,buffer_test,8);
 	}
 }
 
@@ -113,35 +113,7 @@ void task_5ms(void)
 	{
 		task_time.timer_5ms = 0;
 		//loop
-//		serial_update_send(serial2);
-//		if(send_flage == false)
-//		{
-//			serial_update(serial2);
-//			while(serial_rx_queue_empty(serial2)!=0)
-//			{
-//				if(serial_receive(serial2)==0x1e)
-//				{
-//					send_flage =true;
-//				}
-////			modbus_parse(serial_receive(serial3));//出队判断一帧是否结束
-//			}
-//		}
-		
-//		serial_update(serial3);
-//		while(serial_rx_queue_empty(serial3)!=0)
-//		{
-//			serial_receive(serial3);
-////			modbus_parse(serial_receive(serial3));//出队判断一帧是否结束
-//		}
-//		if(send_flage == true)
-//		{
-//			serial2_send(serial2,buffer_test,2);
-//			send_flage =false;
-//		}
-//			serial_loop();
-			can_transmit();
-//		CanSend(0x580,buffer_test,8);
-//		serial3_send(buffer_task_rx,3);
+		can_transmit();
 	}
 }
 
@@ -154,39 +126,36 @@ void task_10ms(void)
 		task_time.timer_10ms = 0;
 		//loop
 //		Read_Accele();
-		QMI_ReadData();
+		PMSM_APP_LOOP();
+		IcmGetRawData(&stAccData,&stGyroData);
+//		QMI_ReadData();
 		ADC_CURRENT_HANDLE();
 		BRUSH_SPEED_ANGLE_A();
 		BRUSH_SPEED_ANGLE_U();
 		brush_Cmd_handle(Brush_A);
 		brush_Cmd_handle(Brush_U);
 		protocol_subscribe_loop();
-//		serial2_send(serial2,buffer_test,3);
 	}
 }
 
 
-static uint8_t count_500ms= 0;
+static uint8_t count_300ms= 0;
 void task_100ms(void)
 {
 	if(task_time.timer_100ms >= 100)
 	{
 		task_time.timer_100ms = 0;
 		//loop
-//		PMSM_TEST_LOOP();
 		led_loop();
 		test_BRUSH();
 		online_loop();
-		Brush_Fold_Check(Brush_A);
-		Brush_Fold_Check(Brush_U);
 		Status_Check_Loop();
 		PMSM_Status_Loop();
-		Brush_Over_Current();
-		MPU_PROTECT_CHECK();
+		Brush_STATUS_LOOP();
 		modbus_recve();
-		if(++count_500ms>=3)
+		if(++count_300ms>=3)
 		{
-			count_500ms = 0;
+			count_300ms = 0;
 //			api_loop(system_times);
 			serial3_send();
 			

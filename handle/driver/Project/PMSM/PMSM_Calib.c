@@ -77,7 +77,7 @@ void Calibration_Save_Write(void)
 		fmc_program(PMSM_Data_Flash_U,(uint8_t *)&PMSM_data[PMSM_U],sizeof(PMSM_data_t));
 	}
 }
-#define first_Current_lim 10.0f
+#define first_Current_lim 25.0f
 void Calibration_ReadCalibrationElectricalData(PMSM_Num num)
 {
 	if(num == PMSM_A)
@@ -223,10 +223,10 @@ void Electric_Angle_Calibration(PMSM_Num num)
 					PMSM_Calib[num].f_HallNormalized_C = (float)(HALL_W[num] - (int16_t)PMSM_Calib[num].HallMedian_C) \
 																	/ (float)PMSM_Calib[num].Amplitude_C;		
 
-					PMSM_Calib[num].f_HallNormalized_Beta = PMSM_Calib[num].f_HallNormalized_A - PMSM_Calib[num].f_HallNormalized_B*my_cosf_1_3 - PMSM_Calib[num].f_HallNormalized_C*my_cosf_1_3;
-					PMSM_Calib[num].f_HallNormalized_Alpha = -PMSM_Calib[num].f_HallNormalized_B*my_sinf_1_3 + PMSM_Calib[num].f_HallNormalized_C*my_sinf_1_3;
+					PMSM_Calib[num].f_HallNormalized_Alpha = PMSM_Calib[num].f_HallNormalized_A - PMSM_Calib[num].f_HallNormalized_B*my_cosf_1_3 - PMSM_Calib[num].f_HallNormalized_C*my_cosf_1_3;
+					PMSM_Calib[num].f_HallNormalized_Beta = -PMSM_Calib[num].f_HallNormalized_B*my_sinf_1_3 + PMSM_Calib[num].f_HallNormalized_C*my_sinf_1_3;
 
-					PMSM_Calib[num].f_Hall[PMSM_Calib[num].i] = atan2f(PMSM_Calib[num].f_HallNormalized_Alpha,PMSM_Calib[num].f_HallNormalized_Beta);	
+					PMSM_Calib[num].f_Hall[PMSM_Calib[num].i] = atan2f(PMSM_Calib[num].f_HallNormalized_Beta,PMSM_Calib[num].f_HallNormalized_Alpha);	
 //					PMSM_Calib[num].f_Hall[PMSM_Calib[num].i] = atan2f(PMSM_Calib[num].f_HallNormalized_Beta,PMSM_Calib[num].f_HallNormalized_Alpha);						
 					PMSM_Calib[num].i++;	
 				}				

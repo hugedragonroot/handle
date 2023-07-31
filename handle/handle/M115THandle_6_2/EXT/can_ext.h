@@ -13,7 +13,7 @@
 #define CAN_RECEIVE_ID 0X500
 #endif
 
-#define CAN_BUFFER_SIZE   (128)
+#define CAN_BUFFER_SIZE   (256)
 
 typedef struct
 {
@@ -35,7 +35,6 @@ void can_receive(void);
 
 int CANGetDataWithTimeOut(void);
 
-void api_port_send(uint16_t len, uint8_t * data);
 
 #endif
 

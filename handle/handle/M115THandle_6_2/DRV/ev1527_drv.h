@@ -5,10 +5,18 @@
 
 #if USING_LED_POINT_DISPLAY && USING_6KEY
 // #if 1
-
+#if 0
 #define EV1527_GPIO_PORT   GPIOB
 #define EV1527_GPIO_PIN    GPIO_PIN_7
 #define EV1527()		   gpio_input_bit_get(EV1527_GPIO_PORT, EV1527_GPIO_PIN)
+#else
+#define EV1527_GPIO_PORT   GPIOB
+#define EV1527_GPIO_PIN    GPIO_PIN_10
+#define EV1527()		   gpio_input_bit_get(EV1527_GPIO_PORT, EV1527_GPIO_PIN)
+
+#endif
+
+
 
 #define MODE_GPIO_PORT		GPIOB
 #define MODE_GPIO_PIN		GPIO_PIN_6
@@ -19,6 +27,11 @@
 
 #define WARMING_GPIO_PORT	GPIOB
 #define WARMING_GPIO_PIN	GPIO_PIN_4
+
+#define VT_KEY_GPIO_PORT	GPIOC
+#define VT_KEY_GPIO_PIN		GPIO_PIN_14
+#define VT_KEY_STATE() 		gpio_input_bit_get(VT_KEY_GPIO_PORT, VT_KEY_GPIO_PIN)
+
 #else
 
 #define EV1527_GPIO_PORT	GPIOB

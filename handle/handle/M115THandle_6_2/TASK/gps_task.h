@@ -3,5 +3,6 @@
 
 
 void gpsTask(void* param);	
+void GPSNoneOSTask(void);
 #endif
 

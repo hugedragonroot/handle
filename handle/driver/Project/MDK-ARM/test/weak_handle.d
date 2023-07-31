@@ -63,3 +63,4 @@ test\weak_handle.o: ..\module\adc_callback.h
 test\weak_handle.o: ..\BSP\adc.h
 test\weak_handle.o: ..\BSP\usart.h
 test\weak_handle.o: ..\module\Status_Check.h
+test\weak_handle.o: ..\module\icm42688.h

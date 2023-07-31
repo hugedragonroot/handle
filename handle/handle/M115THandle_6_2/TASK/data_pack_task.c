@@ -172,127 +172,7 @@ void BTProcessTask(void* param)
 
 #else
 
-void CANCheckValue(void){
-	if(Remote_setting_para.AlarmSwitch){
-		u8 num = MUSIC_SLOPE_DANGER;
-		if(abs(Remote_receive_para.roll_angle) > ANGLE_SLOPE_MAX || abs(Remote_receive_para.pitch_angle) > ANGLE_SLOPE_MAX){
-			LoopQueue_Write(&music_FIFO,&num,1);
-		}
 
-		for(u8 i = 0;i<4;i++){
-			if(Remote_receive_para.ultrasonic[i]!=0 && Remote_receive_para.ultrasonic[i]<ULTRASONIC_DISTANCE_MAX ){
-				LoopQueue_Write(&music_FIFO,&num,1);
-				break;
-			}
-		}
-	}
-
-    if(Remote_receive_para.BatteryVol < BATTERY_MIN_VOL) Remote_setting_para.Battery = 0;
-    else if(Remote_receive_para.BatteryVol >= BATTERY_MAX_VOL) Remote_setting_para.Battery = 99;
-    else Remote_setting_para.Battery = (Remote_receive_para.BatteryVol-BATTERY_MIN_VOL)*100/(BATTERY_MAX_VOL-BATTERY_MIN_VOL);
-
-
-}
-
-
-typedef struct {
-	void *addr;
-	uint8_t size;
-}Recv_Reg_Info;
-
-Recv_Reg_Info RecvRegInfos[16];
-
-void CANPackAnalyze(MasterMsgData_t *recvMessage){
-
-	switch (recvMessage->cmd)
-	{
-	case FUNC_SUBSCRIBE:
-		if(recvMessage->msg_id == 'S'){
-			u8 index = 0,regIndex = 0;
-			while (index < recvMessage->Length){
-				if(RecvRegInfos[regIndex].addr == NULL)return;
-				memcpy(RecvRegInfos[regIndex].addr,&recvMessage->Data[index],RecvRegInfos[regIndex].size);
-				index+=RecvRegInfos[regIndex++].size;
-			}
-		}else if(recvMessage->msg_id == 's'){
-			u8 index = 0,regIndex = 8;
-			while (index < recvMessage->Length){
-				if(RecvRegInfos[regIndex].addr == NULL)return;
-				memcpy(RecvRegInfos[regIndex].addr,&recvMessage->Data[index],RecvRegInfos[regIndex].size);
-				index+=RecvRegInfos[regIndex++].size;
-			}
-			CANCheckValue();
-		}
-		else{
-		}
-		Remote_setting_para.RemoteCount = 0;
-		Remote_setting_para.RemoteConnect = eWire;
-		break;
-	case FUNC_WRITE:
-		break;
-	
-	default:
-		break;
-	}
-
-
-}
-
-
-#define ADD_SUB_REG(para,regName){\
-	RecvRegInfos[regIndex].addr = (&para);\
-	RecvRegInfos[regIndex].size = tranRegInfoDir[(regName)].size;\
-	combine_sub.combine_read.combine[combine_sub.combine_read.combineCount].address =\
-	tranRegInfoDir[(regName)].addr;\
-	combine_sub.combine_read.combine[combine_sub.combine_read.combineCount].size = \
-	tranRegInfoDir[(regName)].size;\
-	++combine_sub.combine_read.combineCount;\
-	++regIndex;\
-	}
-
-void CANSubInit(void){
-
-	PDU_t req_PDU;
-	MsgData_t request_msg_data;
-	combine_subscribe_t combine_sub;
-	u8 regIndex = 0;
-
-#if 1
-	memset(&combine_sub,0,sizeof(combine_sub));
-	combine_sub.timing = 200;
-
-	ADD_SUB_REG(Remote_receive_para.walking_speed_L,BLDC_A_SPEED_REAL);
-	
-	ADD_SUB_REG(Remote_receive_para.walking_speed_R,BLDC_U_SPEED_REAL);
-
-	ADD_SUB_REG(Remote_receive_para.push_rod_speed,BRUSH_A_SPEED_REAL);
-
-	ADD_SUB_REG(Remote_receive_para.seat_rod_speed,BRUSH_U_SPEED_REAL);
-
-	combine_subscribe_to_PDU('S',&combine_sub,&req_PDU);
-	PDU_to_msg_data(NODE_SELF, &req_PDU, &request_msg_data);
-	send_message_data(&request_msg_data);
-
-	delay_ms(20);
-#endif
-
-	memset(&combine_sub,0,sizeof(combine_sub));
-	combine_sub.timing = 1000;
-	regIndex = 8;
-
-	ADD_SUB_REG(Remote_receive_para.BatteryVol,DEVICE_VOLT);
-
-	ADD_SUB_REG(Remote_receive_para.pitch_angle,PITCH_ANGLE);
-
-	ADD_SUB_REG(Remote_receive_para.roll_angle,ROLL_ANGLE);
-
-	ADD_SUB_REG(Remote_receive_para.ultrasonic[0],ULTRASONIC);
-
-	combine_subscribe_to_PDU('s',&combine_sub,&req_PDU);
-	PDU_to_msg_data(NODE_SELF, &req_PDU, &request_msg_data);
-	send_message_data(&request_msg_data);
-	
-}
 
 
 static uint8_t DataPackAnalyze(TCOMMUN *p,uint8_t type)
@@ -314,9 +194,10 @@ static uint8_t DataPackAnalyze(TCOMMUN *p,uint8_t type)
 	}
 	else
 	{
-		Remote_setting_para.RemoteBTCount = 0;
-		Remote_setting_para.RemoteBTConnect = eBlubtooth;	
 		// Remote_setting_para.HandleLock = 1;
+		Remote_setting_para.RemoteBTCount = 0;
+		Remote_setting_para.RemoteBTConnect = eBlubtooth;
+
 		Remote_setting_para.RemoteBTCmd	= p->Cmd;	
 		switch(p->Cmd)
 		{
@@ -343,11 +224,9 @@ static uint8_t DataPackAnalyze(TCOMMUN *p,uint8_t type)
 
 					// tempx = GildeAverageValueFilter_MAG(tempx,BT_buff_x,BT_XY_LEN); 
 					// tempy = GildeAverageValueFilter_MAG(tempy,BT_buff_y,BT_XY_LEN);  				
+
 					Phone_receive_para.CoordX = tempx;
 					Phone_receive_para.CoordY = tempy;
-
-					// Phone_receive_para.CoordX 				= p->Data[0]&0xff;
-					// Phone_receive_para.CoordY 				= p->Data[1]&0xff;
 						
 					Phone_receive_para.M130CtrlMode 	= p->Data[2]&0x01;			
 					Phone_receive_para.M115CtrlMode 	= p->Data[3]&0x03;
@@ -362,12 +241,26 @@ static uint8_t DataPackAnalyze(TCOMMUN *p,uint8_t type)
 					Phone_receive_para.AlarmSwitch		= p->Data[12]&0x01;
 					Phone_receive_para.CruiseCtrlSwitch 		= p->Data[13]&0x01;		
 				}
+				// uart_wire_send(p->Data,p->DataLen);
 				
-				if(!Remote_setting_para.HandleLock )
+				if(Remote_setting_para.HandleLock == eUnLock )
 				{
-					
-					Remote_setting_para.CoordX = Phone_receive_para.CoordX ;
-					Remote_setting_para.CoordY = Phone_receive_para.CoordY ;
+					if(Phone_receive_para.CruiseCtrlSwitch){
+						if(joyetick_adc.valX != Coord_Base || joyetick_adc.valY != Coord_Base){
+							Phone_receive_para.CruiseCtrlSwitch = 0;
+							Remote_setting_para.CruiseCtrlSwitch = 0;
+							// BTdisconnect();
+						}else{
+							if(Remote_setting_para.CoordY < 0xf0){
+								++Remote_setting_para.CoordY;
+							}
+
+						}
+					}else{
+						Remote_setting_para.CoordX = Phone_receive_para.CoordX ;
+						Remote_setting_para.CoordY = Phone_receive_para.CoordY ;
+					}
+
 					switch(Phone_receive_para.SeatCtrl)
 					{
 	
@@ -444,7 +337,13 @@ static uint8_t DataPackAnalyze(TCOMMUN *p,uint8_t type)
 							
 							if(Remote_setting_para.SpeedGear != Phone_receive_para.SpeedLevel)
 							{
-								if((Phone_receive_para.SpeedLevel>=ePGearOne)&&(Phone_receive_para.SpeedLevel<=ePGearFive))
+
+								if((Remote_receive_para.m115_attitude.pitch_angle > 
+								ANGLE_PITCH_UP_WARNING*(100+Remote_setting_para.angleAlarmPrecent)/100)
+								||(Remote_receive_para.m115_attitude.pitch_angle < 
+								ANGLE_PITCH_DOWN_WARNING*(100+Remote_setting_para.angleAlarmPrecent)/100)){
+									Remote_setting_para.SpeedGear = eGearOne;
+								}else if((Phone_receive_para.SpeedLevel>=ePGearOne)&&(Phone_receive_para.SpeedLevel<=ePGearFive))
 									Remote_setting_para.SpeedGear = Phone_receive_para.SpeedLevel;		
 							}				
 							if(Remote_setting_para.VoiceLevel != Phone_receive_para.VoiceLevel)
@@ -463,6 +362,12 @@ static uint8_t DataPackAnalyze(TCOMMUN *p,uint8_t type)
 							// mem_save();
 
 						}		
+						if(Phone_receive_para.Power == 1){
+							#if USING_LED_POINT_DISPLAY
+							ledDisplayOFF();
+							#endif
+						}
+
 
 					}
 

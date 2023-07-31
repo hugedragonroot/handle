@@ -48,4 +48,5 @@ test\brush_control.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 test\brush_control.o: ..\module\adc_callback.h
 test\brush_control.o: ..\BSP\adc.h
 test\brush_control.o: ..\BSP\can.h
-test\brush_control.o: ..\BSP\QMI8658C.h
+test\brush_control.o: ..\module\icm42688.h
+test\brush_control.o: ..\BSP\gpio.h

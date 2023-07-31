@@ -254,7 +254,7 @@ typedef enum
 }semaphore_mode_t;
 
 typedef struct{
-float ptich;
+	float ptich;
 	float roll;
 }rece_angle;
 
@@ -289,4 +289,46 @@ typedef struct
 {
 	uint16_t Current_A_B_C[3];
 }adc_data;
+
+typedef union
+{
+  struct
+  {
+		     
+		uint8_t PMSM_A_ERROR:1;             //左轮毂报错
+		uint8_t PMSM_U_ERROR:1;             //右轮毂报错
+		uint8_t Brush_A_ERROR:1;          	//后推杆报错 
+		uint8_t Brush_U_ERROR:1;						//前推杆报错		
+		
+		uint8_t BREAK_ERROR:1; 							//抱闸异常
+  }bit;
+  uint8_t all;
+}APP_Error_t;
+
+typedef struct
+{
+	int16_t angle;
+	uint8_t Gear;
+	float x_new;
+	float y_new;
+
+	float SET_COORANGLE_10X;
+	float CoordSqrt;
+	float CoordSpeed;
+
+	uint8_t	axis_x;
+	uint8_t axis_y;
+	APP_Error_t APP_ERROR;
+}APP_PMSM_DRIVER;
+
+typedef struct
+{
+//	uint8_t ErrorTime;
+//	uint8_t ErrorStatus;
+//	uint8_t LimitStatus;
+	float Roll;
+	float Pitch;
+	float bais_pitch;
+}tQmi_type;
+extern tQmi_type tQmi;
 #endif /* COMMON_H_ */

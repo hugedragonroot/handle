@@ -2,19 +2,24 @@
 #include "string.h"
 
 
+#if USING_RTOS
 /*FreeRtos includes*/
 #include "FreeRTOS.h"
 #include "task.h"
 #include "semphr.h"
 #include "queue.h"
+#endif
 
 #include "../PROTOCOL/protocol_427/protocol.h"
 
 #include "app_remote_para.h"
+#include "uart_ext.h"
 
 #if USING_RTOS
 static SemaphoreHandle_t CANRecvFlag;//CAN中断接收信号量
 #endif
+
+#define USING_QUEUE_TO_SAVE_LEN 0
 
 uint8_t Car_buff[CAN_BUFFER_SIZE];
 Can_fifo_buffer_t CANRx_Buffer;
@@ -23,14 +28,15 @@ uint8_t CAN_Rx_buffer[CAN_BUFFER_SIZE];
 Can_fifo_buffer_t CANTx_Buffer;
 uint8_t CAN_Tx_buffer[CAN_BUFFER_SIZE];
 
-can_parameter_struct	can_parameter;
-can_filter_parameter_struct can_filter;
 void CAN_Para_Init(void);
 static void StdCanSetID(uint8_t filterNumber, uint32_t id1,uint32_t id2);
 
 
 void can_myinit(void)
 {
+
+	can_parameter_struct	can_parameter;
+	can_filter_parameter_struct can_filter;
 	/* initialize CAN register */
   can_deinit(CAN0);
     /* enable CAN clock */
@@ -86,6 +92,15 @@ void can_myinit(void)
 
 }
 
+#if USING_QUEUE_TO_SAVE_LEN
+#define LOOP_CAN_TX_LEN 8
+
+uint16_t loopCanTxLenArray[LOOP_CAN_TX_LEN];
+TLoopBuf loopCanTxLenQueue; 
+#endif
+
+// uint8_t loopCanTxBuffer[LOOP_CAN_TX_LEN][CAN_BUFFER_SIZE];
+
 
 void CAN_Para_Init(void)
 {
@@ -99,6 +114,10 @@ void CAN_Para_Init(void)
 	CANRx_Buffer.size = CAN_BUFFER_SIZE;
 	CANRx_Buffer.read_index = 0;
 	CANRx_Buffer.write_index = 0;
+	
+#if USING_QUEUE_TO_SAVE_LEN
+	LoopQueue_Init(&loopCanTxLenQueue,(uint8_t *)loopCanTxLenArray,sizeof(loopCanTxLenArray));
+#endif
 }
 //can_trasnmit_message_struct transmit_message;
 //can_receive_message_struct receive_message;
@@ -250,6 +269,11 @@ uint16_t can_serial_write(uint8_t *buffer, uint16_t length)
 {
     uint16_t i = 0;
 	  can_tx_buf(buffer, length, &CANTx_Buffer);
+
+#if USING_QUEUE_TO_SAVE_LEN
+	  LoopQueue_Write(&loopCanTxLenQueue,(uint8_t *)&length,sizeof(length));
+#endif
+
     return i;
 }
 
@@ -284,8 +308,38 @@ uint16_t tx_len1 = 0;
 uint8_t TxMsg[8];
 void can_transmit(void)
 {  
-	tx_len1 =  can_tx_available(&CANTx_Buffer);
+
+#if USING_QUEUE_TO_SAVE_LEN
+	Remote_setting_para.CANQueueLenCur = LoopQueue_DataLen(&loopCanTxLenQueue);
+	if(Remote_setting_para.CANQueueLenMax < Remote_setting_para.CANQueueLenCur){
+		Remote_setting_para.CANQueueLenMax = Remote_setting_para.CANQueueLenCur;
+	}
+
+	Remote_setting_para.CANBufferQueueLenCur = can_tx_available(&CANTx_Buffer);
+	if(Remote_setting_para.CANBufferQueueLenMax < Remote_setting_para.CANBufferQueueLenCur){
+		Remote_setting_para.CANBufferQueueLenMax = Remote_setting_para.CANBufferQueueLenCur;
+	}
+
+	if(0 == LoopQueue_ReadRelease(&loopCanTxLenQueue,(uint8_t *)&tx_len1,sizeof(tx_len1)))
+		return;
+
+	if(tx_len1 > can_tx_available(&CANTx_Buffer)){
+		CAN_Para_Init();
+		return;
+	}
+
+
 	while(tx_len1 > 0)
+#else
+
+	Remote_setting_para.CANBufferQueueLenCur = can_tx_available(&CANTx_Buffer);
+	if(Remote_setting_para.CANBufferQueueLenMax < Remote_setting_para.CANBufferQueueLenCur){
+		Remote_setting_para.CANBufferQueueLenMax = Remote_setting_para.CANBufferQueueLenCur;
+	}
+
+	tx_len1 =  can_tx_available(&CANTx_Buffer);
+	if(tx_len1 > 0)
+#endif
 	{
 		
 		uint16_t temp;
@@ -383,8 +437,5 @@ void can_receive(void)
 	}
 }
 
-void api_port_send(uint16_t len, uint8_t * data) 
-{
-	can_serial_write(data,len);
-	can_transmit();		
-}
+
+

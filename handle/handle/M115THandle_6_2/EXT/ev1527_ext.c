@@ -51,12 +51,12 @@ void ev1527_task(void)
 		}
 		case 0x22:
 		{
-			Remote_setting_para.HandleLock = 0;
+			Remote_setting_para.HandleLock = eUnLock;
 			break;
 		}
 		case 0x21:
 		{
-			Remote_setting_para.HandleLock = 1;
+			Remote_setting_para.HandleLock = eLock;
 			break;
 		}
 		}
@@ -303,10 +303,12 @@ void ev1527_scan(void)
 void ev1527_key_scan(void)
 {
 	static uint8_t key_up = 1;
-	if (MODE() == 0)
+	// if (MODE() == 0)
+	if (VT_KEY_STATE() == 0)
 	{
 		key_up = 1;
-		if (MODE() == 0)
+		// if (MODE() == 0)
+		if (VT_KEY_STATE() == 0)
 		{
 			if (((mode & 0x80) == 0))
 			{

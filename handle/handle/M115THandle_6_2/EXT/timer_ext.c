@@ -63,9 +63,10 @@ void TIMER0_UP_IRQHandler(void)
 	#if 1
 		time_flag.cnt++;
 		if((time_flag.cnt%20)== 0){
-			if(Remote_setting_para.RemoteBTConnect != eBlubtooth){
-				scan_joyxy();
-			}
+
+			// if(Remote_setting_para.RemoteBTConnect != eBlubtooth){
+			// 	scan_joyxy();
+			// }
 		}
 		
 		if((time_flag.cnt%9) == 0){
@@ -77,8 +78,14 @@ void TIMER0_UP_IRQHandler(void)
 			#if USING_LED_POINT_DISPLAY
 				ledSpiDmaRefreshRow();
 			#endif
+			scan_joyxy();
+
 			time_flag.time_1ms=1;
 		}
+		if((time_flag.cnt%200) == 0){ //200*10us == 2ms
+			time_flag.time_2ms=1;
+		}
+
 		if((time_flag.cnt%1000) == 0){ // 1000* 10us == 10ms
 			time_flag.time_10ms=1;
 		}

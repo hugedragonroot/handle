@@ -70,14 +70,5 @@ int16_t Erjielvbo(float accel_m, float gyro_m);
 void QMI_ReadData(void);
 uint8_t QMI_Angle(uint8_t Flag);
 
-typedef struct
-{
-	uint8_t ErrorTime;
-	uint8_t ErrorStatus;
-	uint8_t LimitStatus;
-	int16_t Roll;
-	float Pitch;
-}tQmi_type;
-extern tQmi_type tQmi;
 
 #endif 	

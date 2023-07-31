@@ -1,14 +1,16 @@
 #include "bt_ext.h"
 #include "main.h"
 /*FreeRtos includes*/
+#if USING_RTOS
 #include "FreeRTOS.h"
 #include "task.h"
 #include "semphr.h"
 #include "queue.h"
 #include "string.h"
+#endif
 
 static uint8_t Bt_recv_buff[64];//接收缓存
-static uint8_t Bt_data_buff[256];//队列处理缓存
+static uint8_t Bt_data_buff[128];//队列处理缓存
 
 TLoopBuf loop_bt_uart;
 // TCOMMUN BtPacks[8];
@@ -18,15 +20,68 @@ static xQueueHandle BTDataDelivery;		/*串口数据接收队列*/
 #endif
 
 void BTdisconnect(void){
-	while(gpio_input_bit_get(BT_LINK_STATE_GPIO_PORT,BT_LINK_STATE_PIN) == SET){
+#if 1
+
+	static u8 btDisconnectFlag = 0;
+
+	if((SET == gpio_input_bit_get(BT_LINK_STATE_GPIO_PORT,BT_LINK_STATE_PIN))
+	&&(joyetick_adc.valX != Coord_Base 
+	|| joyetick_adc.valY != Coord_Base 
+	|| Remote_setting_para.HandleLock == eLock
+	#if ERROR_CONTROL_FLAG
+	|| Remote_trans_para.errorFlag.all[0] != 0 
+	#endif
+	|| Remote_setting_para.PowerStatus == ePowerOff
+	||(Remote_setting_para.RemoteBTConnect == eBlubtooth && 
+		++Remote_setting_para.RemoteBTCount == 10))){
+
+		Remote_setting_para.RemoteBTConnect = eOffline;
+		Remote_setting_para.CoordX = Coord_Base;
+		Remote_setting_para.CoordY = Coord_Base;
+		Remote_trans_para.push_rod_speed = PUSH_ORD_SPEED_ZERO;
+		Remote_setting_para.RemoteBTCount = 0;
+		LoopQueue_DeInit(&loop_bt_uart);
+
+		switch (btDisconnectFlag)
+		{
+		case 0:
+		case 1:
+			BT_KEY_ON();
+			++btDisconnectFlag;
+			break;
+		case 2:
+		case 3:
+		case 4:
+			BT_KEY_OFF();
+			++btDisconnectFlag;
+			break;
+		case 5:
+			BT_KEY_ON();
+			btDisconnectFlag = 0;
+
+			break;
+		
+		default:
+			break;
+		}
+	}else{
+		btDisconnectFlag = 0;
+	}
+#else
+
+	if(gpio_input_bit_get(BT_LINK_STATE_GPIO_PORT,BT_LINK_STATE_PIN) == SET){
 		BT_KEY_ON();
 		delay_ms(1);
 		BT_KEY_OFF();
 		delay_ms(250);
 		BT_KEY_ON();
+		LoopQueue_DeInit(&loop_bt_uart);
 	}
+
+#endif
 }
 
+#if 0
 void BTEnterStandby(void){
 	BT_KEY_ON();
 	delay_ms(1);
@@ -34,6 +89,7 @@ void BTEnterStandby(void){
 	delay_ms(250);
 	BT_KEY_ON();
 }
+#endif
 
 
 
@@ -59,14 +115,14 @@ void bt_init(void)
 	dma_memory_address_config(DMA0,DMA_CH6,(uint32_t)test);
 	dma_channel_enable(DMA0,DMA_CH6);
 
-	BTdisconnect();
+	// BTdisconnect();
 
 #if BT_CHANGE_NAME_FLAG
-	// static uint8_t array2[] = "AT+DEFAULT\r\n";
-	// uart_bt_send(array2, sizeof(array2));
+	static uint8_t array2[] = "AT+DEFAULT\r\n";
+	uart_bt_send(array2, sizeof(array2));
 
 	delay_ms(200);
-	static uint8_t array1[] = "AT+NAMEXSTOM115T000115\r\n";
+	static uint8_t array1[] = "AT+NAMEXSTOM115temp000115\r\n";
 	uart_bt_send(array1, sizeof(array1));
 	delay_ms(200);
 	static uint8_t array[] = "AT+BAUD7\r\n";
@@ -110,7 +166,6 @@ void USART1_IRQHandler(void)
     }       
 
 }
-
 
 uint8_t BTGetDataWithTimout(uint8_t *c)
 {

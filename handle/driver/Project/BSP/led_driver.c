@@ -34,7 +34,7 @@ led_hw * led_get_hw(led_hw_t led)
 //            break;
         case led_rf_red:
             ret.port = GPIOD;
-            ret.pin = GPIO_PIN_5;
+            ret.pin = GPIO_PIN_1;
             break;
 //        case led_rf_green:
 //            ret.port = GPIOC;
@@ -42,11 +42,11 @@ led_hw * led_get_hw(led_hw_t led)
 //            break;
         case led_net_red:
             ret.port = GPIOD;
-            ret.pin = GPIO_PIN_3;
+            ret.pin = GPIO_PIN_2;
             break;
         case led_net_green:
             ret.port = GPIOD;
-            ret.pin = GPIO_PIN_4;
+            ret.pin = GPIO_PIN_3;
             break;
         default:
             break;

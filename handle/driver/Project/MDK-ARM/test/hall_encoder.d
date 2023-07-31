@@ -47,3 +47,11 @@ test\hall_encoder.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 test\hall_encoder.o: ..\PMSM\PLL.h
 test\hall_encoder.o: ..\PMSM\PMSM_Calib.h
 test\hall_encoder.o: ..\Utils\filter.h
+test\hall_encoder.o: ..\module\CurveProgramme.h
+test\hall_encoder.o: ..\module\Scurve.h
+test\hall_encoder.o: ..\PMSM\PMSM_Driver.h
+test\hall_encoder.o: ..\PMSM\FOC.h
+test\hall_encoder.o: ..\BSP\arm_math.h
+test\hall_encoder.o: ../Drivers/CMSIS/Include/core_cm4.h
+test\hall_encoder.o: ..\Utils\pid.h
+test\hall_encoder.o: ..\PMSM\PMSM_Control.h

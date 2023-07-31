@@ -1,6 +1,6 @@
 #include "protocol.h"
 #include "crc.h"
-#include "app_remote_para.h"
+#include "main.h"
 
 	
 /**
@@ -149,6 +149,7 @@ void list_mem(void)
 
 //  0X00D9	 int16_t    PITCH_ANGLE         	  俯仰角     	 	R    
 //  0X00DB	 int16_t    ROLL_ANGLE          	  横滚角     	 	R    
+//	0X00DD	 uint8_t   APP_ERROR_REG          	  返回错误寄存器     	 	
 
 
 
@@ -171,9 +172,9 @@ const RegInfo tranRegInfoDir[] = {
 	ADDREG(0x0018,float    ),// BLDC_A_ANGEL_REAL    	 左轮毂电机角度值    
 	ADDREG(0x001C,float    ),// BLDC_A_TEMP          	 左轮毂电机温度值    
 	ADDREG(0x0020,int16_t  ),//ANDLE_ANGLE			 	 手柄摇杆角度
-	ADDREG(0x0022,uint8_t  ),//NDLE_GEAR			 	 手柄速度挡位
-	ADDREG(0x0023,uint8_t  ),//NDLE_X			 	 	 手柄X坐标
-	ADDREG(0x0024,uint8_t  ),//NDLE_Y			 	 	 手柄Y坐标
+	ADDREG(0x0022,uint8_t  ),//HANDLE_GEAR			 	 手柄速度挡位
+	ADDREG(0x0023,uint8_t  ),//HANDLE_X			 	 	 手柄X坐标
+	ADDREG(0x0024,uint8_t  ),//HANDLE_Y			 	 	 手柄Y坐标
 	// ADDREG(....  ,         ),
 	ADDREG(0x0032,uint8_t  ),// BLDC_U_ENABLE        	 右轮毂电机使能     
 	ADDREG(0x0033,uint8_t  ),// BLDC_U_MODE          	 右轮毂电机模式     
@@ -211,16 +212,18 @@ const RegInfo tranRegInfoDir[] = {
 	ADDREG(0X00CC,float    ),// DEVICE_VOLT          	 驱动器母线电压     
 	//新增                     
 	ADDREG(0X00D0,uint8_t  ),// HEART_BIT          	  心跳     	 	R/w
-#if 0                       	
-	ADDREG(0X00D1,uint16_t  ) // ULTRASONIC_FIRST         	第一超声波                                    ,
-	ADDREG(0X00D3,uint16_t  ) // ULTRASONIC_SECOND          第二超声波
-	ADDREG(0X00D5,uint16_t  ) // ULTRASONIC_THIRD          	第三超声波
-	ADDREG(0X00D7,uint16_t  ) // ULTRASONIC_FOUR          	第四超声波 
+#if 1                       	
+	ADDREG(0X00D1,uint16_t  ), // PCB_ANGLE         	//修改为板载角度                       ,
+	ADDREG(0X00D3,uint16_t  ), // ULTRASONIC_SECOND          第二超声波
+	ADDREG(0X00D5,uint16_t  ), // ULTRASONIC_THIRD          	第三超声波
+	ADDREG(0X00D7,uint16_t  ), // ULTRASONIC_FOUR          	第四超声波 
 #else                     
 	ADDREG(0X00D1,Remote_receive_para.ultrasonic),
 #endif
 	ADDREG(0X00D9,int16_t   ),//PITCH_ANGLE         	  俯仰角     	 	
 	ADDREG(0X00DB,int16_t   ),//ROLL_ANGLE          	  横滚角     	 	
+
+	ADDREG(0X00DD,uint8_t   ),//APP_ERROR_REG          	  返回错误寄存器     	 	
 
 };
 
@@ -248,12 +251,18 @@ void paraInit(){
 	combine_wirte.combineCount = 0;
 
 	ADD_WRITE_REG((uint8_t)0x01,HEART_BIT);
+	#if USING_XY_TO_SPEED
 	ADD_WRITE_REG((int16_t)0x0000,BLDC_A_SPEED_SET);
 	ADD_WRITE_REG((int16_t)0x0000,BLDC_U_SPEED_SET);
+	#else
+	ADD_WRITE_REG((uint8_t)Coord_Base,HANDLE_X);
+	ADD_WRITE_REG((uint8_t)Coord_Base,HANDLE_Y);
+	#endif
 	ADD_WRITE_REG((uint8_t)0x01,BRUSH_A_ENABLE);
 	ADD_WRITE_REG((uint8_t)0x06,BRUSH_A_MODE);
 	ADD_WRITE_REG((int16_t)0x0000,BRUSH_A_SPEED_SET);
 	ADD_WRITE_REG((uint8_t)0x00,BRUSH_U_ENABLE);
+	// ADD_WRITE_REG((uint8_t)0x06,BRUSH_U_MODE);
 
 
 	combine_write_to_PDU('I',&combine_wirte,&req_PDU);

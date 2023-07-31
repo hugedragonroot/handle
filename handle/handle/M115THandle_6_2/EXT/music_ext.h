@@ -5,25 +5,25 @@
 #include "app_loopqueue.h" 
 
 #define PLAY_HEAD		0x7e	//Ö¡Í·
-#define PLAY_ADDR		0xff	//µØÖ·
-#define PLAY_LEN		0x06	//³¤¶È
+#define PLAY_ADDR		0xff	//ï¿½ï¿½Ö·
+#define PLAY_LEN		0x06	//ï¿½ï¿½ï¿½ï¿½
 #define PLAY_TAIL		0xef	//Ö¡Î²
                 
-#define PLAY_FB_Y		1	//ÐèÒª·´À¡
-#define PLAY_FB_N		0	//²»ÐèÒª·´À¡
+#define PLAY_FB_Y		1	//ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
+#define PLAY_FB_N		0	//ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
 
-//¿ØÖÆÃüÁî
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-#define	PLAY_CMD_VOLUME_ADD	0x04	//ÒôÁ¿+
-#define	PLAY_CMD_VOLUME_SUB	0x05	//ÒôÁ¿-
-#define	PLAY_CMD_VOLUME		0x06	//Ö¸¶¨ÒôÁ¿
-#define	PLAY_CMD_DEVICE		0x09	//Ö¸¶¨²¥·ÅÉè±¸
-#define	PLAY_CMD_BAUD		0x0b	//Ö¸¶¨²¨ÌØÂÊ
-#define	PLAY_CMD_FILE		0x0f	//²¥·ÅÖ¸¶¨ÎÄ¼þ¼ÐµÄÎÄ¼þ
-#define	PLAY_CMD_FILE_LOOP	0x17	//Ñ­»·Ë³Ðò²¥·ÅÖ¸¶¨ÎÄ¼þ¼ÐµÄÎÄ¼þ
+#define	PLAY_CMD_VOLUME_ADD	0x04	//ï¿½ï¿½ï¿½ï¿½+
+#define	PLAY_CMD_VOLUME_SUB	0x05	//ï¿½ï¿½ï¿½ï¿½-
+#define	PLAY_CMD_VOLUME		0x06	//Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#define	PLAY_CMD_DEVICE		0x09	//Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è±¸
+#define	PLAY_CMD_BAUD		0x0b	//Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#define	PLAY_CMD_FILE		0x0f	//ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ðµï¿½ï¿½Ä¼ï¿½
+#define	PLAY_CMD_FILE_LOOP	0x17	//Ñ­ï¿½ï¿½Ë³ï¿½ò²¥·ï¿½Ö¸ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ðµï¿½ï¿½Ä¼ï¿½
 
-#define	PLAY_BAUD_115200	5		//115200²¨ÌØÂÊ
-#define	PLAY_VOLUME_MAX		30		//×î´óÒôÁ¿
+#define	PLAY_BAUD_115200	5		//115200ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#define	PLAY_VOLUME_MAX		30		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿?
 /*
 typedef struct
 {
@@ -54,11 +54,12 @@ PLAY_FRAME play_buf =
 };
 */
 
-enum{
-	MUSIC_HORN,
-	MUSIC_BACK_ATTEN,
+typedef enum{
+	MUSIC_HORN = 1,
 	MUSIC_SLOPE_DANGER,
-};
+	MUSIC_BACK_ATTEN,
+	MUSIC_ULRASONIC_ATTEN,
+}e_music_num;
 
 
 extern TLoopBuf music_FIFO;

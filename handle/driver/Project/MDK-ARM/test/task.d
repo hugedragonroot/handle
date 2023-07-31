@@ -70,7 +70,7 @@ test\task.o: ..\Protocol\alloc.h
 test\task.o: ..\Protocol\rt_malloc.h
 test\task.o: ..\Protocol\klist.h
 test\task.o: ..\Protocol\protocol_register_management.h
-test\task.o: ..\BSP\QMI8658C.h
+test\task.o: ..\module\icm42688.h
 test\task.o: ..\BSP\dma.h
 test\task.o: ..\Utils\key_filter.h
 test\task.o: ..\module\ultrasonic.h

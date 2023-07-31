@@ -1,6 +1,7 @@
 #include "led_ext.h"
 #include "main.h"
 
+#if USING_LED_POINT_DISPLAY
 
 /*FreeRtos includes*/
 #if USING_RTOS
@@ -10,9 +11,239 @@
 #include "queue.h"
 #endif
 
+
+
+
+#if 0
+24*6
+{0x8B,0xBE,0x60,
+0x52,0x08,0x90,
+0x21,0x08,0x90,
+0x50,0x88,0x90,
+0x8B,0x88,0x60,
+0x00,0x00,0x00},/*"xsto",xsto*/
+
+3*6
+{0x00,0xE0,0x80,
+0xE0,0x80,0xE0},/*"E",E*/
+{0x00,0x40,0x40,
+0x40,0x40,0x40},/*"1",1*/
+{0x00,0xE0,0x20
+,0xE0,0x80,0xE0},/*"2",2*/
+{0x00,0xE0,0x20,
+0xE0,0x20,0xE0},/*"3",3*/
+{0x00,0xA0,0xA0,
+0xE0,0x20,0x20},/*"4",4*/
+{0x00,0xE0,0x80,
+0xE0,0x20,0xE0},/*"5",5*/
+{0x00,0xE0,0x80,
+0xE0,0xA0,0xE0},/*"6",6*/
+{0x00,0xE0,0x20,
+0x20,0x20,0x20},/*"7",7*/
+{0x00,0xE0,0xA0,
+0xE0,0xA0,0xE0},/*"8",8*/
+{0x00,0xE0,0xA0,
+0xE0,0x20,0xE0},/*"9",9*/
+
+12*6
+{0x09,0x00,0x16,
+0x80,0x3F,0xC0,
+0x09,0x00,0x10,
+0x80,0x00,0x00},/*"蓝牙", 蓝牙*/
+
+12*6
+{0x06,0x00,0x09,
+0x00,0x09,0x00,
+0x0F,0x00,0x0F,
+0x00,0x0F,0x00},/*"锁",锁*/
+
+12*6
+{0x00,0xC0,0x01,
+0x20,0x01,0x20,
+0x0F,0x00,0x0F,
+0x00,0x0F,0x00},/*"解锁",解锁*/
+
+
+12*6
+{0x06,0x00,0x06,
+0x00,0x06,0x00,
+0x16,0x80,0x0F,
+0x00,0x06,0x00},/*"下降",下降*/
+
+
+12*6
+{0x06,0x00,0x0F
+,0x00,0x16,0x80,
+0x06,0x00,0x06,
+0x00,0x06,0x00},/*"上升",上升*/
+
+
+12*6
+{0x09,0x00,0x09,
+0x00,0x09,0x00,
+0x09,0x00,0x06,
+0x00,0x00,0x00},/*"U展开",U展开*/
+
+
+12*6
+{0x0F,0x00,0x08,
+0x00,0x0E,0x00,
+0x08,0x00,0x08,
+0x00,0x00,0x00},/*"F折叠",F折叠*/
+
+12*6
+{0x02,0x00,0x06,
+0x00,0x02,0x00,
+0x02,0x00,0x02,
+0x00,0x00,0x00},/*"1",1*/
+
+
+
+
+
+12 *6
+{0x06,0x00,0x09,
+0x00,0x02,0x00,
+0x04,0x00,0x0F,
+0x00,0x00,0x00},/*"2",2*/
+
+12*6
+{0x0F,0x00,0x01,
+0x00,0x07,0x00,
+0x01,0x00,0x0F,
+0x00,0x00,0x00},/*"3",3*/
+
+12*6
+{0x02,0x00,0x06,
+0x00,0x0A,0x00,
+0x0F,0x00,0x02,
+0x00,0x00,0x00},/*"4",4*/
+
+12*6
+{0x0F,0x00,0x08,
+0x00,0x0F,0x00,
+0x01,0x00,0x0E,
+0x00,0x00,0x00},/*"5",5*/
+
+
+
+
+
+#endif
+
+
 #define LED_WIDTH   12
 #define LED_HIGH    6
 #define SPACE_BIT   2 //第一个74HC595最后2位未启用
+
+const u8 ledData1_1X6[] = { 0x80, 0x80, 0x80, 0x80, 0x80, 0x80 };
+
+#if 0
+const uint8_t LogoGrap[][LED_HIGH]={
+		{0x38,0x6C,0xC6,0xC6,0x6C,0x38},/*"O",O*/
+		{0x7E,0x18,0x18,0x18,0x18,0x18},/*"T",T*/
+		// {0x7E,0x22,0x10,0x08,0x44,0x7E},/*"s",s*/
+		{0x70,0x88,0x40,0x30,0x88,0x78},/*"s",s*/
+		{0xC3,0x64,0x38,0x18,0x2C,0xC7},/*"x",x*/		
+};
+#else
+const uint8_t LogoGrap[]={
+    0x8B,0xBE,0x60,
+    0x52,0x08,0x90,
+    0x21,0x08,0x90,
+    0x50,0x88,0x90,
+    0x8B,0x88,0x60,
+    0x00,0x00,0x00
+};
+#endif
+
+const u8 led3x6EGrapArray[] = {
+0x00,0xE0,0x80, 0xE0,0x80,0xE0,/*"E",E*/
+};
+
+const u8 led3x6NumGrapArray[][LED_HIGH] = {
+    {0x00,0xE0,0xA0, 0xA0,0xA0,0xE0},/*"0",0*/
+    {0x00,0x40,0x40, 0x40,0x40,0x40},/*"1",1*/
+    // {0x00,0x80,0x80, 0x80,0x80,0x80},/*"1",1*/
+    {0x00,0xE0,0x20, 0xE0,0x80,0xE0},/*"2",2*/
+    {0x00,0xE0,0x20, 0xE0,0x20,0xE0},/*"3",3*/
+    {0x00,0xA0,0xA0, 0xE0,0x20,0x20},/*"4",4*/
+    {0x00,0xE0,0x80, 0xE0,0x20,0xE0},/*"5",5*/
+    {0x00,0xE0,0x80, 0xE0,0xA0,0xE0},/*"6",6*/
+    {0x00,0xE0,0x20, 0x20,0x20,0x20},/*"7",7*/
+    {0x00,0xE0,0xA0, 0xE0,0xA0,0xE0},/*"8",8*/
+    {0x00,0xE0,0xA0, 0xE0,0x20,0xE0},/*"9",9*/
+};
+
+const u8 ledSpeedNumGrapArray[][LED_HIGH*2]={
+    {0x02,0x00, 0x06,0x00, 0x02,0x00, 0x02,0x00, 0x02,0x00,0x00,0x00},/*"1",1*/
+    // 12*6
+    {0x06,0x00,0x09, 0x00,0x02,0x00, 0x04,0x00,0x0F, 0x00,0x00,0x00},/*"2",2*/
+    // 12*6
+    {0x0F,0x00,0x01, 0x00,0x07,0x00, 0x01,0x00,0x0F, 0x00,0x00,0x00},/*"3",3*/
+    // 12*6
+    {0x02,0x00,0x06, 0x00,0x0A,0x00, 0x0F,0x00,0x02, 0x00,0x00,0x00},/*"4",4*/
+    // 12*6
+    {0x0F,0x00,0x08, 0x00,0x0F,0x00, 0x01,0x00,0x0E, 0x00,0x00,0x00},/*"5",5*/
+};
+
+const u8 ledLockStateGrapArray[][LED_HIGH*2] = {
+    {0x00,0xC0, 0x01,0x20, 0x01,0x20, 0x0F,0x00, 0x0F,0x00, 0x0F,0x00},/*"解锁",解锁*/
+    // 12*6
+    {0x06,0x00,0x09, 0x00,0x09,0x00, 0x0F,0x00,0x0F, 0x00,0x0F,0x00},/*"锁",锁*/
+};
+
+const u8 ledBTGrapArray[] = {
+// 12*6
+0x09,0x00,0x16, 0x80,0x3F,0xC0, 0x09,0x00,0x10, 0x80,0x00,0x00/*"蓝牙", 蓝牙*/
+};
+
+const u8 ledPushRodStateGrapArray[][LED_HIGH*2] = {
+// 12*6
+    {0x06,0x00,0x06, 0x00,0x06,0x00, 0x16,0x80,0x0F, 0x00,0x06,0x00},/*"下降",下降*/
+    // 12*6
+    {0x06,0x00,0x0F ,0x00,0x16,0x80, 0x06,0x00,0x06, 0x00,0x06,0x00},/*"上升",上升*/
+};
+
+const u8 ledFolderStateArray[][LED_HIGH*2] = {
+    // 12*6
+    {0x09,0x00,0x09, 0x00,0x09,0x00, 0x09,0x00,0x06, 0x00,0x00,0x00},/*"U展开",U展开*/
+    // 12*6
+    {0x0F,0x00,0x08, 0x00,0x0E,0x00, 0x08,0x00,0x08, 0x00,0x00,0x00},/*"F折叠",F折叠*/
+};
+
+
+u8 testOverWidthGray[] = {
+    #if 0
+    0x80,0x18,0x01,//0x80,
+    0x40,0x24,0x02,//0x40,
+    0x20,0x42,0x04,//0x20,
+    0x10,0x81,0x08,//0x10,
+    0x09,0x00,0x90,//0x09,
+    0x06,0x00,0x60,//0x06
+    #elif 0
+    0x00,0x00,0x00,
+    0x00,0x00,0x00,
+    0x00,0x00,0x00,
+    0x00,0x00,0x00,
+    0x00,0x00,0x00,
+    0x00,0x00,0x00,
+    #elif 0
+    0x7f,0x1f,0xff,
+    0x7f,0x1f,0xff,
+    0x7f,0x1f,0xff,
+    0x7f,0x1f,0xff,
+    0x7f,0x1f,0xff,
+    0x7f,0x1f,0xff,
+    #else
+    0xff,0xff,0xff,0xff,
+    0xff,0xff,0xff,0xff,
+    0xff,0xff,0xff,0xff,
+    0xff,0xff,0xff,0xff,
+    0xff,0xff,0xff,0xff,
+    0xff,0xff,0xff,0xff
+    #endif
+};
 
 
 
@@ -61,13 +292,20 @@ volatile uint8_t ledGrapArray[LED_HIGH][DMA_DATA_LEN] = {
     {0x00,0x00,0xff},
     {0x00,0x00,0xff},
     {0x00,0x00,0xff},
-    #else
+    #elif 0
     {0x00,0x00,0x7F},
     {0x00,0x00,0xBF},
     {0x00,0x00,0xDF},
     {0x00,0x00,0xEF},
     {0x00,0x00,0xF7},
     {0x00,0x00,0xFB},
+    #else
+    {0x0F,0x00,0x7C},
+    {0x0F,0x00,0xBC},
+    {0x0F,0x00,0xDC},
+    {0x0F,0x00,0xEC},
+    {0x0F,0x00,0xF4},
+    {0x0F,0x00,0xF8},
     #endif
 };
 
@@ -116,45 +354,18 @@ static void ledInsertImage(int8_t x,int8_t y,u8 width,u8 high,const u8 *ledImage
     #endif
 }
 
+void ledInsertRed(int8_t x,int8_t y,u8 hight){
+    if(0||(y<3 || y>5) &&(x != 0 || x != 11)) return;
+    
+    for (u8 i = 0; i < hight && y+i < LED_HIGH; i++) {
+        if(x == 0) ledGrapArray[y+i][2] |= 0x02;
+        else if(x == 11) ledGrapArray[y+i][2] |= 0x01;
+        ledGrapArray[y+i][0] &= ~(1 << (6-y-i));
+    }
+}
+
+
 #endif
-
-const u8 led5x6NumGrap[][LED_HIGH]={
-    {0x70,0x88,0x88,0x88,0x88,0x70},/*"0",0*/
-    {0x10,0x70,0x10,0x10,0x10,0x10},/*"1",1*/
-    {0x70,0x88,0x08,0x10,0x60,0xF8},/*"2",2*/
-    {0xF0,0x08,0x30,0x08,0x88,0x70},/*"3",3*/
-    // {0x18,0x28,0x48,0x88,0xF8,0x08},/*"4",4*/
-    {0x10,0x30,0x50,0x90,0xF8,0x10},/*"4",4*/
-    // {0x78,0x80,0xF0,0x08,0x88,0x70},/*"5",5*/
-    {0xF8,0x80,0xF0,0x08,0x88,0x70},/*"5",5*/
-    {0x78,0x80,0xF0,0x88,0x88,0x70},/*"6",6*/
-    {0xF8,0x10,0x20,0x20,0x40,0x40},/*"7",7*/
-    {0x70,0x88,0x70,0x88,0x88,0x70},/*"8",8*/
-    {0x70,0x88,0x88,0x78,0x08,0xF0} /*"9",9*/
-};
-
-
-const u8 led5x6BTGrap[]={0x30,0xA8,0x70,0x70,0xA8,0x30};
-
-const uint8_t LogoGrap[][LED_HIGH]={
-		{0x38,0x6C,0xC6,0xC6,0x6C,0x38},/*"O",O*/
-		{0x7E,0x18,0x18,0x18,0x18,0x18},/*"T",T*/
-		// {0x7E,0x22,0x10,0x08,0x44,0x7E},/*"s",s*/
-		{0x70,0x88,0x40,0x30,0x88,0x78},/*"s",s*/
-		{0xC3,0x64,0x38,0x18,0x2C,0xC7},/*"x",x*/		
-};
-const uint8_t ErrorGrap[][LED_HIGH]={
-		{0x00,0x1c,0x72,0x13,0x72,0x1c},	// 电源打开期间连接充电器，
-		{0x00,0x00,0x00,0x20,0x20,0x20},	// 或链接充电器期间打开设备
-		{0x3F,0x68,0x44,0x42,0x61,0x3f},	// 电池充电
-		{0xc0,0x40,0x40,0x40,0x40,0xc0},	// 水平低
-		{0xf8,0x21,0x22,0x20,0x21,0x22},	// 电池温度
-		{0x20,0x10,0x08,0x20,0x10,0x08},	// 显著下降
-		{0xfA,0x21,0x20,0x22,0x21,0x20},	// 电池温度
-		{0x08,0x10,0x20,0x08,0x10,0x20},	// 显著上升
-		{0xf8,0x80,0xf8,0x80,0x80,0xf8},	// E
-};
-
 
 
 
@@ -163,101 +374,62 @@ const uint8_t ErrorGrap[][LED_HIGH]={
 static void ledCleanImage(){
     for (u8 h = 0; h < LED_HIGH; h++)
     {
+        #if 0
         memset((void *)ledGrapArray[h],0x00,sizeof(ledGrapArray[0][0])*2);
+        #else
+        ledGrapArray[h][0] = 0x0f;
+        ledGrapArray[h][1] = 0x00;
+        ledGrapArray[h][2] = (~(1<<(7-h))) & 0xfc;
+        #endif
     }
     
 }
+void ledCleanCol(uint8_t col){
+    if(col > 12) return;
 
-static void ledSpeedGearGrap(){//速度挡位显示
-    ledCleanImage();
-    // uint8_t col[6] = {0x80,0x80,0x80,0x80,0x80,0x80};
-    // ledInsertImage(1,0,1,6,col);
-    ledInsertImage(4,0,5,6,led5x6NumGrap[Remote_setting_para.SpeedGear]);
-    // ledInsertImage(11,0,1,6,col);
-}
-
-static void ledBattaryGrap(){
-    // static u8 Battery = 255;
-    // if(Battery != Remote_setting_para.Battery){
-        ledCleanImage();
-        ledInsertImage(1,0,5,6,led5x6NumGrap[Remote_setting_para.Battery/10]);
-        ledInsertImage(7,0,5,6,led5x6NumGrap[Remote_setting_para.Battery%10]);
-        // Battery = Remote_setting_para.Battery;
-    // }
-}
-
-
-static void ledBTGrap(void){
-    ledCleanImage();
-    // uint8_t col[6] = {0x80,0x80,0x80,0x80,0x80,0x80};
-    // ledInsertImage(1,0,1,6,col);
-    ledInsertImage(4,0,5,6,led5x6BTGrap);
-    // ledInsertImage(11,0,1,6,col);
-
-}
-
-//	错误代码显示
-//	error:1-7
-//	1：
-//  2：
-//	3：
-//	4：电源打开期间连接充电器，或连接充电器期间打开设备
-//	5：电池充电水平低
-//	6：电池温度显著下降
-//	7：电池温度上升至0度以上
-static void ledErrorGrap(uint8_t error){
-		ledCleanImage();
-		if((error>=1) && (error<=3)){
-			ledInsertImage(1,0,5,6,ErrorGrap[8]);
-			ledInsertImage(7,0,5,6,led5x6NumGrap[error]);
-		}else if ((error>=4) && (error<=7)){
-			ledInsertImage(1,0,5,6,ErrorGrap[(error-4)*2]);
-			ledInsertImage(7,0,5,6,ErrorGrap[(error-4)*2+1]);
-		}
-}
-// 开场画面显示
-static void ledLogoGrap(void){
-
-    for(uint8_t temp = 32; temp>0; temp--){
-      	ledCleanImage();
-         if((temp ==32)||(temp == 24)||(temp == 16)||(temp== 8)) ledInsertImage(8,0,5,6,LogoGrap[(temp/8)-1]);
-         else ledInsertImage(temp%8,0,5,6,LogoGrap[(temp/8)]);
-         delay_ms(70);
+    for (u8 h = 0; h < LED_HIGH; h++){
+            ledGrapArray[h][1-col/8] &= ~(1 << (7-col%8));
     }
-
+    
+}
+void ledCleanRow(uint8_t row){
+    memset((void *)ledGrapArray[row],0x00,sizeof(ledGrapArray[0][0])*2);
 }
 
-u8 testOverWidthGray[] = {
-    #if 0
-    0x80,0x18,0x01,//0x80,
-    0x40,0x24,0x02,//0x40,
-    0x20,0x42,0x04,//0x20,
-    0x10,0x81,0x08,//0x10,
-    0x09,0x00,0x90,//0x09,
-    0x06,0x00,0x60,//0x06
-    #elif 0
-    0x00,0x00,0x00,
-    0x00,0x00,0x00,
-    0x00,0x00,0x00,
-    0x00,0x00,0x00,
-    0x00,0x00,0x00,
-    0x00,0x00,0x00,
-    #elif 0
-    0x7f,0x1f,0xff,
-    0x7f,0x1f,0xff,
-    0x7f,0x1f,0xff,
-    0x7f,0x1f,0xff,
-    0x7f,0x1f,0xff,
-    0x7f,0x1f,0xff,
-    #else
-    0xff,0xff,0xff,0xff,
-    0xff,0xff,0xff,0xff,
-    0xff,0xff,0xff,0xff,
-    0xff,0xff,0xff,0xff,
-    0xff,0xff,0xff,0xff,
-    0xff,0xff,0xff,0xff
-    #endif
-};
+
+
+void ledUpDownLoopShow(int8_t dir,int8_t x,u8 width,u8 hight,const u8 *ledImageArray){
+    static int8_t y = 0;
+    ledCleanImage();
+    if(dir > 0){
+        ledInsertImage(x,y,width,hight,ledImageArray);
+        #if 0
+        if(y > LED_HIGH ){
+            ledInsertImage(x,y-LED_HIGH-hight,width,hight,ledImageArray);
+        }
+        if(++y >= LED_HIGH + hight) y = 0;
+        #else
+        if(y > LED_HIGH/2 ){
+            ledInsertImage(x,y-LED_HIGH/2-hight,width,hight,ledImageArray);
+        }
+        if(++y >= LED_HIGH/2 + hight) y = 0;
+        #endif
+    }else{
+        ledInsertImage(x,y,width,hight,ledImageArray);
+        #if 0
+        if(y < -LED_HIGH ){
+            ledInsertImage(x,y+LED_HIGH+hight,width,hight,ledImageArray);
+        }
+        if(--y <= -LED_HIGH - hight) y = 0;
+        #else
+        if(y < -LED_HIGH/2 ){
+            ledInsertImage(x,y+LED_HIGH/2+hight,width,hight,ledImageArray);
+        }
+        if(--y <= -LED_HIGH/2 - hight) y = 0;
+        #endif
+    }
+}
+
 
 void ledLeftMoveLoopShow(int8_t y,u8 width,u8 hight,const u8 *ledImageArray){
 // void ledLoopShow(void){
@@ -281,10 +453,109 @@ void ledLeftMoveLoopShow(int8_t y,u8 width,u8 hight,const u8 *ledImageArray){
     if(width + x <= LED_WIDTH)
         ledInsertImage(width + x,0,width,hight,ledImageArray);
 
-    // if((--x) <= -width) x = 0;
+    if((--x) <= -width) x = 0;
 
     #endif
 }
+
+// 开场画面显示
+void ledLogoGrap(void){
+    for (int8_t x = 10; x != -20; x--) {
+        ledCleanImage();
+
+        ledInsertImage(x,0,24,LED_HIGH,LogoGrap);
+
+        ledCleanCol(11);
+        ledCleanCol(0);
+        delay_ms(100);
+    }
+}
+
+void ledErrorGrap(uint8_t error){
+    ledCleanImage();
+    // ledInsertImage(0,3,1,3,ledData1_1X6);
+    // ledInsertImage(11,3,1,3,ledData1_1X6);
+    ledInsertRed(0,3,3);
+    ledInsertRed(11,3,3);
+
+    ledInsertImage(2,0,3,6,led3x6EGrapArray);
+    ledInsertImage(7,0,3,6,led3x6NumGrapArray[error]);
+}
+
+void ledSpeedGearGrap(){//速度挡位显示
+    ledCleanImage();
+    for(u8 i = 0;i<Remote_setting_para.SpeedGear;i++){
+        ledInsertImage(i+1,5,1,1,ledData1_1X6);
+        ledInsertImage(10-i,5,1,1,ledData1_1X6);
+    }
+    ledInsertImage(0,0,12,6,ledSpeedNumGrapArray[Remote_setting_para.SpeedGear-1]);
+}
+
+void ledBattaryGrap(){
+    ledCleanImage();
+    static u8 timeCount = 0;
+    if(Remote_setting_para.Battery == 100){
+        ledInsertImage(0,0,3,6,led3x6NumGrapArray[1]);
+        ledInsertImage(3,0,3,6,led3x6NumGrapArray[0]);
+        ledInsertImage(7,0,3,6,led3x6NumGrapArray[0]);
+    }else{
+        ledInsertImage(2,0,5,6,led3x6NumGrapArray[Remote_setting_para.Battery/10]);
+        ledInsertImage(7,0,5,6,led3x6NumGrapArray[Remote_setting_para.Battery%10]);
+
+        if(Remote_setting_para.Battery < 20 && ++timeCount%5 == 0 ){
+            // ledInsertImage(0,5,1,1,ledData1_1X6);
+            // ledInsertImage(11,5,1,1,ledData1_1X6);
+
+            ledInsertRed(0,3,3);
+            ledInsertRed(11,3,3);
+        }
+    }
+}
+void ledLockStateGrap(){
+    ledCleanImage();
+    ledInsertImage(0,0,12,6,ledLockStateGrapArray[Remote_setting_para.HandleLock]);
+};
+
+
+void ledBTGrap(void){
+    ledCleanImage();
+    // ledInsertImage(4,0,5,6,led5x6BTGrap);
+    static u8 timeCount = 0;
+    if(timeCount < 5){
+        ledInsertImage(0,0,12,6,ledBTGrapArray);
+    }
+    if(++timeCount > 10) timeCount = 0;
+}
+void ledPushRodStateGrap(void){
+    ledCleanImage();
+    if(Remote_trans_para.push_rod_speed > 0){
+        ledUpDownLoopShow(1,0,12,6,ledPushRodStateGrapArray[0]);
+    }else if(Remote_trans_para.push_rod_speed < 0){
+        ledUpDownLoopShow(-1,0,12,6,ledPushRodStateGrapArray[1]);
+    }
+}
+
+void ledFolderStateGrap(void){
+    ledCleanImage();
+    static u8 timeCount = 1;
+    ledInsertImage(0,0,12,6,ledFolderStateArray[Remote_trans_para.folding_state]);
+
+    if(Remote_trans_para.folding_state == ePExpand){
+        for (u8 i = 0; i < timeCount; i++) {
+            ledInsertImage(5 - i/4,5,1,1,ledData1_1X6);
+            ledInsertImage(i/4 + 6,5,1,1,ledData1_1X6);
+        }
+    }else{
+        for (u8 i = 0; i < 20 - timeCount; i++) {
+            ledInsertImage(5 - i/4,5,1,1,ledData1_1X6);
+            ledInsertImage(i/4 + 6,5,1,1,ledData1_1X6);
+        }
+    }
+
+    if(++timeCount >= 20) timeCount = 1;
+
+}
+
 
 #else
 static void ledCleanImage(){
@@ -450,6 +721,11 @@ void led_ext_init(void){
 
     dma_channel_enable(DMA0,DMA_CH4);
     spi_dma_enable(SPI1,SPI_DMA_TRANSMIT);
+
+    // for(uint8_t h = 0;h < LED_HIGH;h++){
+    //     ledGrapArray[h][2] = ~(1 << (7 - h));
+    // }
+
 }
 
 void ledSpiDmaRefreshRow(void){
@@ -484,107 +760,169 @@ void ledSpiDmaRefresh(void){
 void ledDisplayON(void){
     Remote_para_default();	
     powerON();//下板电源开
-    LED_POWER_0();
+
     Remote_setting_para.PowerStatus = ePowerOn;
-    ledLogoGrap();
+    // LED_POWER_0();
+
+    // ledLogoGrap();
+
     // BTEnterStandby();
-    paraInit();
+    // paraInit();
 }
+
+void ledDisplayLOGO(int8_t x){
+// for (int8_t x = 10; x != -20; x--) {
+        ledCleanImage();
+
+        ledInsertImage(x,0,24,LED_HIGH,LogoGrap);
+
+        ledCleanCol(11);
+        ledCleanCol(0);
+        // delay_ms(100);
+    // }
+}
+
 void ledDisplayOFF(void){
     ledCleanImage();
     paraInit();
     delay_ms(10);
     powerOFF();//下板电源关
-    LED_POWER_1();
-    BTdisconnect();
+    // LED_POWER_1();
     
     Remote_para_default();	
 }
 
+void ledDisplayError(u8 keyVal){
+    // sizeof(Remote_trans_para.errorFlag);
+    for (int8_t i = 7; i >= 0; i--) {
+        if(Remote_trans_para.errorFlag.all[0] & 1<<i) ledErrorGrap(i);
+    }
+    if(keyVal == KEY_POWER_DOWN) ledDisplayOFF();
+}
+
+void ledDisplayLock(u8 keyVal){
+    ledLockStateGrap();
+    switch (keyVal){
+        case KEY_POWER_DOWN:    //关机
+            ledDisplayOFF();
+            break;
+#if 0
+        // case KEY_PUSH_ORD_ADD_DOWN://重定义为推杆升
+        //     Remote_trans_para.push_rod_speed=PUSH_ORD_SPEED_ADD;			
+        //     break;		
+        // case KEY_PUSH_ORD_ADD_UP:
+        // case KEY_PUSH_ORD_SUB_UP:
+        //     Remote_trans_para.push_rod_speed=PUSH_ORD_SPEED_ZERO;		
+        //     break;
+        // case KEY_PUSH_ORD_SUB_DOWN:	//重定义为推杆降
+        //     Remote_trans_para.push_rod_speed=PUSH_ORD_SPEED_SUB;
+        //     break;
+        // case KEY_SPEED_ADD_SUB_LONG:
+        //     Remote_setting_para.HandleLock = eUnLock;
+        //     ledLockStateGrap();
+        //     delay_ms(500);
+#endif
+    default:
+        break;
+    }
+}
+
+void ledDisplayBT(u8 keyVal){
+    ledBTGrap();
+    switch (keyVal){
+        case KEY_POWER_DOWN:    //关机
+            ledDisplayOFF();
+            break;
+        // case KEY_SPEED_ADD_SUB_LONG:
+            // Remote_setting_para.HandleLock = eUnLock;
+    default:
+        break;
+    }
+}
 
 #define LED_SHOW_SPEED_TIME 30
 
+void ledDisplayMain(u8 keyVal){
+    static uint8_t timeCount = LED_SHOW_SPEED_TIME;
+
+    if(Remote_setting_para.SpeedPre != Remote_setting_para.SpeedGear){
+        timeCount = LED_SHOW_SPEED_TIME;
+        Remote_setting_para.SpeedPre = Remote_setting_para.SpeedGear;
+    }
+
+    if(Remote_trans_para.folding_state != Remote_receive_para.folding_state){
+        ledFolderStateGrap();
+    }else if(Remote_trans_para.push_rod_speed != PUSH_ORD_SPEED_ZERO){
+        ledPushRodStateGrap();
+    }else if (timeCount > 0){
+        ledSpeedGearGrap();
+        --timeCount;
+    }else{
+        ledBattaryGrap();
+    }
+
+
+    switch(keyVal) {
+        case KEY_POWER_DOWN:    //关机
+            ledDisplayOFF();
+            timeCount = LED_SHOW_SPEED_TIME;
+            break;
+        case KEY_SPEED_ADD_DOWN://加速档	
+            if(Remote_setting_para.SpeedGear < eGearFive)
+                Remote_setting_para.SpeedGear++;							
+            timeCount = LED_SHOW_SPEED_TIME;
+            break;
+        case KEY_SPEED_SUB_DOWN://减速档
+            if(Remote_setting_para.SpeedGear > eGearOne)
+                Remote_setting_para.SpeedGear--;			
+            timeCount = LED_SHOW_SPEED_TIME;
+            break;
+        case KEY_HORN_DOWN://喇叭
+            keyVal = MUSIC_HORN;
+            LoopQueue_Write(&music_FIFO,&keyVal,1);
+            break;
+        case KEY_PUSH_ORD_ADD_DOWN://重定义为推杆升
+            Remote_trans_para.push_rod_speed=PUSH_ORD_SPEED_ADD;			
+            break;		
+        case KEY_PUSH_ORD_ADD_UP:
+        case KEY_PUSH_ORD_SUB_UP:
+            Remote_trans_para.push_rod_speed=PUSH_ORD_SPEED_ZERO;		
+            break;
+        case KEY_PUSH_ORD_SUB_DOWN:	//重定义为推杆降
+            Remote_trans_para.push_rod_speed=PUSH_ORD_SPEED_SUB;
+            break;		
+        //组合按键
+        case KEY_PUSH_ORD_ADD_SUB_LONG:
+            if(Remote_receive_para.push_rod_speed == 0 && Remote_receive_para.seat_rod_speed == 0)
+                Remote_trans_para.folding_state = !Remote_receive_para.folding_state;
+        break;
+        // case KEY_SPEED_ADD_SUB_LONG:
+            // Remote_setting_para.HandleLock = eLock;
+        default:
+        break;
+    }
+
+}
+
+#if 0
+
 void ledShow(void){
-    static uint8_t timeCount = LED_SHOW_SPEED_TIME, hornFlag = 0;
-    // uint8_t keyState = bsp_GetKey();	
-    static uint8_t keyState = KEY_POWER_DOWN;	
+    uint8_t keyState = bsp_GetKey();	
+    // static uint8_t keyState = KEY_POWER_DOWN;	
 
     if(keyState == KEY_POWER_DOWN && Remote_setting_para.PowerStatus == ePowerOff){
         ledDisplayON();
-        keyState = KEY_NONE;
-    }else if(Remote_setting_para.PowerStatus == ePowerOn && Remote_setting_para.ErrorFlag != ERROR_NONE){
-        for (u8 i = 0; i < 8; i++) {
-            if(Remote_setting_para.ErrorFlag & 1<<i) ledErrorGrap(i);
-        }
-	}else if(Remote_setting_para.HandleLock && Remote_setting_para.PowerStatus == ePowerOn){
-        ledLeftMoveLoopShow(0,sizeof(testOverWidthGray)/LED_HIGH*8,LED_HIGH,testOverWidthGray);
+    }else if(Remote_setting_para.PowerStatus == ePowerOn && Remote_setting_para.ErrorFlag.all[0] != 0){
+        ledDisplayError(keyState);
+	}else if(Remote_setting_para.HandleLock == eLock && Remote_setting_para.PowerStatus == ePowerOn){
+        ledDisplayLock(keyState);
     }else if(Remote_setting_para.RemoteBTConnect == eBlubtooth && Remote_setting_para.PowerStatus == ePowerOn){
-        ledBTGrap();
-        if(keyState == KEY_POWER_DOWN){
-            ledDisplayOFF();
-        }
+        ledDisplayBT(keyState);
     }else if(Remote_setting_para.PowerStatus == ePowerOn && Remote_setting_para.RemoteBTConnect == eOffline){
-        switch(keyState) {
-            case KEY_POWER_DOWN:    //关机
-                ledDisplayOFF();
-                break;
-            case KEY_SPEED_ADD_DOWN://加速档	
-                if(Remote_setting_para.SpeedGear < eGearFive)
-                    Remote_setting_para.SpeedGear++;							
-                timeCount = LED_SHOW_SPEED_TIME;
-                break;
-            case KEY_SPEED_SUB_DOWN://减速档
-                if(Remote_setting_para.SpeedGear > eGearOne)
-                    Remote_setting_para.SpeedGear--;			
-                timeCount = LED_SHOW_SPEED_TIME;
-                break;
-            case KEY_HORN_DOWN://喇叭
-                // LoopQueue_Write(&music_FIFO,&Remote_setting_para.CurrentMusic,1);
-                hornFlag = 1;
-                break;
-            case KEY_HORN_UP://喇叭
-                hornFlag = 0;
-                break;
-            case KEY_PUSH_ORD_ADD_DOWN://重定义为推杆升
-                Remote_trans_para.push_rod_speed=PUSH_ORD_SPEED_ADD;			
-                break;		
-            case KEY_PUSH_ORD_ADD_UP:
-            case KEY_PUSH_ORD_SUB_UP:
-                Remote_trans_para.push_rod_speed=PUSH_ORD_SPEED_ZERO;		
-                break;
-            case KEY_PUSH_ORD_SUB_DOWN:	//重定义为推杆降
-                Remote_trans_para.push_rod_speed=PUSH_ORD_SPEED_SUB;
-                break;		
-            //组合按键
-            case KEY_PUSH_ORD_ADD_SUB_LONG:
-                if(Remote_receive_para.push_rod_speed == 0 && Remote_receive_para.seat_rod_speed == 0)
-                    Remote_trans_para.folding_state = !Remote_receive_para.folding_state;
-            break;
-            default:
-            break;
-        }
-
-        if(hornFlag) LoopQueue_Write(&music_FIFO,&hornFlag,1);
-
-        if(Remote_trans_para.folding_state != Remote_receive_para.folding_state){
-            if(Remote_trans_para.folding_state == ePfold){
-
-            }else{
-
-            }
-        }else if(timeCount > 0){
-            ledSpeedGearGrap();
-            --timeCount;
-        }else{
-            ledBattaryGrap();
-        }
-
+        ledDisplayMain(keyState);
     }else{
     }
-
-    #if USING_LED_DMA_SEND
-    // ledSpiDmaRefresh();
-    #else
-    ledRefreshImage();
-    #endif
 }
+#endif
+
+#endif
